@@ -47,21 +47,21 @@
 @font-face{font-family:"Fraunces Fallback";src:local("Georgia");size-adjust:102%;ascent-override:96%;descent-override:25%;line-gap-override:0%}
 @font-face{font-family:"DM Sans Fallback";src:local("Arial");size-adjust:100%;ascent-override:99%;descent-override:31%;line-gap-override:0%}
 
+/* ===== Układ „edytorski” (wzorzec: kremowe i beżowe pasy, ciemne bloki, ostre krawędzie) ===== */
 :root{
-  --plum:#4B1D3F;--plum-dk:#2E1027;--plum-lt:#63305A;--gold:#C8963E;--gold-dk:#8A6220;--gold-lt:#F4E6CC;--gold-pale:#F6D9A0;
-  --cream:#FBF6F0;--blush:#F3E3DC;--white:#fff;--ink:#2B1A26;--muted:#6B5562;--line:#EADFD6;
+  --plum:#4B1D3F;--plum-dk:#2E1027;--plum-xd:#22101D;--plum-lt:#63305A;--gold:#C8963E;--gold-dk:#8A6220;--gold-lt:#F4E6CC;--gold-pale:#F2D9A6;
+  --cream:#FAF7F2;--beige:#F2ECE4;--blush:#F3E3DC;--white:#fff;--ink:#241720;--muted:#675A61;--line:#E3D9CE;--line-dk:rgba(255,255,255,.14);
   --serif:"Fraunces","Fraunces Fallback",Georgia,serif;--sans:"DM Sans","DM Sans Fallback",Arial,sans-serif;
-  --r:24px;--gap:14px;--hdr:64px;--pad:3.5rem;--ease:cubic-bezier(.2,.7,.2,1);
+  --r:2px;--gap:16px;--hdr:64px;--pad:4.25rem;--ease:cubic-bezier(.2,.7,.2,1);
 }
-@media(min-width:700px){:root{--gap:18px;--hdr:76px;--pad:5rem}}
-@media(max-width:699px){:root{--grow:.97}}
+@media(min-width:760px){:root{--gap:20px;--hdr:78px;--pad:6.25rem}}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--cream);color:var(--ink);font:400 1.0625rem/1.6 var(--sans);overflow-x:hidden;overflow-x:clip}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 1rem/1.65 var(--sans);overflow-x:hidden;overflow-x:clip}
 img,svg{display:block;max-width:100%}
 img{height:auto}
-h1,h2,h3,h4{font-family:var(--serif);font-weight:560;line-height:1.12;margin:0;letter-spacing:-.01em;text-wrap:balance}
-h1 em,h2 em,h3 em{font-style:italic;color:var(--gold-dk);font-weight:500}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.1;margin:0;letter-spacing:-.015em;text-wrap:balance;color:var(--plum-xd)}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--gold-dk);font-weight:400}
 p{margin:0 0 1em}p:last-child{margin-bottom:0}
 em{color:var(--gold-dk)}
 a{color:var(--plum);text-underline-offset:.18em}
@@ -69,280 +69,335 @@ ul,ol{margin:0;padding:0;list-style:none}
 button{font:inherit;color:inherit;cursor:pointer}
 [hidden]{display:none!important}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-:focus-visible{outline:3px solid var(--plum);outline-offset:3px;border-radius:6px}
-.dark :focus-visible,.tone-plum:focus-visible,.tone-plum :focus-visible{outline-color:var(--gold-pale)}
+:focus-visible{outline:2px solid var(--plum);outline-offset:3px}
+.dark :focus-visible{outline-color:var(--gold-pale)}
 section[tabindex="-1"]:focus{outline:none}
-.wrap{width:100%;max-width:1240px;margin-inline:auto;padding-inline:clamp(16px,4vw,36px)}
-.skip{position:absolute;left:12px;top:-60px;z-index:200;background:var(--plum);color:#fff;padding:12px 18px;border-radius:12px}
+.wrap{width:100%;max-width:1240px;margin-inline:auto;padding-inline:clamp(18px,4vw,40px)}
+.skip{position:absolute;left:12px;top:-60px;z-index:200;background:var(--plum);color:#fff;padding:12px 18px}
 .skip:focus{top:12px}
 .ic{flex:none}
+.eyebrow{font:600 .72rem/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dk);margin:0 0 .9rem}
+.dark .eyebrow{color:var(--gold-pale)}
+.txt p{margin-bottom:.9em}
+.clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 
-/* przyciski */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:48px;padding:.7em 1.4em;border-radius:999px;border:2px solid var(--plum);font-weight:600;font-size:1rem;line-height:1.2;text-decoration:none;text-align:center;transition:transform .25s var(--ease),background-color .25s,color .25s,box-shadow .25s}
+/* przyciski: prostokątne, wersaliki z rozstrzeleniem */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.7em;min-height:50px;padding:.85em 1.6em;border-radius:var(--r);border:1px solid var(--plum);font:600 .78rem/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;text-align:center;transition:background-color .25s,color .25s,border-color .25s,transform .2s}
+.btn .ic{width:17px;height:17px}
 .btn-primary{background:var(--plum);color:#fff}
-.btn-primary:hover{background:var(--plum-dk);border-color:var(--plum-dk);box-shadow:0 8px 22px -10px var(--plum)}
-.btn-ghost{background:transparent;color:var(--plum)}
-.btn-ghost:hover{background:var(--plum);color:#fff}
-.btn-sm{min-height:44px;padding:.5em 1.1em;font-size:.95rem}
-.btn:active{transform:scale(.97)}
-.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn-primary:hover{background:var(--plum-dk);border-color:var(--plum-dk)}
+.btn-ghost{background:rgba(255,255,255,.55);color:var(--plum-xd);border-color:#CDBFB3}
+.btn-ghost:hover{border-color:var(--plum);background:#fff}
+.btn-light{background:var(--cream);border-color:var(--cream);color:var(--plum-xd)}
+.btn-light:hover{background:#fff;border-color:#fff}
+.btn-ghost-light{background:transparent;border-color:rgba(255,255,255,.4);color:#fff}
+.btn-ghost-light:hover{border-color:#fff}
+.btn-sm{min-height:44px;padding:.6em 1.15em;font-size:.72rem}
+.btn-wide{width:100%}
+.btn:active{transform:scale(.98)}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
 .linkbtn{background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:.18em;min-height:44px}
+.more{display:inline-flex;align-items:center;gap:.6em;min-height:44px;font:600 .72rem/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--plum-xd);text-decoration:none;border-bottom:1px solid currentColor;padding-top:4px;white-space:nowrap}
+.more .ic{width:15px;height:15px;transition:transform .3s var(--ease)}
+.more:hover .ic{transform:translateX(4px)}
+.dark .more{color:#fff}
 
 /* górny pasek komunikatów */
-.bar{background:var(--plum-dk);color:var(--cream);font-size:.95rem}
+.bar{background:var(--plum-dk);color:var(--cream);font-size:.82rem;font-weight:600;letter-spacing:.02em}
 .bar-in{display:grid;max-width:1240px;margin:auto;padding:0 16px}
-.bar-item{grid-area:1/1;margin:0;display:flex;align-items:center;justify-content:center;gap:.7em;min-height:44px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .5s,transform .5s var(--ease),visibility .5s}
+.bar-item{grid-area:1/1;margin:0;display:flex;align-items:center;justify-content:center;gap:.7em;min-height:40px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .5s,transform .5s var(--ease),visibility .5s}
 .bar-item.on{opacity:1;visibility:visible;transform:none}
-.bar a{color:inherit;display:inline-flex;align-items:center;gap:.4em;min-height:44px;text-decoration-color:var(--gold)}
-.bar .ic{width:16px;height:16px}
-.bar-n{font-size:.8rem;color:var(--gold-pale);font-variant-numeric:tabular-nums}
+.bar a{color:inherit;display:inline-flex;align-items:center;gap:.4em;min-height:40px;text-decoration:none}
+.bar a:hover{text-decoration:underline}
+.bar .ic{width:15px;height:15px}
+.bar-n{font-size:.75rem;color:var(--gold-pale);font-variant-numeric:tabular-nums}
 
-/* nagłówek */
-.site-head{position:sticky;top:0;z-index:50;background:rgba(251,246,240,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.head-in{display:flex;align-items:center;gap:12px;min-height:var(--hdr-min,64px)}
-@media(min-width:700px){.head-in{--hdr-min:76px}}
-.brand{display:flex;align-items:center;color:var(--plum);min-height:44px;margin-right:auto}
-.logo{height:40px;width:auto;aspect-ratio:751/253.6}
-@media(min-width:700px){.logo{height:50px}}
-.nav ul{display:flex;gap:2px}
-.nav a{display:flex;align-items:center;min-height:44px;padding:0 .7em;border-radius:999px;text-decoration:none;font-weight:500;font-size:.98rem;color:var(--ink);transition:background-color .2s,color .2s}
-.nav a:hover,.nav a[aria-current]{background:var(--blush);color:var(--plum)}
-.langs{display:flex;gap:2px}
-.langs a{display:grid;place-items:center;min-width:44px;min-height:44px;border-radius:999px;font-size:.85rem;font-weight:700;text-decoration:none;color:var(--muted)}
-.langs a[aria-current]{background:var(--plum);color:#fff}
-.burger{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;border:1px solid var(--line);background:#fff}
-.burger span,.burger span::before,.burger span::after{display:block;width:20px;height:2px;border-radius:2px;background:var(--plum);transition:transform .3s var(--ease),opacity .2s}
+/* nagłówek: menu po lewej, logo na środku, kontakt po prawej */
+.site-head{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.head-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;min-height:64px}   /* stała wysokość — --hdr mierzy skrypt */
+@media(min-width:760px){.head-in{min-height:76px}}
+.brand{grid-column:2;display:flex;align-items:center;color:var(--plum);min-height:44px}
+.logo{height:38px;width:auto;aspect-ratio:751/253.6}
+@media(min-width:760px){.logo{height:46px}}
+.burger{grid-column:1;justify-self:start;display:grid;place-items:center;width:46px;height:46px;border:1px solid var(--line);background:#fff;border-radius:var(--r)}
+.burger span,.burger span::before,.burger span::after{display:block;width:20px;height:1.5px;background:var(--plum-xd);transition:transform .3s var(--ease),opacity .2s}
 .burger span{position:relative}.burger span::before,.burger span::after{content:"";position:absolute;left:0}
 .burger span::before{top:-6px}.burger span::after{top:6px}
 .burger[aria-expanded=true] span{background:transparent}
 .burger[aria-expanded=true] span::before{transform:translateY(6px) rotate(45deg)}
 .burger[aria-expanded=true] span::after{transform:translateY(-6px) rotate(-45deg)}
+.head-r{grid-column:3;justify-self:end;display:flex;align-items:center;gap:6px}
+.head-link,.nav a{display:flex;align-items:center;min-height:44px;padding:0 .55em;text-decoration:none;font:600 .7rem/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--plum-xd);white-space:nowrap}
+.head-link:hover,.nav a:hover{color:var(--gold-dk)}
+.nav a[aria-current]{color:var(--gold-dk);text-decoration:underline;text-underline-offset:.5em;text-decoration-thickness:1px}
+.langs{display:flex;gap:2px}
+.langs a{display:grid;place-items:center;min-width:40px;min-height:40px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-decoration:none;color:var(--muted)}
+.langs a[aria-current]{background:var(--plum);color:#fff}
 .head-cta{display:none}
-@media(max-width:1079px){
-  .nav{position:absolute;left:0;right:0;top:100%;background:var(--cream);border-bottom:1px solid var(--line);box-shadow:0 24px 40px -24px rgba(46,16,39,.35);padding:8px 16px 16px;display:none;max-height:calc(100dvh - var(--hdr));overflow:auto}
+@media(min-width:560px){.head-cta{display:inline-flex}.head-link{display:none}}
+@media(max-width:1199px){
+  .nav{position:absolute;left:0;right:0;top:100%;background:var(--cream);border-bottom:1px solid var(--line);box-shadow:0 30px 40px -30px rgba(34,16,29,.4);padding:10px clamp(18px,4vw,40px) 20px;display:none;max-height:calc(100dvh - var(--hdr));overflow:auto}
   .nav.open{display:block}
-  .nav ul{flex-direction:column}
-  .nav a{min-height:48px;font-size:1.05rem;padding:0 1em}
+  .nav ul{display:grid}
+  .nav a{min-height:52px;font-size:.8rem;border-bottom:1px solid var(--line);padding:0}
 }
-@media(min-width:1080px){.burger{display:none}.head-cta{display:inline-flex}.brand{margin-right:12px}.nav{margin-right:auto}}
+@media(min-width:1200px){
+  .burger{display:none}
+  .nav{grid-column:1;grid-row:1;justify-self:start}
+  .nav ul{display:flex;margin-left:-.55em}
+  .nav a{padding:0 .5em}
+  .head-link{display:flex}
+}
 
 /* sekcje */
 main{display:block}
-section[id]{scroll-margin-top:calc(var(--hdr) - var(--pad) + 1.75rem)}
+section[id]{scroll-margin-top:calc(var(--hdr) - var(--pad) + 2rem)}
 #top{scroll-margin-top:calc(var(--hdr) + 60px)}
-.sec{position:relative;padding:var(--pad) 0 0}
-.sec:last-of-type,.sec--bg{padding-bottom:var(--pad)}
-.sec--bg{margin-top:var(--pad);overflow:hidden;overflow:clip}
-.sec-bg{position:absolute;inset:0;z-index:0}
-.sec--bg>.wrap{position:relative;z-index:1}
-.sec-head{max-width:46rem;margin-bottom:1.75rem}
-.sec-head h2,.about-main h2{font-size:clamp(1.9rem,1.3rem + 2.4vw,3rem)}
-.sec-intro{margin-top:.8rem;color:var(--muted);font-size:1.1rem}
-.eyebrow{font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:1rem}
-.txt p{margin-bottom:.9em}
-.clamp{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-
-/* BENTO */
-.bento{display:grid;gap:var(--gap);grid-template-columns:minmax(0,1fr);grid-auto-flow:dense}
-@media(min-width:640px){.bento{grid-template-columns:repeat(2,minmax(0,1fr))}.t-2x1,.t-2x2{grid-column:span 2}.t-1x2,.t-2x2{grid-row:span 2}}
-@media(min-width:1000px){.bento{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(200px,auto)}}
-.tile{position:relative;display:flex;flex-direction:column;min-width:0;border-radius:var(--r);padding:clamp(20px,2.4vw,28px);background:var(--white);border:1px solid var(--line);overflow:hidden;color:var(--ink);text-decoration:none}
-.tone-blush{background:var(--blush);border-color:transparent}
-.tone-gold{background:var(--gold-lt);border-color:transparent}
-.tone-cream{background:var(--cream)}
-.tone-plum{background:var(--plum);border-color:transparent;color:var(--cream)}
-.tone-plum h2,.tone-plum h3,.tone-plum .tile-h{color:#fff}
-.tone-plum em{color:var(--gold-pale)}
-.tone-plum a{color:inherit}
-.tone-plum .btn-primary{background:var(--cream);border-color:var(--cream);color:var(--plum-dk)}
-.tone-plum .btn-ghost{border-color:var(--cream);color:var(--cream)}
-.tone-plum .btn-ghost:hover{background:var(--cream);color:var(--plum-dk)}
-.is-feat{box-shadow:inset 0 0 0 2px var(--gold),0 18px 40px -28px rgba(75,29,63,.55)}
-.tile h3{font-size:clamp(1.25rem,1.1rem + .5vw,1.5rem);margin-bottom:.5rem}
-.t-2x2 h3{font-size:clamp(1.5rem,1.2rem + 1vw,2rem)}
-.tile-h{font-family:var(--serif);font-weight:560;font-size:1.3rem;line-height:1.15;margin:0}
-.tile-go{margin-top:auto;align-self:flex-end;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.16);transition:transform .35s var(--ease)}
-.tone-blush .tile-go,.tone-gold .tile-go,.tone-white .tile-go{background:rgba(75,29,63,.08)}
-a.tile{transition:transform .35s var(--ease),box-shadow .35s}
-@media(hover:hover) and (pointer:fine){a.tile:hover{transform:translateY(-4px);box-shadow:0 22px 40px -26px rgba(46,16,39,.6)}a.tile:hover .tile-go{transform:translateX(4px)}}
-.tile-img{position:relative;margin:calc(-1*clamp(20px,2.4vw,28px));margin-bottom:1.1rem;aspect-ratio:4/3;background:var(--blush);overflow:hidden;flex:none}
-.t-1x2 .tile-img{aspect-ratio:1}
-@media(min-width:1000px){.t-2x2 .tile-img,.t-1x2 .tile-img{aspect-ratio:auto;flex:1 1 240px;min-height:240px}.t-2x2 .tile-img+.tile-body,.t-1x2 .tile-img+.tile-body{flex:0 0 auto}}
-.tile-img img{position:absolute;inset:0}
-.tile-img img,.hero-photo img,.about-img img,.gal-btn img,.pop-img img{width:100%;height:100%;object-fit:cover}
+.sec{position:relative;padding:var(--pad) 0}
+.sec-beige{background:var(--beige)}
+.sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem 2rem;margin-bottom:clamp(1.75rem,3vw,2.5rem)}
+.sec-head-t{max-width:40rem}
+.sec-head h2,.set-main h2{font-size:clamp(2.1rem,1.4rem + 2.6vw,3.4rem)}
+.sec-intro{margin:.9rem 0 0;color:var(--muted);font-size:1.02rem;max-width:34rem}
+.dark .sec-intro{color:#D9CBD3}
+.card{background:#fff;border:1px solid var(--line);padding:clamp(22px,3vw,40px)}
+.ph{width:100%;height:100%;min-height:150px;display:grid;place-items:center;padding:18px;text-align:center;font-size:.85rem;line-height:1.35;color:var(--muted);background:var(--blush)}
+.ph span{max-width:22ch;padding:.5em .8em;border:1px dashed rgba(75,29,63,.35)}
 img.img-fail{visibility:hidden}
-.tile-body{display:flex;flex-direction:column;flex:1;min-width:0}
-.tile-body>.btn,.tile-body>.btns{margin-top:auto;align-self:flex-start}
-.tile-body .btns{padding-top:1rem}
-.ph{width:100%;height:100%;min-height:150px;display:grid;place-items:center;padding:18px;text-align:center;font-size:.85rem;line-height:1.35;color:var(--muted);
-  background:radial-gradient(circle at 30% 20%,rgba(200,150,62,.22),transparent 55%),radial-gradient(circle at 80% 90%,rgba(75,29,63,.16),transparent 50%),var(--blush)}
-.ph span{max-width:22ch;padding:.5em .8em;border:1px dashed rgba(75,29,63,.35);border-radius:12px;background:rgba(251,246,240,.7)}
-.badges{position:absolute;left:14px;top:14px;display:flex;flex-wrap:wrap;gap:6px}
-.badge{display:inline-flex;align-items:center;min-height:28px;padding:0 .75em;border-radius:999px;background:#fff;color:var(--plum-dk);font-size:.8rem;font-weight:700;letter-spacing:.02em;align-self:flex-start}
-.badge-gold{background:var(--gold);color:var(--plum-dk)}
+.badges{position:absolute;left:12px;top:12px;display:flex;flex-wrap:wrap;gap:6px}
+.badge{display:inline-flex;align-items:center;min-height:26px;padding:0 .7em;background:#fff;color:var(--plum-dk);font:700 .68rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.badge-gold{background:var(--gold-lt);color:var(--plum-dk)}
 .badge-plum{background:var(--plum);color:#fff}
-.meta{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin:1rem 0 0;font-size:.95rem;color:var(--muted)}
-.meta div{display:flex;align-items:center;gap:.4em}
-.meta dt,.meta dd{margin:0}.meta .ic{width:18px;height:18px}
-.meta-price dd{font-family:var(--serif);font-size:1.2rem;font-weight:600;color:var(--plum)}
-.rosette{position:absolute;right:-70px;bottom:-80px;width:300px;height:300px;color:var(--plum);opacity:.07;pointer-events:none}
 
 /* pierwszy ekran */
-.hero{padding:clamp(16px,3vw,32px) 0 0;background:linear-gradient(115deg,var(--cream) 0%,var(--blush) 30%,var(--gold-lt) 55%,var(--cream) 80%,var(--blush) 100%);background-size:320% 320%;animation:drift 26s ease-in-out infinite alternate}
-@keyframes drift{from{background-position:0% 30%}to{background-position:100% 70%}}
-.hero-main{background:rgba(255,255,255,.82);justify-content:center;padding:clamp(24px,4vw,56px)}
-.hero-main h1{font-size:clamp(2.3rem,1.3rem + 4.6vw,4.4rem);line-height:1.02;letter-spacing:-.025em;color:var(--plum-dk)}
-.lead{font-size:clamp(1.08rem,1rem + .4vw,1.25rem);color:var(--muted);margin:1.2rem 0 1.6rem;max-width:36rem}
-.perks{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.6rem}
-.perks li{display:flex;align-items:center;gap:.5em;padding:.35em .9em;border-radius:999px;background:var(--cream);border:1px solid var(--line);font-size:.92rem;font-weight:500}
-.perks li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
-.hero-photo{padding:0;min-height:340px;background:var(--blush)}
-.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s ease}
-.slide.on{opacity:1}
-.slide.on img{animation:zoom 7s ease-out both}
-@keyframes zoom{from{transform:scale(1)}to{transform:scale(1.06)}}
-.slide-dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center}
-.slide-dot{width:44px;height:44px;border:0;background:none;display:grid;place-items:center}
-.slide-dot::before{content:"";width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.65);box-shadow:0 0 0 1px rgba(46,16,39,.4);transition:transform .3s}
-.slide-dot.on::before{background:var(--gold);transform:scale(1.35)}
-.hero-avail{gap:.6rem}.hero-avail p{font-size:.95rem;margin:0;opacity:.92}
-.hero-avail>.ic{width:30px;height:30px;color:var(--gold-pale)}
-.hero-values{justify-content:center}
-.hero-values p{font-family:var(--serif);font-size:1.2rem;line-height:1.5;color:var(--plum-dk);font-style:italic}
+.hero{background:var(--beige)}
+.hero-in{display:grid;gap:clamp(2rem,4vw,3.5rem);align-items:center;padding-block:clamp(2.5rem,6vw,5rem)}
+@media(min-width:960px){.hero-in{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}}
+.hero-copy h1{font-size:clamp(2.6rem,1.4rem + 5vw,4.9rem);line-height:1.02;letter-spacing:-.025em;font-weight:380}
+.lead{font-size:1.05rem;color:var(--muted);margin:1.4rem 0 1.9rem;max-width:30rem}
+.perks{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;margin-top:1.7rem;font-size:.86rem;color:var(--muted)}
+.perks li{display:flex;align-items:center;gap:.55em}
+.perks .ic{width:17px;height:17px;color:var(--gold-dk)}
+.hero-pics{display:grid;gap:12px;grid-template-columns:1.45fr 1fr;grid-template-rows:1fr 1fr;aspect-ratio:1.36}
+.hero-pics figure{margin:0;position:relative;overflow:hidden;background:var(--blush)}
+.hero-pics img,.gal-btn img,.prod-img img,.about-pics img,.banner-img img,.pop-img img{width:100%;height:100%;object-fit:cover}
+.hero-pics img{position:absolute;inset:0}
+.hpic0{grid-row:1/3}
+.hero-pics.n1{grid-template-columns:1fr}.hero-pics.n2{grid-template-rows:1fr}.hero-pics.n2 .hpic0{grid-row:auto}
+.trust{display:grid;border-top:1px solid var(--line);background:var(--cream)}
+.trust li{display:flex;gap:14px;padding:1.4rem clamp(18px,4vw,40px);border-bottom:1px solid var(--line)}
+.trust .ic{width:22px;height:22px;color:var(--gold-dk);margin-top:2px}
+.trust-h{font:600 .92rem/1.35 var(--sans);letter-spacing:0;color:var(--plum-xd);margin-bottom:.25rem}
+.trust-h a{color:inherit;text-decoration:none}.trust-h a:hover{text-decoration:underline}
+.trust p{font-size:.85rem;color:var(--muted);margin:0}
+@media(min-width:700px){.trust{grid-template-columns:repeat(2,1fr)}.trust li:nth-child(odd){border-right:1px solid var(--line)}}
+@media(min-width:1100px){.trust.n4{grid-template-columns:repeat(4,1fr)}.trust.n3{grid-template-columns:repeat(3,1fr)}.trust li{border-bottom:0;border-right:1px solid var(--line)}.trust li:last-child{border-right:0}}
 
-/* promocje */
-.promo-until{margin:.9rem 0 0;font-weight:600}
-.promo-left{margin:.1rem 0 .5rem;font-size:.92rem;color:var(--muted)}
-.promo-prog{height:6px;border-radius:6px;background:rgba(75,29,63,.14);overflow:hidden;margin-bottom:1rem}
-.promo-prog i{display:block;height:100%;background:var(--gold-dk);transform-origin:left}
-.promo .badge{margin-bottom:.7rem}
+/* kolekcja: siatka produktów */
+.prods{display:grid;gap:2.2rem var(--gap);grid-template-columns:minmax(0,1fr)}
+@media(min-width:520px){.prods{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:980px){.prods{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.prod{display:flex;flex-direction:column;min-width:0}
+.prod-img{position:relative;display:block;width:100%;aspect-ratio:1;padding:0;border:0;background:var(--blush);overflow:hidden;margin-bottom:1rem}
+.prod-img img{position:absolute;inset:0;transition:transform .8s var(--ease)}
+@media(hover:hover) and (pointer:fine){.prod-img:hover img{transform:scale(1.04)}}
+.prod-meta{font:600 .68rem/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dk);margin:0 0 .45rem}
+.prod h3{font-size:1.28rem;line-height:1.2;margin-bottom:.35rem}
+.prod-price{font-weight:600;color:var(--plum);margin:0 0 .5rem}
+.prod-desc{font-size:.9rem;color:var(--muted);margin:0 0 .6rem}
+.prod-acts{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;gap:.2rem 1.4rem}
+.prod-acts .linkbtn{font-size:.85rem;color:var(--muted)}
 
-/* cennik */
-.price-table{width:100%;border-collapse:collapse}
-.price-table caption{font-family:var(--serif);font-weight:560;font-size:1.45rem;text-align:left;padding-bottom:.6rem;color:var(--plum-dk)}
-.price-table th,.price-table td{padding:.75rem 0;border-top:1px dashed var(--line);vertical-align:baseline;text-align:left;font-weight:500}
-.price-table small{display:block;font-weight:400;color:var(--muted);font-size:.88rem}
-.pt-time{color:var(--muted);font-size:.92rem;padding-inline:.8rem!important;white-space:nowrap}
-.pt-price{text-align:right!important;font-family:var(--serif);font-size:1.15rem;font-weight:600;color:var(--plum);white-space:nowrap;padding-left:.6rem!important}
-.price-note{margin-top:1.2rem;color:var(--muted);max-width:52rem}
-
-/* galeria */
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.2rem}
-.chip{min-height:44px;padding:0 1.1em;border-radius:999px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:.95rem;transition:background-color .2s,color .2s}
-.chip.on{background:var(--plum);border-color:var(--plum);color:#fff}
-.gal{padding:0;margin:0;min-height:220px;background:var(--blush)}
-.gal-btn{display:block;position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:none;overflow:hidden}
-.gal-btn img{transition:transform .7s var(--ease)}
-@media(hover:hover) and (pointer:fine){.gal-btn:hover img{transform:scale(1.05)}}
-.gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:2.2rem 1rem .8rem;background:linear-gradient(transparent,rgba(46,16,39,.78));color:#fff;font-size:.92rem;pointer-events:none}
-.gal.is-off{display:none}
-.gal-ig{justify-content:space-between;gap:1rem;min-height:200px}.gal-ig>.ic{width:34px;height:34px;color:var(--gold-pale)}
-
-/* jak zamówić */
-.sec-dark{color:var(--cream)}
-.sec-dark .sec-bg{background:var(--plum-dk)}
-.sec-dark h2,.sec-dark h3,.sec-dark h4{color:#fff}
-.sec-dark .sec-intro{color:#E2D3DB}
-.sec-dark .tone-plum{background:var(--plum-lt)}
-.sec-dark .tone-white,.sec-dark .tone-blush,.sec-dark .tone-gold,.sec-dark .tone-cream{color:var(--ink)}
-.sec-dark .tone-white h3,.sec-dark .tone-blush h3,.sec-dark .tone-gold h3,.sec-dark .tone-cream h3{color:var(--plum-dk)}
-.step-n{font-family:var(--serif);font-size:3rem;line-height:1;font-weight:400;font-style:italic;color:var(--gold-pale);margin-bottom:auto;padding-bottom:1.5rem}
-.tone-gold .step-n,.tone-white .step-n,.tone-blush .step-n,.tone-cream .step-n{color:var(--gold-dk)}
-.step p{margin:0;font-size:.98rem}
-.notes-h{font-size:1.5rem;margin:2.6rem 0 1rem}
-.notes{display:grid;gap:var(--gap)}
-@media(min-width:800px){.notes{grid-template-columns:repeat(3,1fr)}}
-.note{padding-top:1rem;border-top:1px solid rgba(246,217,160,.45)}
-.note h4{font-size:1.15rem;margin-bottom:.4rem}.note p{color:#E9DCE3;font-size:.98rem}
-
-/* o marce */
-.about-main{padding:clamp(24px,3.4vw,44px)}
-.about-main h2{margin-bottom:1.1rem}
-.about-img{padding:0;min-height:240px;background:var(--blush)}
-.feat h3{font-size:1.2rem}.feat p{font-size:.96rem;margin:0}
-
-/* opinie, aktualności */
-.stars{display:flex;gap:2px;margin-bottom:.8rem}
-.stars .ic{width:20px;height:20px}
-.star-on{fill:var(--gold);stroke:var(--gold-dk)}.star-off{stroke:var(--muted)}
-.review{margin:0}
-.review blockquote{margin:0 0 1rem;font-family:var(--serif);font-size:1.15rem;line-height:1.45}
-.review figcaption{margin-top:auto;display:flex;flex-direction:column;font-size:.92rem}
-.review figcaption span{color:var(--muted)}
-.rev-sum{margin-top:.8rem;color:var(--muted)}
-.news-t time,.pop time{font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:.5rem;display:block}
-
-@media(min-width:640px){.bento>.news-t:only-child{grid-column:1/-1;flex-direction:row;align-items:stretch;gap:clamp(20px,2.4vw,28px)}
-.bento>.news-t:only-child .tile-img{flex:0 0 42%;margin:calc(-1*clamp(20px,2.4vw,28px));margin-right:0;aspect-ratio:auto;min-height:280px}
-.bento>.news-t:only-child .tile-body{justify-content:center;flex:1}.bento>.news-t:only-child .tile-body>.btn{margin-top:1rem}}
-/* FAQ */
-.faq-grid{display:grid;gap:10px;align-items:start}
-@media(min-width:860px){.faq-grid{grid-template-columns:1fr 1fr;gap:var(--gap)}}
-.faq-item{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden}
-.faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:60px;padding:.9rem 1.2rem;cursor:pointer;list-style:none}
-.faq-item summary::-webkit-details-marker{display:none}
-.faq-item summary h3{font-size:1.1rem;font-family:var(--sans);font-weight:600;letter-spacing:0;line-height:1.35}
-.faq-item summary .ic{color:var(--gold-dk);transition:transform .35s var(--ease)}
-.faq-item[open] summary .ic{transform:rotate(45deg)}
-.faq-item[open]{background:var(--blush);border-color:transparent}
-.faq-item .txt{padding:0 1.2rem 1.2rem;color:var(--ink)}
-
-/* kontakt */
-#contact .sec-bg{background:linear-gradient(160deg,var(--blush),var(--gold-lt))}
-.cform h3{font-size:1.6rem;margin-bottom:1.1rem}
-.fgrid{display:grid;gap:14px}
+/* kontakt: „jak możemy pomóc” */
+.help-top{display:grid;gap:1.5rem 3rem;margin-bottom:clamp(1.75rem,3vw,2.5rem)}
+.help-top .sec-head{margin:0}
+@media(min-width:960px){.help-top{grid-template-columns:1.1fr 1fr;align-items:end}}
+.help-list{display:grid;gap:14px}
+.help-list li{display:flex;gap:14px;align-items:flex-start}
+.help-ic{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:#fff;color:var(--gold-dk)}
+.help-ic .ic{width:18px;height:18px}
+.help-list h3{font:600 .92rem/1.35 var(--sans);letter-spacing:0;margin-bottom:.15rem}
+.help-list p{font-size:.86rem;color:var(--muted);margin:0}
+.help-card{display:grid;background:#fff;border:1px solid var(--line);box-shadow:0 30px 60px -50px rgba(34,16,29,.5)}
+@media(min-width:960px){.help-card{grid-template-columns:1.2fr .8fr}}
+.cform{padding:clamp(22px,3.4vw,44px);min-width:0}
+.chips{border:0;margin:0 0 1.4rem;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.chips legend{padding:0;margin-bottom:.9rem;float:left;width:100%}
+.chip{position:relative;display:inline-flex}
+.chip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chip span{display:inline-flex;align-items:center;min-height:44px;padding:0 1.15em;border:1px solid #CDBFB3;border-radius:999px;font-size:.86rem;background:#fff;transition:background-color .2s,color .2s,border-color .2s}
+.chip input:checked+span{background:var(--plum-xd);border-color:var(--plum-xd);color:#fff}
+.chip input:focus-visible+span{outline:2px solid var(--plum);outline-offset:3px}
+.fgrid{display:grid;gap:16px}
 @media(min-width:560px){.fgrid{grid-template-columns:1fr 1fr}.fld-full{grid-column:1/-1}}
 .fld{margin:0;display:flex;flex-direction:column;gap:6px}
-.fld label{font-weight:600;font-size:.95rem}
+.fld label{font-size:.86rem;font-weight:500}
 .opt{font-weight:400;color:var(--muted)}
-.fld input,.fld select,.fld textarea{width:100%;min-height:48px;padding:.65em .9em;border:1.5px solid #B9A5AF;border-radius:14px;background:#fff;font:inherit;color:var(--ink)}
-.fld textarea{resize:vertical;min-height:130px}
+.fld input,.fld select,.fld textarea{width:100%;min-height:50px;padding:.65em .9em;border:1px solid #BDAEA6;border-radius:var(--r);background:#fff;font:inherit;color:var(--ink)}
+.fld textarea{resize:vertical;min-height:120px}
 .fld input:focus-visible,.fld select:focus-visible,.fld textarea:focus-visible{outline-offset:1px;border-color:var(--plum)}
 .fld [aria-invalid=true]{border-color:#A3261F;background:#FFF5F4}
-.ferr{color:#8F1D17;font-size:.88rem;font-weight:600}
+.ferr{color:#8F1D17;font-size:.85rem;font-weight:600}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.fhint{font-size:.88rem;color:var(--muted);margin:.8rem 0}
+.fhint{font-size:.84rem;color:var(--muted);margin:.9rem 0}
 .fstatus{margin:0 0 .8rem;font-weight:600}
 .fstatus:empty{display:none}
-.fstatus.ok{padding:.9em 1.1em;border-radius:14px;background:#E6F2E4;color:#1F4D1B}
-.fstatus.err{padding:.9em 1.1em;border-radius:14px;background:#FCE9E7;color:#8F1D17}
-.cform .btn{align-self:flex-start}
-.clause{margin-top:1.2rem;font-size:.82rem;line-height:1.5;color:var(--muted)}
+.fstatus.ok{padding:.9em 1.1em;background:#E6F2E4;color:#1F4D1B}
+.fstatus.err{padding:.9em 1.1em;background:#FCE9E7;color:#8F1D17}
+.clause{margin-top:1.1rem;font-size:.78rem;line-height:1.55;color:var(--muted)}
 .clause strong{color:var(--ink)}
-.ctile{gap:.6rem;justify-content:flex-start}
-@media(min-width:1000px){.contact-bento{grid-auto-rows:auto}.contact-bento .cform{grid-row:span 3}}
-.ctile>.ic{width:30px;height:30px}
-.tone-plum.ctile>.ic{color:var(--gold-pale)}
-.ctile-v{overflow-wrap:anywhere;opacity:.92}
-.ctile-area p{margin:0;font-size:.98rem;color:var(--muted)}
+.help-side{padding:clamp(22px,3.4vw,44px);background:var(--cream);border-top:1px solid var(--line);display:flex;flex-direction:column;gap:1.2rem}
+@media(min-width:960px){.help-side{border-top:0;border-left:1px solid var(--line)}}
+.help-side .eyebrow{margin:0}
+.ways{display:grid;gap:8px}
+.ways a{display:flex;align-items:center;gap:14px;min-height:64px;padding:12px 16px;background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--ink);transition:border-color .2s}
+.ways a:hover{border-color:var(--plum)}
+.ways .ic{color:var(--gold-dk)}
+.ways span{display:flex;flex-direction:column;min-width:0}
+.ways b{font-weight:600;font-size:.92rem}
+.ways small{color:var(--muted);font-size:.82rem;overflow-wrap:anywhere}
+.area{display:flex;gap:14px;margin-top:auto;padding-top:1.2rem;border-top:1px solid var(--line)}
+.area .ic{color:var(--gold-dk)}
+.area h3{font:600 .92rem/1.35 var(--sans);letter-spacing:0;margin-bottom:.2rem}
+.area p{font-size:.86rem;color:var(--muted);margin:0 0 .4rem}
+
+/* galeria: rząd zdjęć z podpisami */
+.gal-row{display:grid;gap:1.6rem var(--gap);grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:700px){.gal-row{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:1100px){.gal-row{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.gal{margin:0;min-width:0}
+.gal-btn{position:relative;display:block;width:100%;aspect-ratio:4/5;padding:0;border:0;background:var(--blush);overflow:hidden}
+.gal-btn img{position:absolute;inset:0;transition:transform .8s var(--ease)}
+@media(hover:hover) and (pointer:fine){.gal-btn:hover img{transform:scale(1.05)}}
+.gal figcaption{padding-top:.8rem}
+.gal-cap{display:block;font-family:var(--serif);font-size:1.02rem;line-height:1.3;color:var(--plum-xd)}
+.gal small{display:block;font-size:.78rem;color:var(--muted);margin-top:.2rem}
+.gal.is-off{display:none}
+
+/* cennik: ciemny blok jak „zestaw” we wzorcu */
+.set{display:grid;background:var(--plum-dk);color:#E9DCE3}
+@media(min-width:960px){.set{grid-template-columns:1.4fr 1fr}}
+.set h2,.set h3{color:#fff}
+.set-main{padding:clamp(26px,4.5vw,64px)}
+.set-main h2{margin-bottom:.2rem}
+.price-table{width:100%;border-collapse:collapse;margin-top:2rem}
+.price-table caption{font:600 .72rem/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-pale);text-align:left;padding-bottom:.4rem}
+.price-table th,.price-table td{padding:.95rem 0;border-bottom:1px solid var(--line-dk);vertical-align:baseline;text-align:left;font-weight:500;color:#fff}
+.price-table small{display:block;font-weight:400;color:#CDBCC6;font-size:.84rem}
+.pt-time{color:#CDBCC6!important;font-size:.86rem;padding-inline:.9rem!important;white-space:nowrap;font-weight:400!important}
+.pt-price{text-align:right!important;font-family:var(--serif);font-size:1.15rem;white-space:nowrap;padding-left:.6rem!important}
+.set-side{padding:clamp(26px,4.5vw,64px);background:var(--plum-xd);display:flex;flex-direction:column;justify-content:center;gap:1rem}
+.set-side>.ic{width:30px;height:30px;color:var(--gold-pale)}
+.set-side h3{font-size:clamp(1.6rem,1.2rem + 1.2vw,2.2rem)}
+.set-side p{color:#D9CBD3;font-size:.95rem}
+.set-side .btns{margin-top:.6rem}
+@media(max-width:600px){.pt-time{display:none}}
+
+/* banery: promocje i aktualności */
+.banners{display:grid;gap:var(--gap)}
+@media(min-width:900px){.banners{grid-template-columns:repeat(2,minmax(0,1fr))}.banners.n1{grid-template-columns:1fr}}
+.banner{display:grid;min-width:0;border:1px solid var(--line);background:var(--beige)}
+.banner-dark{background:var(--plum-dk);border-color:var(--plum-dk);color:#E9DCE3}
+.banner-dark h3{color:#fff}
+.banner-t{padding:clamp(26px,4vw,52px);display:flex;flex-direction:column;align-items:flex-start}
+.banner h3{font-size:clamp(1.6rem,1.2rem + 1.3vw,2.25rem);margin-bottom:.8rem}
+.banner .txt,.banner p.clamp{font-size:.95rem;max-width:32rem}
+.banner .btn{margin-top:1.4rem}
+.banner-img{position:relative;min-height:220px;background:var(--blush)}
+.banner-img img{position:absolute;inset:0}
+.banners.n1 .banner.has-img{grid-template-columns:minmax(0,1fr)}
+@media(min-width:760px){.banners.n1 .banner.has-img{grid-template-columns:1.1fr 1fr}.banners.n1 .banner-img{min-height:100%}}
+.promo-until{margin:.9rem 0 0;font-weight:600}
+.promo-left{margin:.1rem 0 .5rem;font-size:.9rem;opacity:.85}
+.promo-prog{height:3px;width:100%;max-width:20rem;background:rgba(127,104,117,.3);overflow:hidden}
+.promo-prog i{display:block;height:100%;background:var(--gold);transform-origin:left}
+
+/* o marce */
+.about-grid{display:grid;gap:var(--gap)}
+@media(min-width:900px){.about-grid{grid-template-columns:1fr 1fr}}
+.about-txt{display:flex;flex-direction:column;align-items:flex-start;font-size:1.02rem}
+.about-txt .txt{margin-bottom:1rem}
+.about-pics{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);min-height:300px}
+.about-pics figure{margin:0;position:relative;background:var(--blush);overflow:hidden;min-height:260px}
+.about-pics img{position:absolute;inset:0}
+.vals-h{font-size:clamp(1.5rem,1.2rem + 1vw,2rem);margin:clamp(2.5rem,5vw,4rem) 0 1.4rem}
+.vals{display:grid;gap:var(--gap);grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:700px){.vals{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:1100px){.vals{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.vals li{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;min-height:150px;padding:1.2rem;background:#fff;border:1px solid var(--line);text-align:center;font-family:var(--serif);font-size:1.12rem;color:var(--plum-xd)}
+.vals-r{width:34px;height:34px;color:var(--gold-dk)}
+
+/* jak zamówić: kolumny z numerem */
+.steps{display:grid;gap:2rem var(--gap);counter-reset:s}
+@media(min-width:640px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1000px){.steps{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.step{border-top:1px solid #A8968C;padding-top:1.3rem}
+.step-n{display:block;font:500 .78rem/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--gold-dk);margin-bottom:1rem}
+.step h3{font-size:1.35rem;margin-bottom:.6rem}
+.step p{font-size:.9rem;color:var(--muted);margin:0}
+
+/* opinie */
+.reviews{display:grid;gap:var(--gap)}
+@media(min-width:760px){.reviews{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.stars{display:flex;gap:2px;margin-bottom:.8rem}
+.stars .ic{width:18px;height:18px}
+.star-on{fill:var(--gold);stroke:var(--gold-dk)}.star-off{stroke:var(--muted)}
+.review{margin:0;display:flex;flex-direction:column}
+.review blockquote{margin:0 0 1rem;font-family:var(--serif);font-size:1.12rem;line-height:1.5}
+.review figcaption{margin-top:auto;display:flex;flex-direction:column;font-size:.88rem}
+.review figcaption span{color:var(--muted)}
+.rev-sum{margin:-1rem 0 1.4rem;color:var(--muted)}
+.pop time{font:600 .72rem/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:.6rem;display:block}
+
+/* FAQ: tytuł po lewej, pytania po prawej */
+.faq-wrap{display:grid;gap:1.5rem 4rem}
+@media(min-width:900px){.faq-wrap{grid-template-columns:minmax(0,.75fr) minmax(0,1.5fr);align-items:start}.faq-wrap .sec-head{position:sticky;top:calc(var(--hdr) + 2rem);flex-direction:column;align-items:flex-start}}
+.faq-item{border-bottom:1px solid #D9CCBF}
+.faq-item:first-child{border-top:1px solid #D9CCBF}
+.faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:64px;padding:.9rem 0;cursor:pointer;list-style:none}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary h3{font-size:1.15rem;line-height:1.35;letter-spacing:0}
+.faq-item summary .ic{width:18px;height:18px;color:var(--plum-xd);transition:transform .35s var(--ease)}
+.faq-item[open] summary .ic{transform:rotate(45deg)}
+.faq-item .txt{padding:0 2.5rem 1.3rem 0;color:var(--muted);font-size:.95rem}
 
 /* stopka */
-.foot{background:var(--plum-dk);color:#E9DCE3;padding:3.5rem 0 1.5rem;font-size:.98rem}
-.foot a,.foot .linkbtn{color:#fff}
-.foot .logo{height:56px;color:var(--cream);margin-bottom:1rem}
-.foot-grid{display:grid;gap:2rem}
-@media(min-width:800px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr}}
-.foot-brand p{max-width:28rem}.foot-area{color:var(--gold-pale)}
-.foot-nav{columns:2;column-gap:1.5rem}
-.foot-nav a,.foot-contact li a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none}
-.foot-nav a:hover,.foot-contact a:hover{text-decoration:underline}
-.foot-contact h2{font-size:1.2rem;color:#fff;margin-bottom:.4rem}
-.foot-contact li a{overflow-wrap:anywhere}
-.social{display:flex;gap:8px;margin-top:.6rem}
-.social a{display:grid!important;place-items:center;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.3)}
-.foot-bottom{margin-top:2.2rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.16);display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;align-items:center;justify-content:space-between;font-size:.88rem}
+.foot{background:var(--plum-xd);color:#D9CBD3;padding:clamp(3.5rem,6vw,5rem) 0 1.6rem;font-size:.9rem}
+.foot a,.foot .linkbtn{color:#fff;text-decoration:none}
+.foot a:hover,.foot .linkbtn:hover{text-decoration:underline}
+.foot .logo{height:52px;color:var(--cream);margin-bottom:1.2rem}
+.foot-grid{display:grid;gap:2.4rem 2rem}
+@media(min-width:700px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.foot-grid{grid-template-columns:1.5fr 1fr 1fr 1.1fr}}
+.foot-brand p{max-width:22rem}
+.foot-brand .btn{margin-top:.6rem}
+.foot .btn-light{color:var(--plum-xd)}
+.foot-brand .btn:hover{text-decoration:none}
+.foot-col h2{font:600 .72rem/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-pale);margin-bottom:.8rem}
+.foot-col li{display:flex;align-items:center;min-height:36px;overflow-wrap:anywhere}
+.foot-col a{display:inline-flex;align-items:center;min-height:36px}
+.foot-area{color:#B8A6B1}
+.social{display:flex;gap:8px;margin-top:.8rem}
+.social a{display:grid!important;place-items:center;width:44px;height:44px;border:1px solid var(--line-dk)}
+.foot-bottom{margin-top:2.6rem;padding-top:1.2rem;border-top:1px solid var(--line-dk);display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;align-items:center;justify-content:space-between;font-size:.8rem;color:#B8A6B1}
 .foot-bottom p{margin:0}
 .foot-bottom ul{display:flex;flex-wrap:wrap;gap:0 1.4rem;align-items:center}
 .foot-bottom li{display:flex;align-items:center;min-height:44px}
 
+/* pływający przycisk kontaktu (jak „Chat with us” we wzorcu) */
+.float-cta{position:fixed;right:14px;bottom:14px;z-index:45;display:inline-flex;align-items:center;gap:.55em;min-height:48px;padding:0 1.2em 0 1em;border-radius:999px;background:var(--plum);color:#fff;font-weight:600;font-size:.88rem;text-decoration:none;box-shadow:0 14px 30px -14px rgba(34,16,29,.7);transition:transform .25s var(--ease),background-color .25s}
+.float-cta:hover{background:var(--plum-dk);transform:translateY(-2px)}
+.float-cta .ic{width:19px;height:19px}
+.float-cta:focus-visible{outline-color:var(--plum);outline-offset:3px}
+
 /* kropki nawigacji */
 .dots{display:none}
-@media(min-width:1280px){
+@media(min-width:1400px){
   .dots{display:block;position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:40}
   .dots a{position:relative;display:grid;place-items:center;width:28px;height:28px}
-  .dots a::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--plum);opacity:.3;box-shadow:0 0 0 2px var(--cream);transition:transform .3s var(--ease),opacity .3s,background-color .3s}
-  .dots a[aria-current]::before{opacity:1;transform:scale(1.6);background:var(--gold-dk)}
-  .dots span{position:absolute;right:32px;white-space:nowrap;padding:.3em .8em;border-radius:999px;background:var(--plum-dk);color:#fff;font-size:.82rem;opacity:0;transform:translateX(6px);pointer-events:none;transition:opacity .25s,transform .25s}
+  .dots a::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--plum);opacity:.3;transition:transform .3s var(--ease),opacity .3s,background-color .3s}
+  .dots a[aria-current]::before{opacity:1;transform:scale(1.5);background:var(--gold-dk)}
+  .dots span{position:absolute;right:32px;white-space:nowrap;padding:.3em .8em;background:var(--plum-dk);color:#fff;font-size:.78rem;opacity:0;transform:translateX(6px);pointer-events:none;transition:opacity .25s,transform .25s}
   .dots a:hover span,.dots a:focus-visible span{opacity:1;transform:none}
 }
 
@@ -352,18 +407,21 @@ img.img-fail{visibility:hidden}
 
 /* okna */
 dialog{border:0;padding:0;color:var(--ink)}
-dialog::backdrop{background:rgba(46,16,39,.62)}
-.pop{width:min(720px,calc(100vw - 24px));max-height:calc(100dvh - 24px);border-radius:var(--r);background:var(--cream);overflow:auto}
+dialog::backdrop{background:rgba(34,16,29,.62)}
+.pop{width:min(720px,calc(100vw - 24px));max-height:calc(100dvh - 24px);background:var(--cream);overflow:auto}
 .pop-in{padding:clamp(20px,4vw,40px)}
-.pop h2{font-size:clamp(1.6rem,1.3rem + 1.4vw,2.2rem);margin-bottom:1rem;padding-right:48px}
+.pop h2{font-size:clamp(1.7rem,1.3rem + 1.5vw,2.4rem);margin-bottom:1rem;padding-right:48px}
 .pop-img{margin:calc(-1*clamp(20px,4vw,40px));margin-bottom:1.4rem;aspect-ratio:16/9;background:var(--blush)}
 .pop .btn{margin-top:1.4rem}
+.pop .meta{display:flex;flex-wrap:wrap;gap:.4rem 2rem;margin:1rem 0 0}
+.pop .meta dt{font:600 .7rem/1.4 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dk)}
+.pop .meta dd{margin:0;font-weight:600}
 .pop-x{position:sticky;top:10px;float:right;margin:10px 10px -58px 0;z-index:2;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:1.5rem;line-height:1}
 .pop[open]{animation:popin .45s var(--ease)}
 @keyframes popin{from{opacity:0;transform:translateY(16px) scale(.98)}}
-.lb{width:100vw;height:100dvh;max-width:none;max-height:none;background:rgba(30,10,26,.96);color:#fff}
+.lb{width:100vw;height:100dvh;max-width:none;max-height:none;background:rgba(26,10,22,.96);color:#fff}
 .lb[open]{display:grid;grid-template-rows:1fr auto;place-items:center;animation:popin .4s var(--ease)}
-.lb img{max-width:min(94vw,1400px);max-height:calc(100dvh - 110px);width:auto;height:auto;object-fit:contain;border-radius:12px}
+.lb img{max-width:min(94vw,1400px);max-height:calc(100dvh - 110px);width:auto;height:auto;object-fit:contain}
 .lb-cap{padding:10px 70px 18px;text-align:center}
 .lb-n{color:var(--gold-pale);font-variant-numeric:tabular-nums;margin-right:.8em}
 .lb button{position:absolute;width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(0,0,0,.35);color:#fff;font-size:1.5rem;display:grid;place-items:center}
@@ -371,24 +429,15 @@ dialog::backdrop{background:rgba(46,16,39,.62)}
 .lb :focus-visible{outline-color:var(--gold-pale)}
 
 /* kłódka panelu */
-.lockbtn{position:fixed;left:12px;bottom:12px;z-index:45;display:flex;align-items:center;gap:.4em;min-width:44px;height:44px;padding:0 11px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.9);color:var(--plum);box-shadow:0 6px 18px -10px rgba(46,16,39,.5);font-size:.9rem;font-weight:700}
-.lockbtn .ic{width:20px;height:20px}
-.demo-bar{position:sticky;top:0;z-index:60;background:#7A4B00;color:#fff;text-align:center;padding:.5em 1em;font-size:.9rem;font-weight:600}
+.lockbtn{position:fixed;left:12px;bottom:14px;z-index:45;display:flex;align-items:center;gap:.4em;min-width:44px;height:44px;padding:0 11px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.92);color:var(--plum);box-shadow:0 6px 18px -10px rgba(34,16,29,.5);font-size:.85rem;font-weight:700}
+.lockbtn .ic{width:19px;height:19px}
+.demo-bar{position:sticky;top:0;z-index:60;background:#7A4B00;color:#fff;text-align:center;padding:.5em 1em;font-size:.88rem;font-weight:600}
 .flash{animation:flash 2.6s ease}
 @keyframes flash{0%,70%{box-shadow:inset 0 0 0 4px var(--gold)}100%{box-shadow:inset 0 0 0 4px transparent}}
 
 /* pojawianie się treści (klasę .js-anim dodaje skrypt — bez JS wszystko jest widoczne) */
-.js-anim #main .rv{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s var(--ease);transition-delay:calc(var(--i,0)*70ms)}
+.js-anim #main .rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s var(--ease);transition-delay:calc(var(--i,0)*70ms)}
 .js-anim #main .rv.in{opacity:1;transform:none}
-.js-anim #main a.tile.rv.in{transition:opacity .5s ease,transform .35s var(--ease),box-shadow .35s}
-
-/* sekcje z tłem rosną przy wejściu */
-@supports (animation-timeline:view()){
-  @media(prefers-reduced-motion:no-preference){
-    .sec-bg{animation:grow linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
-    @keyframes grow{from{transform:scale(var(--grow,.92));border-radius:24px}to{transform:none;border-radius:0}}
-  }
-}
 
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -396,7 +445,7 @@ dialog::backdrop{background:rgba(46,16,39,.62)}
   .js-anim #main .rv{opacity:1;transform:none}
   .weave{display:none!important}
 }
-@media print{.site-head,.bar,.dots,.lockbtn,.weave{display:none}.js-anim #main .rv{opacity:1;transform:none}}
+@media print{.site-head,.bar,.dots,.lockbtn,.float-cta,.weave{display:none}.js-anim #main .rv{opacity:1;transform:none}}
 </style>
 <script type="application/ld+json" id="ld">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://[DOMENA]/#business","name":"AnnaBelle","url":"https://[DOMENA]/","description":"Unique handmade cotton cord bags, made to order in Bedford, Bedfordshire. You choose the colours and size – we create the bag. Ask about your bag today.","logo":"https://[DOMENA]/img/logo-annabelle.svg","image":"https://[DOMENA]/img/og-image.jpg","email":"annabellebags2026@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Bedford","addressRegion":"Bedfordshire","addressCountry":"GB"},"areaServed":[{"@type":"AdministrativeArea","name":"Bedfordshire"},{"@type":"Country","name":"United Kingdom"}],"sameAs":["https://www.instagram.com/annabellebags2026","https://www.facebook.com/share/1F8JV3mgeF/"]},{"@type":"WebSite","@id":"https://[DOMENA]/#website","url":"https://[DOMENA]/","name":"AnnaBelle","inLanguage":"en"},{"@type":"FAQPage","@id":"https://[DOMENA]/#faq","mainEntity":[{"@type":"Question","name":"Are all your products handmade?","acceptedAnswer":{"@type":"Answer","text":"Yes! Every AnnaBelle product is carefully handmade with love, passion and attention to detail."}},{"@type":"Question","name":"What materials do you use?","acceptedAnswer":{"@type":"Answer","text":"We use high-quality, durable polyester cord to create beautiful and practical handmade products."}},{"@type":"Question","name":"Can I order a custom-made basket or bag?","acceptedAnswer":{"@type":"Answer","text":"Yes! We may be able to create custom designs, colours and sizes to suit your preferences. Please contact us to discuss your ideas."}},{"@type":"Question","name":"How long does it take to make an order?","acceptedAnswer":{"@type":"Answer","text":"Production times depend on the design and availability. We will confirm the estimated delivery time when you place your order."}},{"@type":"Question","name":"Do you have products ready to buy?","acceptedAnswer":{"@type":"Answer","text":"Yes, selected designs may be available from our current collection. Please contact us for availability."}},{"@type":"Question","name":"Can I choose the colour of my product?","acceptedAnswer":{"@type":"Answer","text":"Absolutely! We offer a selection of colours, subject to material availability."}},{"@type":"Question","name":"Are handmade products identical?","acceptedAnswer":{"@type":"Answer","text":"No two handmade items are exactly the same. Small variations are part of their unique charm."}},{"@type":"Question","name":"How do I care for my handmade basket or bag?","acceptedAnswer":{"@type":"Answer","text":"We recommend gentle cleaning with a damp cloth and mild soap. Avoid harsh chemicals and excessive heat."}},{"@type":"Question","name":"Do you offer gift options?","acceptedAnswer":{"@type":"Answer","text":"Yes! Our handmade creations make lovely gifts for birthdays, special occasions and anyone who appreciates unique accessories."}},{"@type":"Question","name":"Do you deliver?","acceptedAnswer":{"@type":"Answer","text":"Please contact us for information about available delivery options and costs."}},{"@type":"Question","name":"How can I place an order?","acceptedAnswer":{"@type":"Answer","text":"You can contact us through our website or social media. We will be happy to help you choose your favourite design."}},{"@type":"Question","name":"Can I return or exchange an item?","acceptedAnswer":{"@type":"Answer","text":"Returns and exchanges are subject to our store policy and applicable consumer rights. Please contact us if you have any concerns about your order."}}]}]}</script>
 </head>
@@ -408,31 +457,35 @@ dialog::backdrop{background:rgba(46,16,39,.62)}
 
 <header class="site-head" id="hdr">
   <div class="wrap head-in">
-    <a class="brand" href="#top" aria-label="AnnaBelle – back to the top"><svg class="logo" viewBox="-232.5 -157.7 751 253.6" aria-hidden="true" focusable="false"><use href="#ab-logo"/></svg></a>
-    <nav class="nav" id="nav" aria-label="Main"><ul id="nav-list"><li><a href="#collection" data-nav="Collection">Collection</a></li><li><a href="#prices" data-nav="Prices">Prices</a></li><li><a href="#gallery" data-nav="Gallery">Gallery</a></li><li><a href="#how-it-works" data-nav="How it works">How it works</a></li><li><a href="#about" data-nav="About">About</a></li><li><a href="#news" data-nav="News">News</a></li><li><a href="#faq" data-nav="FAQ">FAQ</a></li></ul></nav>
-    <div class="langs" id="langs" hidden></div>
-    <a class="btn btn-primary btn-sm head-cta" href="#contact">Ask about a bag</a>
     <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span></button>
+    <nav class="nav" id="nav" aria-label="Main"><ul id="nav-list"><li><a href="#collection" data-nav="Collection">Collection</a></li><li><a href="#gallery" data-nav="Gallery">Gallery</a></li><li><a href="#prices" data-nav="Prices">Prices</a></li><li><a href="#about" data-nav="About">About</a></li><li><a href="#how-it-works" data-nav="How it works">How it works</a></li><li><a href="#news" data-nav="News">News</a></li><li><a href="#faq" data-nav="FAQ">FAQ</a></li></ul></nav>
+    <a class="brand" href="#top" aria-label="AnnaBelle – back to the top"><svg class="logo" viewBox="-232.5 -157.7 751 253.6" aria-hidden="true" focusable="false"><use href="#ab-logo"/></svg></a>
+    <div class="head-r">
+      <div class="langs" id="langs" hidden></div>
+      <a class="head-link" href="#contact">Contact</a>
+      <a class="btn btn-primary btn-sm head-cta" href="#contact">Ask about a bag</a>
+    </div>
   </div>
 </header>
 
 <main id="main">
-<section class="hero" id="top" data-sec="hero" aria-label="AnnaBelle"><div class="wrap"><div class="bento hero-bento"><div class="tile t-2x2 hero-main"><svg class="rosette" viewBox="-106 -106 212 212" aria-hidden="true" focusable="false"><use href="#ab-rosette"/></svg><p class="eyebrow" data-f="hero.eyebrow">Handmade in Bedford, Bedfordshire</p><h1 data-f="hero.title">Handmade cotton cord bags, made in <em>Bedford</em></h1><p class="lead" data-f="hero.intro">Every AnnaBelle bag is individually handmade from cotton cord with passion, care and attention to detail. You choose the colours – we create a bag that is truly yours.</p><div class="btns"><a class="btn btn-primary" href="#contact">Ask about a bag</a><a class="btn btn-ghost" href="#collection">See the collection</a></div><ul class="perks" data-f="hero.perks"><li>Individually handmade</li><li>Your choice of colours</li><li>Made to order or from the current collection</li></ul></div><div class="tile t-1x2 hero-photo" data-f="hero.slides"><div class="slide on"><img src="img/two-tone-cord-bag-in-hand.webp" alt="Handmade two-tone cord bag with round handles carried in the hand" width="900" height="1100" fetchpriority="high" decoding="async"></div><div class="slide"><img src="img/red-drawstring-cord-bag.webp" alt="Red handmade cord bag with a drawstring lining hanging by its strap" width="900" height="1100" loading="lazy" decoding="async"></div><div class="slide-dots" role="group" aria-label="Photo"><button type="button" class="slide-dot on" data-slide="0" aria-label="Photo 1"></button><button type="button" class="slide-dot" data-slide="1" aria-label="Photo 2"></button></div></div><a class="tile t-1x1 tone-plum hero-avail" href="#contact" data-topic="t4" data-f="hero.availTitle"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><h2 class="tile-h">Ask about availability</h2><p data-f="hero.availText">Bags are handmade to order or available from the current collection. Ask us what is ready now and when yours can be made.</p><span class="tile-go"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></a><div class="tile t-1x1 tone-gold hero-values" data-f="hero.values"><p>Quality &amp; care<span aria-hidden="true"> · </span><wbr>Honesty<span aria-hidden="true"> · </span><wbr>Personal approach<span aria-hidden="true"> · </span><wbr>Passion<span aria-hidden="true"> · </span><wbr>Creativity<span aria-hidden="true"> · </span><wbr>Joy</p></div></div></div></section>
-<section class="sec" id="offers" data-sec="promos" aria-labelledby="h-offers" hidden></section>
-<section class="sec" id="collection" data-sec="collection" aria-labelledby="h-collection"><div class="wrap"><header class="sec-head rv"><h2 id="h-collection" data-f="sections.collection.title">Handmade cord bags – the collection</h2><p class="sec-intro" data-f="sections.collection.intro">Choose a bag from the current collection or have one made just for you. Each piece is crafted by hand from cotton cord – practical, long-lasting and made to be loved.</p></header><div class="bento"><article class="tile t-2x2 tone-white is-feat offer rv" data-item="o1" style="--i:0"><div class="tile-img" data-f="img"><img src="img/red-cream-cord-shoulder-bag.webp" alt="Red and cream handmade cord shoulder bag hanging in a studio" width="900" height="700" loading="lazy" decoding="async"></div><div class="tile-body"><h3 data-f="title">Bags from the current collection</h3><p class="clamp" data-f="desc">Selected designs are ready to buy from our current collection. Contact us to check what is available right now.</p><dl class="meta"><div data-f="time"><dt><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span class="vh">Timing</span></dt><dd>Ready to send in 2–3 working days</dd></div><div class="meta-price" data-f="price"><dt class="vh">Price</dt><dd>from £28</dd></div></dl><div class="btns"><a class="btn btn-primary btn-sm" href="#contact" data-topic="t3" data-offer="o1" data-f="btn">Ask about this</a><button type="button" class="btn btn-ghost btn-sm" data-pop="offer:o1">Details<span class="vh"> – Bags from the current collection</span></button></div></div></article><article class="tile t-1x1 tone-white offer rv" data-item="o2" style="--i:1"><div class="tile-img" data-f="img"><img src="img/pink-cord-market-bag.webp" alt="Dusty pink handmade cord market bag with long handles" width="900" height="700" loading="lazy" decoding="async"></div><div class="tile-body"><h3 data-f="title">Bags made to order</h3><p class="clamp" data-f="desc">Handmade for you from cotton cord. As each bag is carefully crafted by hand, please allow some time for production before your order is dispatched.</p><dl class="meta"><div data-f="time"><dt><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span class="vh">Timing</span></dt><dd>Made in 7–10 working days</dd></div><div class="meta-price" data-f="price"><dt class="vh">Price</dt><dd>from £38</dd></div></dl><div class="btns"><a class="btn btn-primary btn-sm" href="#contact" data-topic="t2" data-offer="o2" data-f="btn">Order this bag</a><button type="button" class="btn btn-ghost btn-sm" data-pop="offer:o2">Details<span class="vh"> – Bags made to order</span></button></div></div></article><article class="tile t-1x1 tone-blush offer rv" data-item="o3" style="--i:2"><div class="tile-img" data-f="img"><img src="img/cotton-cord-colours.webp" alt="Spools of cotton cord in cream, grey, olive and terracotta" width="900" height="700" loading="lazy" decoding="async"></div><div class="tile-body"><h3 data-f="title">Custom colours, sizes &amp; personalised designs</h3><p class="clamp" data-f="desc">Custom colours, sizes and personalised designs may be available upon request, depending on materials and availability. Tell us your idea – we are always happy to help.</p><dl class="meta"><div data-f="time"><dt><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span class="vh">Timing</span></dt><dd>Confirmed individually</dd></div><div class="meta-price" data-f="price"><dt class="vh">Price</dt><dd>Ask for a quote</dd></div></dl><div class="btns"><a class="btn btn-primary btn-sm" href="#contact" data-topic="t3" data-offer="o3" data-f="btn">Ask about this</a><button type="button" class="btn btn-ghost btn-sm" data-pop="offer:o3">Details<span class="vh"> – Custom colours, sizes &amp; personalised designs</span></button></div></div></article><article class="tile t-2x1 tone-gold offer rv" data-item="o4" style="--i:3"><div class="tile-img" data-f="img"><img src="img/handmade-gift-wrapped.webp" alt="Gifts wrapped in brown paper and tied with twine" width="900" height="700" loading="lazy" decoding="async"></div><div class="tile-body"><h3 data-f="title">Handmade gifts</h3><p class="clamp" data-f="desc">Our handmade creations make lovely gifts for birthdays, special occasions and anyone who appreciates unique accessories.</p><dl class="meta"><div data-f="time"><dt><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span class="vh">Timing</span></dt><dd>Ask about timing for your date</dd></div><div class="meta-price" data-f="price"><dt class="vh">Price</dt><dd>from £28</dd></div></dl><div class="btns"><a class="btn btn-primary btn-sm" href="#contact" data-topic="t3" data-offer="o4" data-f="btn">Ask about this</a><button type="button" class="btn btn-ghost btn-sm" data-pop="offer:o4">Details<span class="vh"> – Handmade gifts</span></button></div></div></article></div></div></section>
-<section class="sec" id="prices" data-sec="prices" aria-labelledby="h-prices"><div class="wrap"><header class="sec-head rv"><h2 id="h-prices" data-f="sections.prices.title">Handmade bag prices</h2><p class="sec-intro" data-f="sections.prices.intro">Clear prices for bags from the collection and made to order.</p></header><div class="bento"><div class="tile t-2x1 tone-white price-tile rv" style="--i:0"><table class="price-table"><caption>Bags from the collection</caption><tbody><tr data-item="c1"><th scope="row"><span data-f="name">Daisy Mini Bag</span><small data-f="note">small everyday bag</small></th><td class="pt-time" data-f="time">2–3 days</td><td class="pt-price" data-f="price">£28</td></tr><tr data-item="c2"><th scope="row"><span data-f="name">Mila Crossbody Bag</span><small data-f="note">with a long strap</small></th><td class="pt-time" data-f="time">2–3 days</td><td class="pt-price" data-f="price">£36</td></tr><tr data-item="c3"><th scope="row"><span data-f="name">Bella Tote Bag</span><small data-f="note">roomy, with round handles</small></th><td class="pt-time" data-f="time">2–3 days</td><td class="pt-price" data-f="price">£45</td></tr></tbody></table></div><div class="tile t-2x1 tone-white price-tile rv" style="--i:1"><table class="price-table"><caption>Made to order</caption><tbody><tr data-item="c4"><th scope="row"><span data-f="name">Market Bag</span><small data-f="note">your choice of colours</small></th><td class="pt-time" data-f="time">7–10 days</td><td class="pt-price" data-f="price">from £38</td></tr><tr data-item="c5"><th scope="row"><span data-f="name">Luna Shoulder Bag</span><small data-f="note">your choice of colours and size</small></th><td class="pt-time" data-f="time">7–10 days</td><td class="pt-price" data-f="price">from £42</td></tr><tr data-item="c6"><th scope="row"><span data-f="name">Personalised design</span><small data-f="note">made from your idea</small></th><td class="pt-time" data-f="time">by arrangement</td><td class="pt-price" data-f="price">ask for a quote</td></tr></tbody></table></div></div><p class="price-note rv" data-f="priceNote">For custom colours, sizes and personalised designs, please ask for a quote. Delivery options and costs are confirmed when you contact us. <a href="#contact" data-topic="t3">Ask about a bag</a></p></div></section>
-<section class="sec" id="gallery" data-sec="gallery" aria-labelledby="h-gallery"><div class="wrap"><header class="sec-head rv"><h2 id="h-gallery" data-f="sections.gallery.title">Selected work</h2><p class="sec-intro" data-f="sections.gallery.intro">A few of the bags we have made by hand in Bedfordshire. See more of our work on Instagram.</p><div class="filters" role="group" aria-label="Gallery"><button type="button" class="chip on" data-filter="" aria-pressed="true">All</button><button type="button" class="chip" data-filter="Bags" aria-pressed="false">Bags</button><button type="button" class="chip" data-filter="Details" aria-pressed="false">Details</button><button type="button" class="chip" data-filter="Colours" aria-pressed="false">Colours</button></div></header><div class="bento gal-grid"><figure class="tile t-2x2 tone-white is-feat gal rv" data-item="g1" data-cat="Bags" style="--i:0"><button type="button" class="gal-btn" data-lb="g1" aria-label="Cream cord tote bag with a fringe" data-f="img"><img src="img/cream-fringe-tote-bag.webp" alt="Cream cord tote bag with a fringe" width="900" height="900" loading="lazy" decoding="async"></button><figcaption data-f="caption">Cream cord tote bag with a fringe</figcaption></figure><figure class="tile t-1x1 tone-white gal rv" data-item="g2" data-cat="Details" style="--i:1"><button type="button" class="gal-btn" data-lb="g2" aria-label="Close-up of the knotted cord pattern" data-f="img"><img src="img/cord-weave-detail.webp" alt="Close-up of the knotted cord pattern" width="900" height="900" loading="lazy" decoding="async"></button><figcaption data-f="caption">Close-up of the knotted cord pattern</figcaption></figure><figure class="tile t-1x1 tone-white gal rv" data-item="g3" data-cat="Bags" style="--i:2"><button type="button" class="gal-btn" data-lb="g3" aria-label="Mauve cord bag with long straps" data-f="img"><img src="img/mauve-cord-bag.webp" alt="Mauve cord bag with long straps" width="900" height="900" loading="lazy" decoding="async"></button><figcaption data-f="caption">Mauve cord bag with long straps</figcaption></figure><figure class="tile t-1x2 tone-white gal rv" data-item="g4" data-cat="Bags" style="--i:3"><button type="button" class="gal-btn" data-lb="g4" aria-label="Red cord bag with a drawstring lining" data-f="img"><img src="img/red-drawstring-cord-bag.webp" alt="Red cord bag with a drawstring lining" width="900" height="900" loading="lazy" decoding="async"></button><figcaption data-f="caption">Red cord bag with a drawstring lining</figcaption></figure><figure class="tile t-2x1 tone-white gal rv" data-item="g5" data-cat="Colours" style="--i:4"><button type="button" class="gal-btn" data-lb="g5" aria-label="Cotton cord in natural shades" data-f="img"><img src="img/cotton-cord-spools.webp" alt="Cotton cord in natural shades" width="900" height="900" loading="lazy" decoding="async"></button><figcaption data-f="caption">Cotton cord in natural shades</figcaption></figure><figure class="tile t-1x1 tone-white gal rv" data-item="g6" data-cat="Bags" style="--i:5"><button type="button" class="gal-btn" data-lb="g6" aria-label="Cream cord bag ready for a day out" data-f="img"><img src="img/cream-cord-bag-on-door.webp" alt="Cream cord bag ready for a day out" width="900" height="900" loading="lazy" decoding="async"></button><figcaption data-f="caption">Cream cord bag ready for a day out</figcaption></figure><a class="tile t-1x1 tone-plum gal-ig rv" href="https://www.instagram.com/annabellebags2026" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg><span class="tile-h">See more on Instagram</span><span class="tile-go"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></a></div></div></section>
-<section class="sec sec--bg sec-dark dark" id="how-it-works" data-sec="how" aria-labelledby="h-how-it-works"><div class="sec-bg" aria-hidden="true"></div><div class="wrap"><header class="sec-head rv"><h2 id="h-how-it-works" data-f="sections.how.title">How to order your handmade bag</h2><p class="sec-intro" data-f="sections.how.intro">From your idea to a finished bag – simple, personal and without any rush.</p></header><ol class="bento steps"><li class="tile t-1x1 tone-plum step rv" data-item="t1" style="--i:0"><span class="step-n" aria-hidden="true">1</span><h3 data-f="title">Choose your bag</h3><p data-f="desc">Pick a design from the current collection or tell us about your own idea.</p></li><li class="tile t-1x1 tone-plum step rv" data-item="t2" style="--i:1"><span class="step-n" aria-hidden="true">2</span><h3 data-f="title">Tell us your colours</h3><p data-f="desc">Choose from our selection of colours and let us know the size you need. Custom options depend on materials and availability.</p></li><li class="tile t-1x1 tone-plum step rv" data-item="t3" style="--i:2"><span class="step-n" aria-hidden="true">3</span><h3 data-f="title">We confirm the details</h3><p data-f="desc">We reply with availability, the price and the estimated delivery time for your order.</p></li><li class="tile t-1x1 tone-gold step rv" data-item="t4" style="--i:3"><span class="step-n" aria-hidden="true">4</span><h3 data-f="title">Your bag is handmade</h3><p data-f="desc">Each bag is carefully crafted by hand, so please allow some time for production before dispatch.</p></li></ol><h3 class="notes-h rv">Good to know before you order</h3><div class="notes"><div class="note rv" data-item="n1" style="--i:0"><h4 data-f="title">Handmade to order</h4><p data-f="text">All AnnaBelle products are handmade to order or available from our current collection.</p></div><div class="note rv" data-item="n2" style="--i:1"><h4 data-f="title">Every piece is unique</h4><p data-f="text">Slight variations in appearance may occur. We believe these small details are part of the charm and beauty of handmade craftsmanship.</p></div><div class="note rv" data-item="n3" style="--i:2"><h4 data-f="title">Questions are welcome</h4><p data-f="text">Please feel free to contact us with any questions or special requests. We are always happy to help!</p></div></div></div></section>
-<section class="sec" id="about" data-sec="about" aria-labelledby="h-about"><div class="wrap"><div class="bento about-bento"><div class="tile t-2x2 tone-white about-main rv"><svg class="rosette" viewBox="-106 -106 212 212" aria-hidden="true" focusable="false"><use href="#ab-rosette"/></svg><h2 id="h-about" data-f="sections.about.title">About AnnaBelle</h2><div class="txt" data-f="about.text"><p>AnnaBelle is a handmade brand specialising in beautifully crafted bags made from cotton cord. Every piece is individually handmade with passion, care and attention to detail. Our designs are for those who appreciate creativity and craftsmanship.</p><p>Unlike mass-produced items, our creations are unique, individually crafted and made with pride. We believe that handmade items should be more than just beautiful – they should be <em>special, practical and made to be loved</em>.</p></div></div><div class="tile t-1x2 about-img rv" data-f="about.img1" style="--i:1"><img src="img/hands-making-cord-work.webp" alt="Hands making a handmade piece from colourful yarn" width="800" height="1100" loading="lazy" decoding="async"></div><div class="tile t-1x1 tone-gold feat rv" data-item="f1" style="--i:2"><h3 data-f="title">Quality materials</h3><p data-f="desc">Each bag is made of cotton cord, ensuring a stylish finish and long-lasting use.</p></div><div class="tile t-1x1 tone-blush feat rv" data-item="f2" style="--i:3"><h3 data-f="title">A personal approach</h3><p data-f="desc">Creativity and commitment to products that reflect your individuality.</p></div><div class="tile t-2x1 about-img rv" data-f="about.img2" style="--i:2"><img src="img/hands-knotting-cotton-cord.webp" alt="Hands knotting blue cotton cord on a table" width="1000" height="600" loading="lazy" decoding="async"></div><div class="tile t-2x1 tone-gold feat rv" data-item="f3" style="--i:4"><h3 data-f="title">Beautiful and practical</h3><p data-f="desc">Beautiful designs with practical functionality for every day.</p></div></div></div></section>
+<section class="hero" id="top" data-sec="hero" aria-label="AnnaBelle"><div class="wrap hero-in"><div class="hero-copy"><p class="eyebrow" data-f="hero.eyebrow">Handmade in Bedford, Bedfordshire</p><h1 data-f="hero.title">Handmade cotton cord bags, made in <em>Bedford</em></h1><p class="lead" data-f="hero.intro">Every AnnaBelle bag is individually handmade from cotton cord with passion, care and attention to detail. You choose the colours – we create a bag that is truly yours.</p><div class="btns"><a class="btn btn-primary" href="#collection">See the collection<svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a><a class="btn btn-ghost" href="#contact"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 5.5h16v10H9l-5 4z"/></svg>Ask about a bag</a></div><ul class="perks" data-f="hero.perks"><li data-item="p1"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span data-f="text">Individually handmade</span></li><li data-item="p2"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg><span data-f="text">Your choice of colours</span></li><li data-item="p3"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span data-f="text">Made to order or from the current collection</span></li></ul></div><div class="hero-pics n3" data-f="hero.slides"><figure class="hpic hpic0" data-item="s1" data-f="img"><img src="img/two-tone-cord-bag-in-hand.webp" alt="Handmade two-tone cord bag with round handles carried in the hand" width="900" height="1100" fetchpriority="high" decoding="async"></figure><figure class="hpic hpic1" data-item="s2" data-f="img"><img src="img/red-drawstring-cord-bag.webp" alt="Red handmade cord bag with a drawstring lining hanging by its strap" width="600" height="600" loading="lazy" decoding="async"></figure><figure class="hpic hpic2" data-item="s3" data-f="img"><img src="img/cream-fringe-tote-bag.webp" alt="Cream handmade cord tote bag with a fringe" width="600" height="600" loading="lazy" decoding="async"></figure></div></div><ul class="trust n4"><li data-item="f1"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.5 5 6v5.5c0 4.3 3 7.6 7 9 4-1.4 7-4.7 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg><div><h2 class="trust-h" data-f="title">Quality materials</h2><p data-f="desc">Each bag is made of cotton cord, ensuring a stylish finish and long-lasting use.</p></div></li><li data-item="f2"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><div><h2 class="trust-h" data-f="title">A personal approach</h2><p data-f="desc">Creativity and commitment to products that reflect your individuality.</p></div></li><li data-item="f3"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg><div><h2 class="trust-h" data-f="title">Beautiful and practical</h2><p data-f="desc">Beautiful designs with practical functionality for every day.</p></div></li><li><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><div><h2 class="trust-h" data-f="hero.availTitle"><a href="#contact" data-topic="t4">Ask about availability</a></h2><p data-f="hero.availText">Bags are handmade to order or available from the current collection. Ask us what is ready now and when yours can be made.</p></div></li></ul></section>
+<section class="sec" id="collection" data-sec="collection" aria-labelledby="h-collection"><div class="wrap"><header class="sec-head rv"><div class="sec-head-t"><p class="eyebrow">The collection</p><h2 id="h-collection" data-f="sections.collection.title">Handmade cord bags – the collection</h2><p class="sec-intro" data-f="sections.collection.intro">Choose a bag from the current collection or have one made just for you. Each piece is crafted by hand from cotton cord – practical, long-lasting and made to be loved.</p></div><a class="more" href="#prices">All prices<svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></header><div class="prods"><article class="prod rv" data-item="o1" style="--i:0"><button type="button" class="prod-img" data-pop="offer:o1" data-f="img"><span class="vh">Details – Bags from the current collection</span><img src="img/red-cream-cord-shoulder-bag.webp" alt="Red and cream handmade cord shoulder bag hanging in a studio" width="800" height="800" loading="lazy" decoding="async"></button><p class="prod-meta" data-f="time">Ready to send in 2–3 working days</p><h3 data-f="title">Bags from the current collection</h3><p class="prod-price" data-f="price"><span class="vh">Price: </span>from £28</p><p class="prod-desc clamp" data-f="desc">Selected designs are ready to buy from our current collection. Contact us to check what is available right now.</p><div class="prod-acts"><a class="more" href="#contact" data-topic="t3" data-offer="o1" data-f="btn">Ask about this<svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a><button type="button" class="linkbtn" data-pop="offer:o1">Details<span class="vh"> – Bags from the current collection</span></button></div></article><article class="prod rv" data-item="o2" style="--i:1"><button type="button" class="prod-img" data-pop="offer:o2" data-f="img"><span class="vh">Details – Bags made to order</span><img src="img/pink-cord-market-bag.webp" alt="Dusty pink handmade cord market bag with long handles" width="800" height="800" loading="lazy" decoding="async"></button><p class="prod-meta" data-f="time">Made in 7–10 working days</p><h3 data-f="title">Bags made to order</h3><p class="prod-price" data-f="price"><span class="vh">Price: </span>from £38</p><p class="prod-desc clamp" data-f="desc">Handmade for you from cotton cord. As each bag is carefully crafted by hand, please allow some time for production before your order is dispatched.</p><div class="prod-acts"><a class="more" href="#contact" data-topic="t2" data-offer="o2" data-f="btn">Order this bag<svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a><button type="button" class="linkbtn" data-pop="offer:o2">Details<span class="vh"> – Bags made to order</span></button></div></article><article class="prod rv" data-item="o3" style="--i:2"><button type="button" class="prod-img" data-pop="offer:o3" data-f="img"><span class="vh">Details – Custom colours, sizes &amp; personalised designs</span><img src="img/cotton-cord-colours.webp" alt="Spools of cotton cord in cream, grey, olive and terracotta" width="800" height="800" loading="lazy" decoding="async"></button><p class="prod-meta" data-f="time">Confirmed individually</p><h3 data-f="title">Custom colours, sizes &amp; personalised designs</h3><p class="prod-price" data-f="price"><span class="vh">Price: </span>Ask for a quote</p><p class="prod-desc clamp" data-f="desc">Custom colours, sizes and personalised designs may be available upon request, depending on materials and availability. Tell us your idea – we are always happy to help.</p><div class="prod-acts"><a class="more" href="#contact" data-topic="t3" data-offer="o3" data-f="btn">Ask about this<svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a><button type="button" class="linkbtn" data-pop="offer:o3">Details<span class="vh"> – Custom colours, sizes &amp; personalised designs</span></button></div></article><article class="prod rv" data-item="o4" style="--i:3"><button type="button" class="prod-img" data-pop="offer:o4" data-f="img"><span class="vh">Details – Handmade gifts</span><img src="img/handmade-gift-wrapped.webp" alt="Gifts wrapped in brown paper and tied with twine" width="800" height="800" loading="lazy" decoding="async"></button><p class="prod-meta" data-f="time">Ask about timing for your date</p><h3 data-f="title">Handmade gifts</h3><p class="prod-price" data-f="price"><span class="vh">Price: </span>from £28</p><p class="prod-desc clamp" data-f="desc">Our handmade creations make lovely gifts for birthdays, special occasions and anyone who appreciates unique accessories.</p><div class="prod-acts"><a class="more" href="#contact" data-topic="t3" data-offer="o4" data-f="btn">Ask about this<svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a><button type="button" class="linkbtn" data-pop="offer:o4">Details<span class="vh"> – Handmade gifts</span></button></div></article></div></div></section>
+<section class="sec sec-beige" id="contact" data-sec="contact" aria-labelledby="h-contact"><div class="wrap"><div class="help-top"><header class="sec-head rv"><div class="sec-head-t"><p class="eyebrow">Speak to us</p><h2 id="h-contact" data-f="sections.contact.title">Ask about your bag</h2><p class="sec-intro" data-f="sections.contact.intro">Tell us which bag you like or describe your idea. We will reply with availability, price and an estimated delivery time.</p></div></header><ul class="help-list" data-f="notes"><li class="rv" data-item="n1" style="--i:0"><span class="help-ic"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg></span><div><h3 data-f="title">Handmade to order</h3><p data-f="text">All AnnaBelle products are handmade to order or available from our current collection.</p></div></li><li class="rv" data-item="n2" style="--i:1"><span class="help-ic"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><div><h3 data-f="title">Every piece is unique</h3><p data-f="text">Slight variations in appearance may occur. We believe these small details are part of the charm and beauty of handmade craftsmanship.</p></div></li><li class="rv" data-item="n3" style="--i:2"><span class="help-ic"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 5.5h16v10H9l-5 4z"/></svg></span><div><h3 data-f="title">Questions are welcome</h3><p data-f="text">Please feel free to contact us with any questions or special requests. We are always happy to help!</p></div></li></ul></div><div class="help-card rv"><form class="cform" id="cform" novalidate><fieldset class="chips"><legend class="eyebrow">What is it about?</legend><label class="chip"><input type="radio" name="topic" value="t1" checked><span>A question</span></label><label class="chip"><input type="radio" name="topic" value="t2"><span>Order from the collection</span></label><label class="chip"><input type="radio" name="topic" value="t3"><span>Custom order / quote</span></label><label class="chip"><input type="radio" name="topic" value="t4"><span>Ask about a date</span></label></fieldset><div class="fgrid"><p class="fld fld-full"><label for="cf-item">Which bag? <span class="opt">(optional)</span></label><select id="cf-item" name="item"><option value="">– not sure yet –</option><option value="o1">Bags from the current collection</option><option value="o2">Bags made to order</option><option value="o3">Custom colours, sizes &amp; personalised designs</option><option value="o4">Handmade gifts</option></select></p><p class="fld fld-full"><label for="cf-msg">Your message</label><textarea id="cf-msg" name="message" rows="5" required maxlength="3000"></textarea></p><p class="fld"><label for="cf-name">Your name</label><input id="cf-name" name="name" type="text" autocomplete="given-name" required maxlength="100"></p><p class="fld"><label for="cf-date">Preferred date <span class="opt">(optional)</span></label><input id="cf-date" name="date" type="date"></p><p class="fld"><label for="cf-email">E-mail</label><input id="cf-email" name="email" type="email" autocomplete="email" maxlength="160" aria-describedby="cf-hint"></p><p class="fld"><label for="cf-phone">Phone <span class="opt">(optional)</span></label><input id="cf-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" aria-describedby="cf-hint"></p><p class="hp" aria-hidden="true"><label for="cf-web">Leave this field empty</label><input id="cf-web" name="website" type="text" tabindex="-1" autocomplete="off"></p></div><p class="fhint" id="cf-hint">Enter your e-mail or phone number so we can reply.</p><div id="cf-turnstile"></div><p class="fstatus" id="cf-status" role="status" aria-live="polite"></p><button class="btn btn-primary btn-wide" type="submit"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6.5h18v11H3z"/><path d="m3.5 7 8.5 6.5L20.5 7"/></svg>Send enquiry</button><p class="clause" data-f="legal.clause"><strong>Your data.</strong> The data controller is AnnaBelle – Izabela Wlodyga, Bedford, Bedfordshire, United Kingdom. We use the details you send in this form only to reply to your enquiry and to handle your order (UK GDPR Art. 6(1)(b) – steps taken before entering into a contract, and Art. 6(1)(f) – our legitimate interest in answering messages). We keep them until the correspondence ends, for no longer than 12 months. They are processed for us by our website host and e-mail provider. You have the right to access, correct, erase, restrict and move your data, to object, and to complain to the Information Commissioner’s Office (ico.org.uk). <a href="#privacy" data-pop="privacy">Privacy policy</a>.</p></form><aside class="help-side"><p class="eyebrow">Other ways to reach us</p><ul class="ways"><li><a href="mailto:annabellebags2026@gmail.com" data-f="company.email"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6.5h18v11H3z"/><path d="m3.5 7 8.5 6.5L20.5 7"/></svg><span><b>E-mail us</b><small>annabellebags2026@gmail.com</small></span></a></li><li><a href="https://www.instagram.com/annabellebags2026" target="_blank" rel="noopener" data-f="company.instagram"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg><span><b>Message us on Instagram</b><small>Instagram</small></span></a></li><li><a href="https://www.facebook.com/share/1F8JV3mgeF/" target="_blank" rel="noopener" data-f="company.facebook"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 8.5V7c0-1 .5-1.5 1.6-1.5H17V3h-2.3C12.4 3 11 4.4 11 6.8v1.7H9V11h2v10h3V11h2.4l.4-2.5H14z"/></svg><span><b>Find us on Facebook</b><small>Facebook</small></span></a></li></ul><div class="area" data-f="company.city"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.800 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><div><h3>Where we work</h3><p>Handmade in Bedford, Bedfordshire. Orders from across the UK are welcome – ask about delivery.</p><!-- [LINK DO UZUPEŁNIENIA] Profil Firmy w Google: panel → Dane kontaktowe --></div></div></aside></div></div></section>
+<section class="sec" id="gallery" data-sec="gallery" aria-labelledby="h-gallery"><div class="wrap"><header class="sec-head rv"><div class="sec-head-t"><p class="eyebrow">Selected work</p><h2 id="h-gallery" data-f="sections.gallery.title">Selected work</h2><p class="sec-intro" data-f="sections.gallery.intro">A few of the bags we have made by hand in Bedfordshire. See more of our work on Instagram.</p></div><a class="more" href="https://www.instagram.com/annabellebags2026" target="_blank" rel="noopener">See more on Instagram<svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></header><div class="gal-row"><figure class="gal rv" data-item="g1" data-cat="Bags" style="--i:0"><button type="button" class="gal-btn" data-lb="g1" aria-label="Cream cord tote bag with a fringe" data-f="img"><img src="img/cream-fringe-tote-bag.webp" alt="Cream cord tote bag with a fringe" width="600" height="750" loading="lazy" decoding="async"></button><figcaption><span class="gal-cap" data-f="caption">Cream cord tote bag with a fringe</span><small data-f="cat">Bags</small></figcaption></figure><figure class="gal rv" data-item="g2" data-cat="Details" style="--i:1"><button type="button" class="gal-btn" data-lb="g2" aria-label="Close-up of the knotted cord pattern" data-f="img"><img src="img/cord-weave-detail.webp" alt="Close-up of the knotted cord pattern" width="600" height="750" loading="lazy" decoding="async"></button><figcaption><span class="gal-cap" data-f="caption">Close-up of the knotted cord pattern</span><small data-f="cat">Details</small></figcaption></figure><figure class="gal rv" data-item="g3" data-cat="Bags" style="--i:2"><button type="button" class="gal-btn" data-lb="g3" aria-label="Mauve cord bag with long straps" data-f="img"><img src="img/mauve-cord-bag.webp" alt="Mauve cord bag with long straps" width="600" height="750" loading="lazy" decoding="async"></button><figcaption><span class="gal-cap" data-f="caption">Mauve cord bag with long straps</span><small data-f="cat">Bags</small></figcaption></figure><figure class="gal rv" data-item="g4" data-cat="Bags" style="--i:3"><button type="button" class="gal-btn" data-lb="g4" aria-label="Red cord bag with a drawstring lining" data-f="img"><img src="img/red-drawstring-cord-bag.webp" alt="Red cord bag with a drawstring lining" width="600" height="750" loading="lazy" decoding="async"></button><figcaption><span class="gal-cap" data-f="caption">Red cord bag with a drawstring lining</span><small data-f="cat">Bags</small></figcaption></figure><figure class="gal rv" data-item="g5" data-cat="Colours" style="--i:4"><button type="button" class="gal-btn" data-lb="g5" aria-label="Cotton cord in natural shades" data-f="img"><img src="img/cotton-cord-spools.webp" alt="Cotton cord in natural shades" width="600" height="750" loading="lazy" decoding="async"></button><figcaption><span class="gal-cap" data-f="caption">Cotton cord in natural shades</span><small data-f="cat">Colours</small></figcaption></figure><figure class="gal rv" data-item="g6" data-cat="Bags" style="--i:5"><button type="button" class="gal-btn" data-lb="g6" aria-label="Cream cord bag ready for a day out" data-f="img"><img src="img/cream-cord-bag-on-door.webp" alt="Cream cord bag ready for a day out" width="600" height="750" loading="lazy" decoding="async"></button><figcaption><span class="gal-cap" data-f="caption">Cream cord bag ready for a day out</span><small data-f="cat">Bags</small></figcaption></figure></div></div></section>
+<section class="sec" id="prices" data-sec="prices" aria-labelledby="h-prices"><div class="wrap"><div class="set dark rv"><div class="set-main"><p class="eyebrow">Prices</p><h2 id="h-prices" data-f="sections.prices.title">Handmade bag prices</h2><p class="sec-intro" data-f="sections.prices.intro">Clear prices for bags from the collection and made to order.</p><table class="price-table"><caption>Bags from the collection</caption><tbody><tr data-item="c1"><th scope="row"><span data-f="name">Daisy Mini Bag</span><small data-f="note">small everyday bag</small></th><td class="pt-time" data-f="time">2–3 days</td><td class="pt-price" data-f="price">£28</td></tr><tr data-item="c2"><th scope="row"><span data-f="name">Mila Crossbody Bag</span><small data-f="note">with a long strap</small></th><td class="pt-time" data-f="time">2–3 days</td><td class="pt-price" data-f="price">£36</td></tr><tr data-item="c3"><th scope="row"><span data-f="name">Bella Tote Bag</span><small data-f="note">roomy, with round handles</small></th><td class="pt-time" data-f="time">2–3 days</td><td class="pt-price" data-f="price">£45</td></tr></tbody></table><table class="price-table"><caption>Made to order</caption><tbody><tr data-item="c4"><th scope="row"><span data-f="name">Market Bag</span><small data-f="note">your choice of colours</small></th><td class="pt-time" data-f="time">7–10 days</td><td class="pt-price" data-f="price">from £38</td></tr><tr data-item="c5"><th scope="row"><span data-f="name">Luna Shoulder Bag</span><small data-f="note">your choice of colours and size</small></th><td class="pt-time" data-f="time">7–10 days</td><td class="pt-price" data-f="price">from £42</td></tr><tr data-item="c6"><th scope="row"><span data-f="name">Personalised design</span><small data-f="note">made from your idea</small></th><td class="pt-time" data-f="time">by arrangement</td><td class="pt-price" data-f="price">ask for a quote</td></tr></tbody></table></div><aside class="set-side"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="8" width="17" height="4" rx="1"/><path d="M5 12v8.5h14V12M12 8v12.5M12 8S10.5 3.5 8 4.5 9 8 12 8zm0 0s1.5-4.5 4-3.5S15 8 12 8z"/></svg><h3>Something special in mind?</h3><p data-f="priceNote">For custom colours, sizes and personalised designs, please ask for a quote. Delivery options and costs are confirmed when you contact us.</p><div class="btns"><a class="btn btn-light" href="#contact" data-topic="t3">Ask about a bag</a><a class="btn btn-ghost-light" href="#collection">See the collection</a></div></aside></div></div></section>
+<section class="sec sec-beige" id="offers" data-sec="promos" aria-labelledby="h-offers" hidden></section>
+<section class="sec" id="about" data-sec="about" aria-labelledby="h-about"><div class="wrap"><header class="sec-head rv"><div class="sec-head-t"><p class="eyebrow">Our story</p><h2 id="h-about" data-f="sections.about.title">About AnnaBelle</h2></div></header><div class="about-grid"><div class="card about-txt rv"><div class="txt" data-f="about.text"><p>AnnaBelle is a handmade brand specialising in beautifully crafted bags made from cotton cord. Every piece is individually handmade with passion, care and attention to detail. Our designs are for those who appreciate creativity and craftsmanship.</p><p>Unlike mass-produced items, our creations are unique, individually crafted and made with pride. We believe that handmade items should be more than just beautiful – they should be <em>special, practical and made to be loved</em>.</p></div><a class="more" href="#contact">Ask about a bag<svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></div><div class="about-pics rv" style="--i:1"><figure data-f="about.img1"><img src="img/hands-making-cord-work.webp" alt="Hands making a handmade piece from colourful yarn" width="700" height="900" loading="lazy" decoding="async"></figure><figure data-f="about.img2"><img src="img/hands-knotting-cotton-cord.webp" alt="Hands knotting blue cotton cord on a table" width="700" height="900" loading="lazy" decoding="async"></figure></div></div><h3 class="vals-h rv">What we stand for</h3><ul class="vals" data-f="hero.values"><li class="rv" style="--i:0"><svg class="vals-r" viewBox="-106 -106 212 212" aria-hidden="true" focusable="false"><use href="#ab-rosette"/></svg><span>Quality &amp; care</span></li><li class="rv" style="--i:1"><svg class="vals-r" viewBox="-106 -106 212 212" aria-hidden="true" focusable="false"><use href="#ab-rosette"/></svg><span>Honesty</span></li><li class="rv" style="--i:2"><svg class="vals-r" viewBox="-106 -106 212 212" aria-hidden="true" focusable="false"><use href="#ab-rosette"/></svg><span>Personal approach</span></li><li class="rv" style="--i:3"><svg class="vals-r" viewBox="-106 -106 212 212" aria-hidden="true" focusable="false"><use href="#ab-rosette"/></svg><span>Passion</span></li><li class="rv" style="--i:4"><svg class="vals-r" viewBox="-106 -106 212 212" aria-hidden="true" focusable="false"><use href="#ab-rosette"/></svg><span>Creativity</span></li><li class="rv" style="--i:5"><svg class="vals-r" viewBox="-106 -106 212 212" aria-hidden="true" focusable="false"><use href="#ab-rosette"/></svg><span>Joy</span></li></ul></div></section>
+<section class="sec sec-beige" id="how-it-works" data-sec="how" aria-labelledby="h-how-it-works"><div class="wrap"><header class="sec-head rv"><div class="sec-head-t"><p class="eyebrow">How it works</p><h2 id="h-how-it-works" data-f="sections.how.title">How to order your handmade bag</h2><p class="sec-intro" data-f="sections.how.intro">From your idea to a finished bag – simple, personal and without any rush.</p></div></header><ol class="steps"><li class="step rv" data-item="t1" style="--i:0"><span class="step-n" aria-hidden="true">01</span><h3 data-f="title">Choose your bag</h3><p data-f="desc">Pick a design from the current collection or tell us about your own idea.</p></li><li class="step rv" data-item="t2" style="--i:1"><span class="step-n" aria-hidden="true">02</span><h3 data-f="title">Tell us your colours</h3><p data-f="desc">Choose from our selection of colours and let us know the size you need. Custom options depend on materials and availability.</p></li><li class="step rv" data-item="t3" style="--i:2"><span class="step-n" aria-hidden="true">03</span><h3 data-f="title">We confirm the details</h3><p data-f="desc">We reply with availability, the price and the estimated delivery time for your order.</p></li><li class="step rv" data-item="t4" style="--i:3"><span class="step-n" aria-hidden="true">04</span><h3 data-f="title">Your bag is handmade</h3><p data-f="desc">Each bag is carefully crafted by hand, so please allow some time for production before dispatch.</p></li></ol></div></section>
 <section class="sec" id="reviews" data-sec="reviews" aria-labelledby="h-reviews" hidden></section>
-<section class="sec" id="news" data-sec="news" aria-labelledby="h-news"><div class="wrap"><header class="sec-head rv"><h2 id="h-news" data-f="sections.news.title">News</h2></header><div class="bento"><article class="tile t-2x1 tone-blush news-t rv" data-item="nw1" style="--i:0"><div class="tile-img" data-f="img"><img src="img/cotton-cord-colours.webp" alt="Welcome to the new AnnaBelle website" width="900" height="600" loading="lazy" decoding="async"></div><div class="tile-body"><time datetime="2026-11-12" data-f="date">12 November 2026</time><h3 data-f="title">Welcome to the new AnnaBelle website</h3><p class="clamp" data-f="body">Our new website is here! You can now browse the collection, check prices and send us an enquiry about your own handmade bag in a few clicks.</p><button type="button" class="btn btn-ghost btn-sm" data-pop="news:nw1">Read more<span class="vh"> – Welcome to the new AnnaBelle website</span></button></div></article></div></div></section>
-<section class="sec" id="faq" data-sec="faq" aria-labelledby="h-faq"><div class="wrap"><header class="sec-head rv"><h2 id="h-faq" data-f="sections.faq.title">Frequently asked questions</h2><p class="sec-intro" data-f="sections.faq.intro">Answers to the questions we hear most often about our handmade bags.</p></header><div class="faq-grid"><details class="faq-item rv" data-item="q1" style="--i:0"><summary><h3 data-f="q">Are all your products handmade?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Yes! Every AnnaBelle product is carefully handmade with love, passion and attention to detail.</p></div></details><details class="faq-item rv" data-item="q2" style="--i:1"><summary><h3 data-f="q">What materials do you use?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>We use high-quality, durable polyester cord to create beautiful and practical handmade products.</p></div></details><details class="faq-item rv" data-item="q3" style="--i:2"><summary><h3 data-f="q">Can I order a custom-made basket or bag?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Yes! We may be able to create custom designs, colours and sizes to suit your preferences. Please contact us to discuss your ideas.</p></div></details><details class="faq-item rv" data-item="q4" style="--i:3"><summary><h3 data-f="q">How long does it take to make an order?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Production times depend on the design and availability. We will confirm the estimated delivery time when you place your order.</p></div></details><details class="faq-item rv" data-item="q5" style="--i:4"><summary><h3 data-f="q">Do you have products ready to buy?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Yes, selected designs may be available from our current collection. Please contact us for availability.</p></div></details><details class="faq-item rv" data-item="q6" style="--i:5"><summary><h3 data-f="q">Can I choose the colour of my product?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Absolutely! We offer a selection of colours, subject to material availability.</p></div></details><details class="faq-item rv" data-item="q7" style="--i:6"><summary><h3 data-f="q">Are handmade products identical?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>No two handmade items are exactly the same. Small variations are part of their unique charm.</p></div></details><details class="faq-item rv" data-item="q8" style="--i:6"><summary><h3 data-f="q">How do I care for my handmade basket or bag?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>We recommend gentle cleaning with a damp cloth and mild soap. Avoid harsh chemicals and excessive heat.</p></div></details><details class="faq-item rv" data-item="q9" style="--i:6"><summary><h3 data-f="q">Do you offer gift options?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Yes! Our handmade creations make lovely gifts for birthdays, special occasions and anyone who appreciates unique accessories.</p></div></details><details class="faq-item rv" data-item="q10" style="--i:6"><summary><h3 data-f="q">Do you deliver?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Please contact us for information about available delivery options and costs.</p></div></details><details class="faq-item rv" data-item="q11" style="--i:6"><summary><h3 data-f="q">How can I place an order?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>You can contact us through our website or social media. We will be happy to help you choose your favourite design.</p></div></details><details class="faq-item rv" data-item="q12" style="--i:6"><summary><h3 data-f="q">Can I return or exchange an item?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Returns and exchanges are subject to our store policy and applicable consumer rights. Please contact us if you have any concerns about your order.</p></div></details></div></div></section>
-<section class="sec sec--bg" id="contact" data-sec="contact" aria-labelledby="h-contact"><div class="sec-bg" aria-hidden="true"></div><div class="wrap"><header class="sec-head rv"><h2 id="h-contact" data-f="sections.contact.title">Ask about your bag</h2><p class="sec-intro" data-f="sections.contact.intro">Tell us which bag you like or describe your idea. We will reply with availability, price and an estimated delivery time.</p></header><div class="bento contact-bento"><form class="tile t-2x2 tone-white cform rv" id="cform" novalidate><h3>Send an enquiry</h3><div class="fgrid"><p class="fld"><label for="cf-name">Your name</label><input id="cf-name" name="name" type="text" autocomplete="given-name" required maxlength="100"></p><p class="fld"><label for="cf-email">E-mail</label><input id="cf-email" name="email" type="email" autocomplete="email" maxlength="160" aria-describedby="cf-hint"></p><p class="fld"><label for="cf-phone">Phone <span class="opt">(optional)</span></label><input id="cf-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" aria-describedby="cf-hint"></p><p class="fld"><label for="cf-topic">What is it about?</label><select id="cf-topic" name="topic"><option value="t1">A question</option><option value="t2">Order from the collection</option><option value="t3">Custom order / quote</option><option value="t4">Ask about a date</option></select></p><p class="fld"><label for="cf-item">Which bag? <span class="opt">(optional)</span></label><select id="cf-item" name="item"><option value="">– not sure yet –</option><option value="o1">Bags from the current collection</option><option value="o2">Bags made to order</option><option value="o3">Custom colours, sizes &amp; personalised designs</option><option value="o4">Handmade gifts</option></select></p><p class="fld"><label for="cf-date">Preferred date <span class="opt">(optional)</span></label><input id="cf-date" name="date" type="date"></p><p class="fld fld-full"><label for="cf-msg">Your message</label><textarea id="cf-msg" name="message" rows="5" required maxlength="3000"></textarea></p><p class="hp" aria-hidden="true"><label for="cf-web">Leave this field empty</label><input id="cf-web" name="website" type="text" tabindex="-1" autocomplete="off"></p></div><p class="fhint" id="cf-hint">Enter your e-mail or phone number so we can reply.</p><div id="cf-turnstile"></div><p class="fstatus" id="cf-status" role="status" aria-live="polite"></p><button class="btn btn-primary" type="submit">Send enquiry</button><p class="clause" data-f="legal.clause"><strong>Your data.</strong> The data controller is AnnaBelle – Izabela Wlodyga, Bedford, Bedfordshire, United Kingdom. We use the details you send in this form only to reply to your enquiry and to handle your order (UK GDPR Art. 6(1)(b) – steps taken before entering into a contract, and Art. 6(1)(f) – our legitimate interest in answering messages). We keep them until the correspondence ends, for no longer than 12 months. They are processed for us by our website host and e-mail provider. You have the right to access, correct, erase, restrict and move your data, to object, and to complain to the Information Commissioner’s Office (ico.org.uk). <a href="#privacy" data-pop="privacy">Privacy policy</a>.</p></form><a class="tile t-2x1 tone-plum ctile rv" href="mailto:annabellebags2026@gmail.com" data-f="company.email" style="--i:1"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6.5h18v11H3z"/><path d="m3.5 7 8.5 6.5L20.5 7"/></svg><span class="tile-h">E-mail us</span><span class="ctile-v">annabellebags2026@gmail.com</span></a><a class="tile t-1x1 tone-blush ctile rv" href="https://www.instagram.com/annabellebags2026" target="_blank" rel="noopener" data-f="company.instagram" style="--i:2"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg><span class="tile-h">Message us on Instagram</span><span class="tile-go"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="tile t-1x1 tone-gold ctile rv" href="https://www.facebook.com/share/1F8JV3mgeF/" target="_blank" rel="noopener" data-f="company.facebook" style="--i:3"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 8.5V7c0-1 .5-1.5 1.6-1.5H17V3h-2.3C12.4 3 11 4.4 11 6.8v1.7H9V11h2v10h3V11h2.4l.4-2.5H14z"/></svg><span class="tile-h">Find us on Facebook</span><span class="tile-go"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span></a><div class="tile t-2x1 tone-white ctile ctile-area rv" data-f="company.city" style="--i:4"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.800 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><h3 class="tile-h">Where we work</h3><p>Handmade in Bedford, Bedfordshire. Orders from across the UK are welcome – ask about delivery.</p><!-- [LINK DO UZUPEŁNIENIA] Profil Firmy w Google: panel → Dane kontaktowe --></div></div></div></section>
+<section class="sec" id="news" data-sec="news" aria-labelledby="h-news"><div class="wrap"><header class="sec-head rv"><div class="sec-head-t"><p class="eyebrow">News</p><h2 id="h-news" data-f="sections.news.title">News</h2></div></header><div class="banners n1"><article class="banner banner-dark dark has-img rv" data-item="nw1" style="--i:0"><div class="banner-t"><p class="eyebrow"><time datetime="2026-11-12" data-f="date">12 November 2026</time></p><h3 data-f="title">Welcome to the new AnnaBelle website</h3><p class="clamp" data-f="body">Our new website is here! You can now browse the collection, check prices and send us an enquiry about your own handmade bag in a few clicks.</p><button type="button" class="btn btn-light" data-pop="news:nw1">Read more<span class="vh"> – Welcome to the new AnnaBelle website</span></button></div><div class="banner-img" data-f="img"><img src="img/cotton-cord-colours.webp" alt="Welcome to the new AnnaBelle website" width="800" height="600" loading="lazy" decoding="async"></div></article></div></div></section>
+<section class="sec sec-beige" id="faq" data-sec="faq" aria-labelledby="h-faq"><div class="wrap faq-wrap"><header class="sec-head rv"><div class="sec-head-t"><p class="eyebrow">Questions</p><h2 id="h-faq" data-f="sections.faq.title">Frequently asked questions</h2><p class="sec-intro" data-f="sections.faq.intro">Answers to the questions we hear most often about our handmade bags.</p></div><a class="more" href="#contact" data-topic="t1">Ask a question<svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></header><div class="faq-list rv"><details class="faq-item" data-item="q1"><summary><h3 data-f="q">Are all your products handmade?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Yes! Every AnnaBelle product is carefully handmade with love, passion and attention to detail.</p></div></details><details class="faq-item" data-item="q2"><summary><h3 data-f="q">What materials do you use?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>We use high-quality, durable polyester cord to create beautiful and practical handmade products.</p></div></details><details class="faq-item" data-item="q3"><summary><h3 data-f="q">Can I order a custom-made basket or bag?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Yes! We may be able to create custom designs, colours and sizes to suit your preferences. Please contact us to discuss your ideas.</p></div></details><details class="faq-item" data-item="q4"><summary><h3 data-f="q">How long does it take to make an order?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Production times depend on the design and availability. We will confirm the estimated delivery time when you place your order.</p></div></details><details class="faq-item" data-item="q5"><summary><h3 data-f="q">Do you have products ready to buy?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Yes, selected designs may be available from our current collection. Please contact us for availability.</p></div></details><details class="faq-item" data-item="q6"><summary><h3 data-f="q">Can I choose the colour of my product?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Absolutely! We offer a selection of colours, subject to material availability.</p></div></details><details class="faq-item" data-item="q7"><summary><h3 data-f="q">Are handmade products identical?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>No two handmade items are exactly the same. Small variations are part of their unique charm.</p></div></details><details class="faq-item" data-item="q8"><summary><h3 data-f="q">How do I care for my handmade basket or bag?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>We recommend gentle cleaning with a damp cloth and mild soap. Avoid harsh chemicals and excessive heat.</p></div></details><details class="faq-item" data-item="q9"><summary><h3 data-f="q">Do you offer gift options?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Yes! Our handmade creations make lovely gifts for birthdays, special occasions and anyone who appreciates unique accessories.</p></div></details><details class="faq-item" data-item="q10"><summary><h3 data-f="q">Do you deliver?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Please contact us for information about available delivery options and costs.</p></div></details><details class="faq-item" data-item="q11"><summary><h3 data-f="q">How can I place an order?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>You can contact us through our website or social media. We will be happy to help you choose your favourite design.</p></div></details><details class="faq-item" data-item="q12"><summary><h3 data-f="q">Can I return or exchange an item?</h3><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="txt" data-f="a"><p>Returns and exchanges are subject to our store policy and applicable consumer rights. Please contact us if you have any concerns about your order.</p></div></details></div></div></section>
 </main>
 
-<footer class="foot dark" id="foot"><div class="wrap foot-grid"><div class="foot-brand"><svg class="logo" viewBox="-232.5 -157.7 751 253.6" role="img" aria-label="AnnaBelle"><use href="#ab-logo"/></svg><p data-f="hero.footer">Unique bags in the colours you want. You choose, we create.</p><p class="foot-area">Bedford, Bedfordshire, United Kingdom</p></div><nav aria-label="Footer"><ul class="foot-nav"><li><a href="#collection">Collection</a></li><li><a href="#prices">Prices</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#about">About</a></li><li><a href="#news">News</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li></ul></nav><div class="foot-contact"><h2>Contact</h2><ul><li><a href="mailto:annabellebags2026@gmail.com">annabellebags2026@gmail.com</a></li></ul><ul class="social"><li><a href="https://www.instagram.com/annabellebags2026" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg></a></li><li><a href="https://www.facebook.com/share/1F8JV3mgeF/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 8.5V7c0-1 .5-1.5 1.6-1.5H17V3h-2.3C12.4 3 11 4.4 11 6.8v1.7H9V11h2v10h3V11h2.4l.4-2.5H14z"/></svg></a></li></ul></div></div><div class="wrap foot-bottom"><p>© 2026 AnnaBelle. All rights reserved.</p><ul><li><a href="#privacy" data-pop="privacy">Privacy policy</a></li><li><button type="button" class="linkbtn" data-admin>Admin panel</button></li><li>Website by&nbsp;<a href="https://stronyaiwroclaw.pl" target="_blank" rel="noopener">Strony AI Wrocław</a></li></ul></div></footer>
+<footer class="foot dark" id="foot"><div class="wrap foot-grid"><div class="foot-brand"><svg class="logo" viewBox="-232.5 -157.7 751 253.6" role="img" aria-label="AnnaBelle"><use href="#ab-logo"/></svg><p data-f="hero.footer">Unique bags in the colours you want. You choose, we create.</p><a class="btn btn-light btn-sm" href="mailto:annabellebags2026@gmail.com"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6.5h18v11H3z"/><path d="m3.5 7 8.5 6.5L20.5 7"/></svg>E-mail us</a></div><nav class="foot-col" aria-labelledby="fh-1"><h2 id="fh-1">Explore</h2><ul><li><a href="#collection">Collection</a></li><li><a href="#contact">Contact</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#prices">Prices</a></li><li><a href="#about">About</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#news">News</a></li><li><a href="#faq">FAQ</a></li></ul></nav><div class="foot-col"><h2>Help</h2><ul><li><a href="#contact" data-topic="t2">Ask about a bag</a></li><li><a href="#contact" data-topic="t3">Custom order / quote</a></li><li><a href="#faq">FAQ</a></li><li><a href="#privacy" data-pop="privacy">Privacy policy</a></li></ul></div><div class="foot-col"><h2>Contact</h2><ul><li>AnnaBelle</li><li><a href="mailto:annabellebags2026@gmail.com">annabellebags2026@gmail.com</a></li><li class="foot-area">Bedford, Bedfordshire, United Kingdom</li></ul><ul class="social"><li><a href="https://www.instagram.com/annabellebags2026" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg></a></li><li><a href="https://www.facebook.com/share/1F8JV3mgeF/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 8.5V7c0-1 .5-1.5 1.6-1.5H17V3h-2.3C12.4 3 11 4.4 11 6.8v1.7H9V11h2v10h3V11h2.4l.4-2.5H14z"/></svg></a></li></ul></div></div><div class="wrap foot-bottom"><p>© 2026 AnnaBelle. All rights reserved.</p><ul><li><button type="button" class="linkbtn" data-admin>Admin panel</button></li><li>Website by&nbsp;<a href="https://stronyaiwroclaw.pl" target="_blank" rel="noopener">Strony AI Wrocław</a></li></ul></div></footer>
 
-<nav class="dots" aria-label="Sections"><ul id="dots"><li><a href="#top" aria-label="Home"><span>Home</span></a></li><li><a href="#collection" aria-label="Collection"><span>Collection</span></a></li><li><a href="#prices" aria-label="Prices"><span>Prices</span></a></li><li><a href="#gallery" aria-label="Gallery"><span>Gallery</span></a></li><li><a href="#how-it-works" aria-label="How it works"><span>How it works</span></a></li><li><a href="#about" aria-label="About"><span>About</span></a></li><li><a href="#news" aria-label="News"><span>News</span></a></li><li><a href="#faq" aria-label="FAQ"><span>FAQ</span></a></li><li><a href="#contact" aria-label="Contact"><span>Contact</span></a></li></ul></nav>
+<nav class="dots" aria-label="Sections"><ul id="dots"><li><a href="#top" aria-label="Home"><span>Home</span></a></li><li><a href="#collection" aria-label="Collection"><span>Collection</span></a></li><li><a href="#contact" aria-label="Contact"><span>Contact</span></a></li><li><a href="#gallery" aria-label="Gallery"><span>Gallery</span></a></li><li><a href="#prices" aria-label="Prices"><span>Prices</span></a></li><li><a href="#about" aria-label="About"><span>About</span></a></li><li><a href="#how-it-works" aria-label="How it works"><span>How it works</span></a></li><li><a href="#news" aria-label="News"><span>News</span></a></li><li><a href="#faq" aria-label="FAQ"><span>FAQ</span></a></li></ul></nav>
+<a class="float-cta" href="#contact" data-topic="t1"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 5.5h16v10H9l-5 4z"/></svg><span class="float-cta-t">Ask about a bag</span></a>
 <canvas class="weave" id="weave" aria-hidden="true"></canvas>
 
 <dialog class="pop" id="pop" aria-labelledby="pop-h"><button type="button" class="pop-x" aria-label="Close">&times;</button><div class="pop-in" id="pop-in"></div></dialog>
@@ -563,15 +616,14 @@ dialog::backdrop{background:rgba(46,16,39,.62)}
 .cmsp-prev-in{position:absolute;left:0;top:0;transform-origin:0 0;pointer-events:none}
 .cmsp-colmain,.cmsp-aside,.cmsp-mform,.cmsp-mprev{min-width:0}
 @media(max-width:899px){.cmsp-aside .cmsp-prev{max-height:260px}.cmsp-brand span{display:none}.cmsp-top .cmsp-btn{padding:0 10px}.cmsp-top{flex-wrap:nowrap}.cmsp-save{font-size:.78rem}}
-.cmsp-prev .sec-bg{animation:none}
 .cmsp-prev .sec{padding-top:2rem}
-.cmsp-prev em{color:var(--gold-dk);font-style:italic}.cmsp-prev .tone-plum em{color:var(--gold-pale)}
-.cmsp-prev h1,.cmsp-prev h2,.cmsp-prev h3,.cmsp-prev h4{font-family:var(--serif);font-weight:560;line-height:1.12;letter-spacing:-.01em}
-.cmsp-prev .hero-main h1{font-size:clamp(2.3rem,1.3rem + 4.6vw,4.4rem);line-height:1.02}
-.cmsp-prev .sec-head h2,.cmsp-prev .about-main h2{font-size:clamp(1.9rem,1.3rem + 2.4vw,3rem)}
-.cmsp-prev .tile h3{font-size:clamp(1.25rem,1.1rem + .5vw,1.5rem)}.cmsp-prev .t-2x2 h3{font-size:clamp(1.5rem,1.2rem + 1vw,2rem)}
-.cmsp-prev .faq-item summary h3{font-family:var(--sans);font-size:1.1rem;font-weight:600}
-.cmsp-prev .cform h3{font-size:1.6rem}.cmsp-prev .note h4{font-size:1.15rem}.cmsp-prev .feat h3{font-size:1.2rem}
+.cmsp-prev em{color:var(--gold-dk);font-style:italic}.cmsp-prev .dark em{color:var(--gold-pale)}
+.cmsp-prev h1,.cmsp-prev h2,.cmsp-prev h3,.cmsp-prev h4{font-family:var(--serif);font-weight:400;line-height:1.1;letter-spacing:-.015em}
+.cmsp-prev .hero-copy h1{font-size:clamp(2.6rem,1.4rem + 5vw,4.9rem);line-height:1.02}
+.cmsp-prev .sec-head h2,.cmsp-prev .set-main h2{font-size:clamp(2.1rem,1.4rem + 2.6vw,3.4rem)}
+.cmsp-prev .trust-h,.cmsp-prev .help-list h3,.cmsp-prev .area h3{font-family:var(--sans);font-weight:600;font-size:.92rem}
+.cmsp-prev .prod h3{font-size:1.28rem}.cmsp-prev .step h3{font-size:1.35rem}.cmsp-prev .faq-item summary h3{font-size:1.15rem}
+.cmsp-prev .banner h3,.cmsp-prev .set-side h3{font-size:2rem}
 .cmsp-prev-empty{font:400 14px/1.4 system-ui,sans-serif;color:#65505C;padding:18px;margin:0}
 .cmsp-hl{outline:6px solid #C8963E!important;outline-offset:4px;border-radius:8px}
 /* pulpit */
@@ -665,7 +717,8 @@ var DEFAULTS = {
     footer: { en: 'Unique bags in the colours you want. You choose, we create.' },
     slides: [
       { id: 's1', img: 'img/two-tone-cord-bag-in-hand.webp', alt: { en: 'Handmade two-tone cord bag with round handles carried in the hand' } },
-      { id: 's2', img: 'img/red-drawstring-cord-bag.webp', alt: { en: 'Red handmade cord bag with a drawstring lining hanging by its strap' } }
+      { id: 's2', img: 'img/red-drawstring-cord-bag.webp', alt: { en: 'Red handmade cord bag with a drawstring lining hanging by its strap' } },
+      { id: 's3', img: 'img/cream-fringe-tote-bag.webp', alt: { en: 'Cream handmade cord tote bag with a fringe' } }
     ],
     perks: [
       { id: 'p1', text: { en: 'Individually handmade' } },
@@ -773,10 +826,12 @@ var UI = {
       fail: 'Sorry, the message could not be sent. Please e-mail us directly:', limit: 'Too many messages sent. Please try again later or e-mail us.',
       eName: 'Please enter your name.', eContact: 'Please enter your e-mail address or phone number.', eEmail: 'Please enter a valid e-mail address.', eMsg: 'Please write a short message.',
       hint: 'Enter your e-mail or phone number so we can reply.', privacy: 'Privacy policy', hp: 'Leave this field empty' },
-    footer: { rights: 'All rights reserved.', admin: 'Admin panel', privacy: 'Privacy policy', made: 'Website by', contact: 'Contact', follow: 'Follow us' },
+    footer: { rights: 'All rights reserved.', admin: 'Admin panel', privacy: 'Privacy policy', made: 'Website by', contact: 'Contact', follow: 'Follow us', explore: 'Explore', help: 'Help' },
     lb: { prev: 'Previous photo', next: 'Next photo', close: 'Close photo' },
     bar: 'Announcements', dots: 'Sections', slide: 'Photo',
-    ph: 'Placeholder'
+    ph: 'Placeholder',
+    eyebrow: { promos: 'Limited time', collection: 'The collection', prices: 'Prices', gallery: 'Selected work', how: 'How it works', about: 'Our story', reviews: 'Kind words', news: 'News', faq: 'Questions', contact: 'Speak to us' },
+    allPrices: 'All prices', customT: 'Something special in mind?', valuesT: 'What we stand for', otherWays: 'Other ways to reach us', askQ: 'Ask a question'
   },
   pl: {
     skip: 'Przejdź do treści', menu: 'Menu', close: 'Zamknij', lang: 'Język',
@@ -795,14 +850,16 @@ var UI = {
       fail: 'Nie udało się wysłać wiadomości. Napisz do nas bezpośrednio:', limit: 'Wysłano zbyt wiele wiadomości. Spróbuj później lub napisz e-mail.',
       eName: 'Podaj imię.', eContact: 'Podaj adres e-mail lub numer telefonu.', eEmail: 'Podaj poprawny adres e-mail.', eMsg: 'Napisz krótką wiadomość.',
       hint: 'Podaj e-mail lub telefon, żebyśmy mogli odpowiedzieć.', privacy: 'Polityka prywatności', hp: 'Zostaw to pole puste' },
-    footer: { rights: 'Wszelkie prawa zastrzeżone.', admin: 'Panel administratora', privacy: 'Polityka prywatności', made: 'Strona:', contact: 'Kontakt', follow: 'Obserwuj nas' },
+    footer: { rights: 'Wszelkie prawa zastrzeżone.', admin: 'Panel administratora', privacy: 'Polityka prywatności', made: 'Strona:', contact: 'Kontakt', follow: 'Obserwuj nas', explore: 'Strona', help: 'Pomoc' },
     lb: { prev: 'Poprzednie zdjęcie', next: 'Następne zdjęcie', close: 'Zamknij zdjęcie' },
     bar: 'Komunikaty', dots: 'Sekcje', slide: 'Zdjęcie',
-    ph: 'Miejsce na zdjęcie'
+    ph: 'Miejsce na zdjęcie',
+    eyebrow: { promos: 'Tylko teraz', collection: 'Kolekcja', prices: 'Cennik', gallery: 'Nasze prace', how: 'Jak to działa', about: 'Nasza historia', reviews: 'Opinie', news: 'Aktualności', faq: 'Pytania', contact: 'Napisz do nas' },
+    allPrices: 'Pełny cennik', customT: 'Masz własny pomysł?', valuesT: 'Co jest dla nas ważne', otherWays: 'Inne sposoby kontaktu', askQ: 'Zadaj pytanie'
   }
 };
 
-var SECTION_ORDER = ['promos', 'collection', 'prices', 'gallery', 'how', 'about', 'reviews', 'news', 'faq', 'contact'];
+var SECTION_ORDER = ['collection', 'contact', 'gallery', 'prices', 'promos', 'about', 'how', 'reviews', 'news', 'faq'];   // kolejność jak we wzorcu układu
 var SECTION_ID = { promos: 'offers', collection: 'collection', prices: 'prices', gallery: 'gallery', how: 'how-it-works', about: 'about', reviews: 'reviews', news: 'news', faq: 'faq', contact: 'contact' };
 
 /* ---------- pomocnicze ---------- */
@@ -860,6 +917,12 @@ var ICONS = {
   lock: '<rect x="5" y="10.500" width="14" height="10" rx="2.500"/><path d="M8 10.500V8a4 4 0 0 1 8 0v2.500"/>',
   star: '<path d="m12 3.500 2.600 5.400 5.900.800-4.300 4.100 1 5.900L12 16.900l-5.200 2.800 1-5.900L3.500 9.700l5.900-.8z"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',
+  shield: '<path d="M12 3.5 5 6v5.5c0 4.3 3 7.6 7 9 4-1.4 7-4.7 7-9V6z"/><path d="m9 12 2 2 4-4"/>',
+  heart: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+  gift: '<rect x="3.5" y="8" width="17" height="4" rx="1"/><path d="M5 12v8.5h14V12M12 8v12.5M12 8S10.5 3.5 8 4.5 9 8 12 8zm0 0s1.5-4.5 4-3.5S15 8 12 8z"/>',
+  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  chat: '<path d="M4 5.5h16v10H9l-5 4z"/>',
+  spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/>',
   phone: '<path d="M6.500 3.500h3l1.500 4-2 1.500a12 12 0 0 0 6 6l1.500-2 4 1.500v3c0 1.100-.9 2-2 2A16 16 0 0 1 4.500 5.500c0-1.100.9-2 2-2z"/>'
 };
 function ic(n, cls) { return '<svg class="ic' + (cls ? ' ' + cls : '') + '" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + ICONS[n] + '</svg>'; }
@@ -871,18 +934,19 @@ function pic(src, alt, o) {          // zdjęcie albo opisane tło zastępcze
   return '<img src="' + esc(src) + '" alt="' + esc(alt) + '" width="' + (o.w || 800) + '" height="' + (o.h || 800) + '"' +
     (o.eager ? ' fetchpriority="high" decoding="async"' : ' loading="lazy" decoding="async"') + '>';
 }
-function secHead(S, key, L, h) {
-  var c = S.sections[key], intro = tr(c.intro, L);
-  return '<header class="sec-head rv"><h2 id="h-' + SECTION_ID[key] + '"' + f('sections.' + key + '.title') + '>' + inl(tr(c.title, L)) + '</h2>' +
-    (intro ? '<p class="sec-intro"' + f('sections.' + key + '.intro') + '>' + inl(intro) + '</p>' : '') + (h || '') + '</header>';
+function secHead(S, key, L, link) {
+  var U = ui(L), c = S.sections[key], intro = tr(c.intro, L);
+  return '<header class="sec-head rv"><div class="sec-head-t"><p class="eyebrow">' + esc(U.eyebrow[key]) + '</p>' +
+    '<h2 id="h-' + SECTION_ID[key] + '"' + f('sections.' + key + '.title') + '>' + inl(tr(c.title, L)) + '</h2>' +
+    (intro ? '<p class="sec-intro"' + f('sections.' + key + '.intro') + '>' + inl(intro) + '</p>' : '') + '</div>' + (link || '') + '</header>';
 }
-function tileCls(it, extra) {
-  return 'tile t-' + (it.size || '1x1') + ' tone-' + (it.tone || 'white') + (it.feat ? ' is-feat' : '') + (extra ? ' ' + extra : '') + ' rv';
-}
+function more(href, text, attrs) { return '<a class="more" href="' + esc(href) + '"' + (attrs || '') + '>' + esc(text) + ic('arrow') + '</a>'; }
 function contactHref(S) { return '#contact'; }
 
 /* ==========================================================================
    RENDEROWANIE — każda funkcja: (stan, kontekst{lang, now}) → HTML
+   Układ „edytorski”: kremowe i beżowe pasy sekcji, ciemne bloki w kolorze śliwki,
+   złote podpisy nad tytułami, ostre krawędzie (bez kafelków Bento).
    ========================================================================== */
 var R = {};
 
@@ -922,28 +986,30 @@ R.langs = function (S, c) {
   }).join('');
 };
 
+/* pierwszy ekran: tekst po lewej, kolaż zdjęć (1 duże + 2 małe) po prawej, pod spodem pasek zalet */
+var PERK_IC = ['heart', 'spark', 'clock', 'check'];
+var TRUST_IC = ['shield', 'heart', 'spark', 'cal'];
 R.hero = function (S, c) {
-  var L = c.lang, U = ui(L), h = S.hero, slides = visible(h.slides);
-  var perks = visible(h.perks).map(function (p) { return '<li>' + esc(tr(p.text, L)) + '</li>'; }).join('');
-  var sl = slides.map(function (s, i) {
-    return '<div class="slide' + (i === 0 ? ' on' : '') + '">' + pic(s.img, tr(s.alt, L), { w: 900, h: 1100, eager: i === 0 }) + '</div>';
+  var L = c.lang, U = ui(L), h = S.hero, slides = visible(h.slides).slice(0, 3);
+  var perks = visible(h.perks).map(function (p, i) { return '<li data-item="' + p.id + '">' + ic(PERK_IC[i % 4]) + '<span' + f('text') + '>' + esc(tr(p.text, L)) + '</span></li>'; }).join('');
+  var pics = slides.map(function (s, i) {
+    return '<figure class="hpic hpic' + i + '" data-item="' + s.id + '"' + f('img') + '>' + pic(s.img, tr(s.alt, L), { w: i ? 600 : 900, h: i ? 600 : 1100, eager: i === 0 }) + '</figure>';
   }).join('');
-  var dots = slides.length > 1 ? '<div class="slide-dots" role="group" aria-label="' + esc(U.slide) + '">' + slides.map(function (s, i) {
-    return '<button type="button" class="slide-dot' + (i === 0 ? ' on' : '') + '" data-slide="' + i + '" aria-label="' + esc(U.slide) + ' ' + (i + 1) + '"></button>';
-  }).join('') + '</div>' : '';
-  return '<div class="wrap"><div class="bento hero-bento">' +
-    '<div class="tile t-2x2 hero-main">' + ROSETTE +
+  var trust = visible(S.about.features).map(function (x, i) {
+    return '<li data-item="' + x.id + '">' + ic(TRUST_IC[i % 4]) + '<div><h2 class="trust-h"' + f('title') + '>' + inl(tr(x.title, L)) + '</h2><p' + f('desc') + '>' + inl(tr(x.desc, L)) + '</p></div></li>';
+  });
+  if (tr(h.availTitle, L)) trust.push('<li>' + ic('cal') + '<div><h2 class="trust-h"' + f('hero.availTitle') + '><a href="#contact" data-topic="t4">' + esc(tr(h.availTitle, L)) + '</a></h2><p' + f('hero.availText') + '>' + esc(tr(h.availText, L)) + '</p></div></li>');
+  return '<div class="wrap hero-in">' +
+    '<div class="hero-copy">' +
       '<p class="eyebrow"' + f('hero.eyebrow') + '>' + esc(tr(h.eyebrow, L)) + '</p>' +
       '<h1' + f('hero.title') + '>' + inl(tr(h.title, L)) + '</h1>' +
       '<p class="lead"' + f('hero.intro') + '>' + inl(tr(h.intro, L)) + '</p>' +
-      '<div class="btns"><a class="btn btn-primary" href="#contact">' + esc(U.cta) + '</a><a class="btn btn-ghost" href="#collection">' + esc(U.cta2) + '</a></div>' +
+      '<div class="btns"><a class="btn btn-primary" href="#collection">' + esc(U.cta2) + ic('arrow') + '</a><a class="btn btn-ghost" href="#contact">' + ic('chat') + esc(U.cta) + '</a></div>' +
       (perks ? '<ul class="perks"' + f('hero.perks') + '>' + perks + '</ul>' : '') +
     '</div>' +
-    '<div class="tile t-1x2 hero-photo"' + f('hero.slides') + '>' + sl + dots + '</div>' +
-    '<a class="tile t-1x1 tone-plum hero-avail" href="#contact" data-topic="t4"' + f('hero.availTitle') + '>' + ic('cal') +
-      '<h2 class="tile-h">' + esc(tr(h.availTitle, L)) + '</h2><p' + f('hero.availText') + '>' + esc(tr(h.availText, L)) + '</p><span class="tile-go">' + ic('arrow') + '</span></a>' +
-    '<div class="tile t-1x1 tone-gold hero-values"' + f('hero.values') + '><p>' + esc(tr(h.values, L)).replace(/ · /g, '<span aria-hidden="true"> · </span><wbr>') + '</p></div>' +
-    '</div></div>';
+    (pics ? '<div class="hero-pics n' + slides.length + '"' + f('hero.slides') + '>' + pics + '</div>' : '') +
+  '</div>' +
+  (trust.length ? '<ul class="trust n' + trust.length + '">' + trust.join('') + '</ul>' : '');
 };
 
 function promoMeta(p, c) {
@@ -961,19 +1027,21 @@ function promoMeta(p, c) {
   return out;
 }
 
+/* promocje: banery obok siebie (pierwszy ciemny, kolejne jasne) */
 R.promos = function (S, c) {
   var L = c.lang, U = ui(L);
   var items = activeTimed(S.promos, c.now).map(function (p, i) {
     var o = (S.offer || []).filter(function (x) { return x.id === p.offerId; })[0];
-    return '<article class="' + tileCls({ size: p.size || (i === 0 ? '2x1' : '1x1'), tone: p.tone || 'blush', feat: p.feat }, 'promo') + '" data-item="' + p.id + '" style="--i:' + i + '">' +
-      (p.img ? '<div class="tile-img">' + pic(p.img, tr(p.title, L), { w: 800, h: 600 }) + '</div>' : '') +
-      '<div class="tile-body">' + (tr(p.badge, L) ? '<span class="badge badge-gold"' + f('badge') + '>' + esc(tr(p.badge, L)) + '</span>' : '') +
+    return '<article class="banner ' + (i === 0 ? 'banner-dark dark' : 'banner-light') + (p.img ? ' has-img' : '') + ' rv" data-item="' + p.id + '" style="--i:' + i + '">' +
+      '<div class="banner-t">' + (tr(p.badge, L) ? '<p class="eyebrow"' + f('badge') + '>' + esc(tr(p.badge, L)) + '</p>' : '') +
       '<h3' + f('title') + '>' + inl(tr(p.title, L)) + '</h3><div class="txt"' + f('desc') + '>' + md(tr(p.desc, L)) + '</div>' + promoMeta(p, c) +
-      '<a class="btn btn-primary btn-sm" href="#contact" data-topic="t2"' + (o ? ' data-offer="' + o.id + '"' : '') + '>' + esc(o ? U.order : U.cta) + '</a></div></article>';
+      '<a class="btn ' + (i === 0 ? 'btn-light' : 'btn-primary') + '" href="#contact" data-topic="t2"' + (o ? ' data-offer="' + o.id + '"' : '') + '>' + esc(o ? U.order : U.cta) + '</a></div>' +
+      (p.img ? '<div class="banner-img"' + f('img') + '>' + pic(p.img, tr(p.title, L), { w: 800, h: 600 }) + '</div>' : '') + '</article>';
   }).join('');
-  return '<div class="wrap">' + secHead(S, 'promos', L) + '<div class="bento">' + items + '</div></div>';
+  return '<div class="wrap">' + secHead(S, 'promos', L) + '<div class="banners">' + items + '</div></div>';
 };
 
+/* kolekcja: siatka produktów (zdjęcie, czas realizacji, nazwa, cena) */
 R.collection = function (S, c) {
   var L = c.lang, U = ui(L), promos = activeTimed(S.promos, c.now);
   var items = visible(S.offer).map(function (o, i) {
@@ -981,69 +1049,68 @@ R.collection = function (S, c) {
     var badges = (pr ? '<span class="badge badge-gold">' + esc(tr(pr.badge, L) || tr(pr.title, L)) + '</span>' : '') +
       (o.isNew ? '<span class="badge badge-plum">' + esc(U.isNew) + '</span>' : '') +
       (tr(o.badge, L) ? '<span class="badge"' + f('badge') + '>' + esc(tr(o.badge, L)) + '</span>' : '');
-    return '<article class="' + tileCls(o, 'offer') + '" data-item="' + o.id + '" style="--i:' + i + '">' +
-      '<div class="tile-img"' + f('img') + '>' + pic(o.img, tr(o.alt, L) || tr(o.title, L), { w: 900, h: 700 }) + (badges ? '<div class="badges">' + badges + '</div>' : '') + '</div>' +
-      '<div class="tile-body"><h3' + f('title') + '>' + inl(tr(o.title, L)) + '</h3>' +
-      '<p class="clamp"' + f('desc') + '>' + inl(tr(o.desc, L)) + '</p>' +
-      '<dl class="meta">' + (tr(o.time, L) ? '<div' + f('time') + '><dt>' + ic('clock') + '<span class="vh">' + esc(U.time) + '</span></dt><dd>' + esc(tr(o.time, L)) + '</dd></div>' : '') +
-      (priceTxt(o.price, L) ? '<div class="meta-price"' + f('price') + '><dt class="vh">' + esc(U.price) + '</dt><dd>' + esc(priceTxt(o.price, L)) + '</dd></div>' : '') + '</dl>' +
-      '<div class="btns"><a class="btn btn-primary btn-sm" href="#contact" data-topic="' + (o.btn === 'order' ? 't2' : 't3') + '" data-offer="' + o.id + '"' + f('btn') + '>' + esc(o.btn === 'order' ? U.order : U.ask) + '</a>' +
-      '<button type="button" class="btn btn-ghost btn-sm" data-pop="offer:' + o.id + '">' + esc(U.details) + '<span class="vh"> – ' + esc(tr(o.title, L)) + '</span></button></div></div></article>';
+    return '<article class="prod rv" data-item="' + o.id + '" style="--i:' + i + '">' +
+      '<button type="button" class="prod-img" data-pop="offer:' + o.id + '"' + f('img') + '><span class="vh">' + esc(U.details) + ' – ' + esc(tr(o.title, L)) + '</span>' + pic(o.img, tr(o.alt, L) || tr(o.title, L), { w: 800, h: 800 }) + (badges ? '<span class="badges">' + badges + '</span>' : '') + '</button>' +
+      (tr(o.time, L) ? '<p class="prod-meta"' + f('time') + '>' + esc(tr(o.time, L)) + '</p>' : '') +
+      '<h3' + f('title') + '>' + inl(tr(o.title, L)) + '</h3>' +
+      (priceTxt(o.price, L) ? '<p class="prod-price"' + f('price') + '><span class="vh">' + esc(U.price) + ': </span>' + esc(priceTxt(o.price, L)) + '</p>' : '') +
+      '<p class="prod-desc clamp"' + f('desc') + '>' + inl(tr(o.desc, L)) + '</p>' +
+      '<div class="prod-acts">' + more('#contact', o.btn === 'order' ? U.order : U.ask, ' data-topic="' + (o.btn === 'order' ? 't2' : 't3') + '" data-offer="' + o.id + '"' + f('btn')) +
+      '<button type="button" class="linkbtn" data-pop="offer:' + o.id + '">' + esc(U.details) + '<span class="vh"> – ' + esc(tr(o.title, L)) + '</span></button></div></article>';
   }).join('');
-  return '<div class="wrap">' + secHead(S, 'collection', L) + '<div class="bento">' + items + '</div></div>';
+  return '<div class="wrap">' + secHead(S, 'collection', L, sectionShown(S, 'prices', c.now) ? more('#prices', U.allPrices) : '') + '<div class="prods">' + items + '</div></div>';
 };
 
+/* cennik: ciemny blok z listą cen i bocznym panelem z uwagą */
 R.prices = function (S, c) {
-  var L = c.lang, U = ui(L), cats = [], by = {};
+  var L = c.lang, U = ui(L), cats = [], by = {}, sec = S.sections.prices, intro = tr(sec.intro, L);
   visible(S.prices).forEach(function (p) { var k = tr(p.cat, L) || '–'; if (!by[k]) { by[k] = []; cats.push(k); } by[k].push(p); });
-  var tiles = cats.map(function (k, i) {
-    return '<div class="tile t-2x1 tone-white price-tile rv" style="--i:' + i + '"><table class="price-table"><caption>' + esc(k) + '</caption><tbody>' + by[k].map(function (p) {
+  var lists = cats.map(function (k) {
+    return '<table class="price-table"><caption>' + esc(k) + '</caption><tbody>' + by[k].map(function (p) {
       return '<tr data-item="' + p.id + '"><th scope="row"><span' + f('name') + '>' + esc(tr(p.name, L)) + '</span>' + (tr(p.note, L) ? '<small' + f('note') + '>' + esc(tr(p.note, L)) + '</small>' : '') + '</th>' +
         '<td class="pt-time"' + f('time') + '>' + esc(tr(p.time, L)) + '</td><td class="pt-price"' + f('price') + '>' + esc(priceTxt(p.price, L)) + '</td></tr>';
-    }).join('') + '</tbody></table></div>';
+    }).join('') + '</tbody></table>';
   }).join('');
   var note = tr(S.priceNote, L);
-  return '<div class="wrap">' + secHead(S, 'prices', L) + '<div class="bento">' + tiles + '</div>' +
-    (note ? '<p class="price-note rv"' + f('priceNote') + '>' + inl(note) + ' <a href="#contact" data-topic="t3">' + esc(U.cta) + '</a></p>' : '') + '</div>';
+  return '<div class="wrap"><div class="set dark rv">' +
+    '<div class="set-main"><p class="eyebrow">' + esc(U.eyebrow.prices) + '</p><h2 id="h-prices"' + f('sections.prices.title') + '>' + inl(tr(sec.title, L)) + '</h2>' +
+      (intro ? '<p class="sec-intro"' + f('sections.prices.intro') + '>' + inl(intro) + '</p>' : '') + lists + '</div>' +
+    '<aside class="set-side">' + ic('gift') + '<h3>' + esc(U.customT) + '</h3>' + (note ? '<p' + f('priceNote') + '>' + inl(note) + '</p>' : '') +
+      '<div class="btns"><a class="btn btn-light" href="#contact" data-topic="t3">' + esc(U.cta) + '</a>' + (sectionShown(S, 'collection', c.now) ? '<a class="btn btn-ghost-light" href="#collection">' + esc(U.cta2) + '</a>' : '') + '</div></aside>' +
+  '</div></div>';
 };
 
+/* galeria: rząd zdjęć z podpisami (powiększenie po kliknięciu) */
 R.gallery = function (S, c) {
-  var L = c.lang, U = ui(L), items = visible(S.gallery), cats = [];
-  items.forEach(function (g) { var k = tr(g.cat, L); if (k && cats.indexOf(k) < 0) cats.push(k); });
-  var filters = cats.length > 1 ? '<div class="filters" role="group" aria-label="' + esc(U.nav.gallery) + '"><button type="button" class="chip on" data-filter="" aria-pressed="true">' + esc(U.all) + '</button>' +
-    cats.map(function (k) { return '<button type="button" class="chip" data-filter="' + esc(k) + '" aria-pressed="false">' + esc(k) + '</button>'; }).join('') + '</div>' : '';
+  var L = c.lang, U = ui(L), items = visible(S.gallery);
   var tiles = items.map(function (g, i) {
     var cap = tr(g.caption, L);
-    return '<figure class="' + tileCls(g, 'gal') + '" data-item="' + g.id + '" data-cat="' + esc(tr(g.cat, L)) + '" style="--i:' + i + '">' +
-      (g.img ? '<button type="button" class="gal-btn" data-lb="' + g.id + '" aria-label="' + esc(cap || U.slide) + '"' + f('img') + '>' + pic(g.img, cap, { w: 900, h: 900 }) + '</button>' : '<div' + f('img') + ' class="gal-btn">' + pic('', cap) + '</div>') +
-      (g.img && cap ? '<figcaption' + f('caption') + '>' + esc(cap) + '</figcaption>' : '') + '</figure>';
+    return '<figure class="gal rv" data-item="' + g.id + '" data-cat="' + esc(tr(g.cat, L)) + '" style="--i:' + i + '">' +
+      (g.img ? '<button type="button" class="gal-btn" data-lb="' + g.id + '" aria-label="' + esc(cap || U.slide) + '"' + f('img') + '>' + pic(g.img, cap, { w: 600, h: 750 }) + '</button>' : '<div' + f('img') + ' class="gal-btn">' + pic('', cap) + '</div>') +
+      '<figcaption>' + (cap ? '<span class="gal-cap"' + f('caption') + '>' + esc(cap) + '</span>' : '') + (tr(g.cat, L) ? '<small' + f('cat') + '>' + esc(tr(g.cat, L)) + '</small>' : '') + '</figcaption></figure>';
   }).join('');
-  var ig = S.company.instagram ? '<a class="tile t-1x1 tone-plum gal-ig rv" href="' + esc(S.company.instagram) + '" target="_blank" rel="noopener">' + ic('ig') + '<span class="tile-h">' + esc(U.moreIg) + '</span><span class="tile-go">' + ic('arrow') + '</span></a>' : '';
-  return '<div class="wrap">' + secHead(S, 'gallery', L, filters) + '<div class="bento gal-grid">' + tiles + ig + '</div></div>';
+  var ig = S.company.instagram ? more(S.company.instagram, U.moreIg, ' target="_blank" rel="noopener"') : '';
+  return '<div class="wrap">' + secHead(S, 'gallery', L, ig) + '<div class="gal-row">' + tiles + '</div></div>';
 };
 
+/* jak zamówić: kroki w kolumnach z numerem i kreską u góry */
 R.how = function (S, c) {
-  var L = c.lang, U = ui(L);
+  var L = c.lang;
   var steps = visible(S.steps).map(function (s, i) {
-    return '<li class="' + tileCls(s, 'step') + '" data-item="' + s.id + '" style="--i:' + i + '"><span class="step-n" aria-hidden="true">' + (i + 1) + '</span><h3' + f('title') + '>' + inl(tr(s.title, L)) + '</h3><p' + f('desc') + '>' + inl(tr(s.desc, L)) + '</p></li>';
+    return '<li class="step rv" data-item="' + s.id + '" style="--i:' + i + '"><span class="step-n" aria-hidden="true">' + (i < 9 ? '0' : '') + (i + 1) + '</span><h3' + f('title') + '>' + inl(tr(s.title, L)) + '</h3><p' + f('desc') + '>' + inl(tr(s.desc, L)) + '</p></li>';
   }).join('');
-  var notes = visible(S.notes).map(function (n, i) {
-    return '<div class="note rv" data-item="' + n.id + '" style="--i:' + i + '"><h4' + f('title') + '>' + inl(tr(n.title, L)) + '</h4><p' + f('text') + '>' + inl(tr(n.text, L)) + '</p></div>';
-  }).join('');
-  return '<div class="sec-bg" aria-hidden="true"></div><div class="wrap">' + secHead(S, 'how', L) + '<ol class="bento steps">' + steps + '</ol>' +
-    (notes ? '<h3 class="notes-h rv">' + esc(U.goodToKnow) + '</h3><div class="notes">' + notes + '</div>' : '') + '</div>';
+  return '<div class="wrap">' + secHead(S, 'how', L) + '<ol class="steps">' + steps + '</ol></div>';
 };
 
+/* o marce: tekst i zdjęcia w dwóch kartach, pod spodem wartości marki */
 R.about = function (S, c) {
-  var L = c.lang, a = S.about;
-  var fl = visible(a.features).map(function (x, i) {
-    return '<div class="tile t-' + (i < 2 ? '1x1' : '2x1') + ' tone-' + (i % 2 ? 'blush' : 'gold') + ' feat rv" data-item="' + x.id + '" style="--i:' + (i + 2) + '"><h3' + f('title') + '>' + inl(tr(x.title, L)) + '</h3><p' + f('desc') + '>' + inl(tr(x.desc, L)) + '</p></div>';
-  });
-  return '<div class="wrap"><div class="bento about-bento">' +
-    '<div class="tile t-2x2 tone-white about-main rv">' + ROSETTE + '<h2 id="h-about"' + f('sections.about.title') + '>' + inl(tr(S.sections.about.title, L)) + '</h2><div class="txt"' + f('about.text') + '>' + md(tr(a.text, L)) + '</div></div>' +
-    '<div class="tile t-1x2 about-img rv"' + f('about.img1') + ' style="--i:1">' + pic(a.img1, tr(a.alt1, L), { w: 800, h: 1100 }) + '</div>' +
-    fl.slice(0, 2).join('') +
-    '<div class="tile t-2x1 about-img rv"' + f('about.img2') + ' style="--i:2">' + pic(a.img2, tr(a.alt2, L), { w: 1000, h: 600 }) + '</div>' + fl.slice(2).join('') + '</div></div>';
+  var L = c.lang, U = ui(L), a = S.about;
+  var vals = tr(S.hero.values, L).split('·').map(function (v) { return v.trim(); }).filter(Boolean);
+  return '<div class="wrap">' + secHead(S, 'about', L) +
+    '<div class="about-grid"><div class="card about-txt rv"><div class="txt"' + f('about.text') + '>' + md(tr(a.text, L)) + '</div>' + more('#contact', U.cta) + '</div>' +
+    '<div class="about-pics rv" style="--i:1"><figure' + f('about.img1') + '>' + pic(a.img1, tr(a.alt1, L), { w: 700, h: 900 }) + '</figure><figure' + f('about.img2') + '>' + pic(a.img2, tr(a.alt2, L), { w: 700, h: 900 }) + '</figure></div></div>' +
+    (vals.length ? '<h3 class="vals-h rv">' + esc(U.valuesT) + '</h3><ul class="vals"' + f('hero.values') + '>' + vals.map(function (v, i) { return '<li class="rv" style="--i:' + i + '"><svg class="vals-r" viewBox="-106 -106 212 212" aria-hidden="true" focusable="false"><use href="#ab-rosette"/></svg><span>' + esc(v) + '</span></li>'; }).join('') + '</ul>' : '') +
+    '</div>';
 };
 
 function stars(n, U) {
@@ -1054,33 +1121,35 @@ function stars(n, U) {
 R.reviews = function (S, c) {
   var L = c.lang, U = ui(L), list = visible(S.reviews);
   var avg = list.length ? (list.reduce(function (a, r) { return a + (+r.stars || 5); }, 0) / list.length) : 0;
-  var sum = list.length ? '<p class="rev-sum"><strong>' + avg.toFixed(1) + '</strong> ' + esc(U.avg) + ' · ' + list.length + ' ' + esc(U.revCount) +
-    (S.reviewsLink ? ' · <a href="' + esc(S.reviewsLink) + '" target="_blank" rel="noopener">' + esc(U.reviewsOn) + '</a>' : '') + '</p>' : '';
+  var link = S.reviewsLink ? more(S.reviewsLink, U.reviewsOn, ' target="_blank" rel="noopener"') : '';
+  var sum = list.length ? '<p class="rev-sum"><strong>' + avg.toFixed(1) + '</strong> ' + esc(U.avg) + ' · ' + list.length + ' ' + esc(U.revCount) + '</p>' : '';
   var tiles = list.map(function (r, i) {
-    return '<figure class="' + tileCls({ size: r.size || (i === 0 ? '2x1' : '1x1'), tone: r.tone || (i % 3 === 0 ? 'blush' : 'white'), feat: r.feat }, 'review') + '" data-item="' + r.id + '" style="--i:' + i + '">' + stars(+r.stars || 5, U) +
+    return '<figure class="card review rv" data-item="' + r.id + '" style="--i:' + i + '">' + stars(+r.stars || 5, U) +
       '<blockquote' + f('text') + '>' + md(tr(r.text, L)) + '</blockquote><figcaption><strong' + f('author') + '>' + esc(r.author) + '</strong>' + (tr(r.service, L) ? '<span' + f('service') + '>' + esc(tr(r.service, L)) + '</span>' : '') + '</figcaption></figure>';
   }).join('');
-  return '<div class="wrap">' + secHead(S, 'reviews', L, sum) + '<div class="bento">' + tiles + '</div></div>';
+  return '<div class="wrap">' + secHead(S, 'reviews', L, link) + sum + '<div class="reviews">' + tiles + '</div></div>';
 };
 
+/* aktualności: banery jak „Sell / Trade up” — pierwszy ciemny, kolejne jasne */
 R.news = function (S, c) {
-  var L = c.lang, U = ui(L);
-  var tiles = activeTimed(S.news, c.now).map(function (n, i) {
-    return '<article class="' + tileCls({ size: n.size || (i === 0 ? '2x2' : '1x1'), tone: n.tone || 'white', feat: n.feat }, 'news-t') + '" data-item="' + n.id + '" style="--i:' + i + '">' +
-      (n.img ? '<div class="tile-img"' + f('img') + '>' + pic(n.img, tr(n.title, L), { w: 900, h: 600 }) + '</div>' : '') +
-      '<div class="tile-body">' + (n.date ? '<time datetime="' + esc(n.date) + '"' + f('date') + '>' + esc(fmtDate(n.date, L, { day: 'numeric', month: 'long', year: 'numeric' })) + '</time>' : '') +
+  var L = c.lang, U = ui(L), list = activeTimed(S.news, c.now);
+  var tiles = list.map(function (n, i) {
+    return '<article class="banner ' + (i === 0 ? 'banner-dark dark' : 'banner-light') + (n.img ? ' has-img' : '') + ' rv" data-item="' + n.id + '" style="--i:' + i + '">' +
+      '<div class="banner-t">' + (n.date ? '<p class="eyebrow"><time datetime="' + esc(n.date) + '"' + f('date') + '>' + esc(fmtDate(n.date, L, { day: 'numeric', month: 'long', year: 'numeric' })) + '</time></p>' : '') +
       '<h3' + f('title') + '>' + inl(tr(n.title, L)) + '</h3><p class="clamp"' + f('body') + '>' + inl(tr(n.body, L).split(/\n\s*\n/)[0]) + '</p>' +
-      '<button type="button" class="btn btn-ghost btn-sm" data-pop="news:' + n.id + '">' + esc(U.readMore) + '<span class="vh"> – ' + esc(tr(n.title, L)) + '</span></button></div></article>';
+      '<button type="button" class="btn ' + (i === 0 ? 'btn-light' : 'btn-primary') + '" data-pop="news:' + n.id + '">' + esc(U.readMore) + '<span class="vh"> – ' + esc(tr(n.title, L)) + '</span></button></div>' +
+      (n.img ? '<div class="banner-img"' + f('img') + '>' + pic(n.img, tr(n.title, L), { w: 800, h: 600 }) + '</div>' : '') + '</article>';
   }).join('');
-  return '<div class="wrap">' + secHead(S, 'news', L) + '<div class="bento">' + tiles + '</div></div>';
+  return '<div class="wrap">' + secHead(S, 'news', L) + '<div class="banners n' + list.length + '">' + tiles + '</div></div>';
 };
 
+/* FAQ: nagłówek po lewej, lista pytań po prawej */
 R.faq = function (S, c) {
-  var L = c.lang;
-  var items = visible(S.faq).map(function (q, i) {
-    return '<details class="faq-item rv" data-item="' + q.id + '" style="--i:' + Math.min(i, 6) + '"><summary><h3' + f('q') + '>' + inl(tr(q.q, L)) + '</h3>' + ic('plus') + '</summary><div class="txt"' + f('a') + '>' + md(tr(q.a, L)) + '</div></details>';
+  var L = c.lang, U = ui(L);
+  var items = visible(S.faq).map(function (q) {
+    return '<details class="faq-item" data-item="' + q.id + '"><summary><h3' + f('q') + '>' + inl(tr(q.q, L)) + '</h3>' + ic('plus') + '</summary><div class="txt"' + f('a') + '>' + md(tr(q.a, L)) + '</div></details>';
   }).join('');
-  return '<div class="wrap">' + secHead(S, 'faq', L) + '<div class="faq-grid">' + items + '</div></div>';
+  return '<div class="wrap faq-wrap">' + secHead(S, 'faq', L, more('#contact', U.askQ, ' data-topic="t1"')) + '<div class="faq-list rv">' + items + '</div></div>';
 };
 
 R.clause = function (S, c) {
@@ -1088,33 +1157,42 @@ R.clause = function (S, c) {
   return inl(tr(S.legal.clause, L).replace('{controller}', tr(S.legal.controller, L))) + ' <a href="#privacy" data-pop="privacy">' + esc(U.form.privacy) + '</a>.';
 };
 
+/* kontakt: „Jak możemy pomóc?” — wstęp z punktami, potem karta z formularzem i innymi drogami kontaktu */
+var NOTE_IC = ['spark', 'heart', 'chat'];
 R.contact = function (S, c) {
   var L = c.lang, U = ui(L), F = U.form, co = S.company;
   var opts = visible(S.offer).map(function (o) { return '<option value="' + o.id + '">' + esc(tr(o.title, L)) + '</option>'; }).join('');
-  var form = '<form class="tile t-2x2 tone-white cform rv" id="cform" novalidate>' +
-    '<h3>' + esc(F.title) + '</h3>' +
+  var notes = visible(S.notes).map(function (n, i) {
+    return '<li class="rv" data-item="' + n.id + '" style="--i:' + i + '"><span class="help-ic">' + ic(NOTE_IC[i % 3]) + '</span><div><h3' + f('title') + '>' + inl(tr(n.title, L)) + '</h3><p' + f('text') + '>' + inl(tr(n.text, L)) + '</p></div></li>';
+  }).join('');
+  var chips = ['t1', 't2', 't3', 't4'].map(function (t, i) {
+    return '<label class="chip"><input type="radio" name="topic" value="' + t + '"' + (i === 0 ? ' checked' : '') + '><span>' + esc(F[t]) + '</span></label>';
+  }).join('');
+  var form = '<form class="cform" id="cform" novalidate>' +
+    '<fieldset class="chips"><legend class="eyebrow">' + esc(F.topic) + '</legend>' + chips + '</fieldset>' +
     '<div class="fgrid">' +
+    '<p class="fld fld-full"><label for="cf-item">' + esc(F.item) + ' <span class="opt">' + esc(F.opt) + '</span></label><select id="cf-item" name="item"><option value="">' + esc(F.none) + '</option>' + opts + '</select></p>' +
+    '<p class="fld fld-full"><label for="cf-msg">' + esc(F.message) + '</label><textarea id="cf-msg" name="message" rows="5" required maxlength="3000"></textarea></p>' +
     '<p class="fld"><label for="cf-name">' + esc(F.name) + '</label><input id="cf-name" name="name" type="text" autocomplete="given-name" required maxlength="100"></p>' +
+    '<p class="fld"><label for="cf-date">' + esc(F.date) + ' <span class="opt">' + esc(F.opt) + '</span></label><input id="cf-date" name="date" type="date"></p>' +
     '<p class="fld"><label for="cf-email">' + esc(F.email) + '</label><input id="cf-email" name="email" type="email" autocomplete="email" maxlength="160" aria-describedby="cf-hint"></p>' +
     '<p class="fld"><label for="cf-phone">' + esc(F.phone) + ' <span class="opt">' + esc(F.opt) + '</span></label><input id="cf-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" aria-describedby="cf-hint"></p>' +
-    '<p class="fld"><label for="cf-topic">' + esc(F.topic) + '</label><select id="cf-topic" name="topic"><option value="t1">' + esc(F.t1) + '</option><option value="t2">' + esc(F.t2) + '</option><option value="t3">' + esc(F.t3) + '</option><option value="t4">' + esc(F.t4) + '</option></select></p>' +
-    '<p class="fld"><label for="cf-item">' + esc(F.item) + ' <span class="opt">' + esc(F.opt) + '</span></label><select id="cf-item" name="item"><option value="">' + esc(F.none) + '</option>' + opts + '</select></p>' +
-    '<p class="fld"><label for="cf-date">' + esc(F.date) + ' <span class="opt">' + esc(F.opt) + '</span></label><input id="cf-date" name="date" type="date"></p>' +
-    '<p class="fld fld-full"><label for="cf-msg">' + esc(F.message) + '</label><textarea id="cf-msg" name="message" rows="5" required maxlength="3000"></textarea></p>' +
     '<p class="hp" aria-hidden="true"><label for="cf-web">' + esc(F.hp) + '</label><input id="cf-web" name="website" type="text" tabindex="-1" autocomplete="off"></p>' +
     '</div><p class="fhint" id="cf-hint">' + esc(F.hint) + '</p><div id="cf-turnstile"></div>' +
     '<p class="fstatus" id="cf-status" role="status" aria-live="polite"></p>' +
-    '<button class="btn btn-primary" type="submit">' + esc(F.send) + '</button>' +
+    '<button class="btn btn-primary btn-wide" type="submit">' + ic('mail') + esc(F.send) + '</button>' +
     '<p class="clause"' + f('legal.clause') + '>' + R.clause(S, c) + '</p></form>';
-  var tiles = '';
-  if (co.email) tiles += '<a class="tile t-2x1 tone-plum ctile rv" href="mailto:' + esc(co.email) + '"' + f('company.email') + ' style="--i:1">' + ic('mail') + '<span class="tile-h">' + esc(U.emailUs) + '</span><span class="ctile-v">' + esc(co.email) + '</span></a>';
-  if (co.phone) tiles += '<a class="tile t-1x1 tone-white ctile rv" href="tel:' + esc(co.phone.replace(/[^+\d]/g, '')) + '"' + f('company.phone') + '>' + ic('phone') + '<span class="tile-h">' + esc(co.phone) + '</span></a>';
-  if (co.instagram) tiles += '<a class="tile t-1x1 tone-blush ctile rv" href="' + esc(co.instagram) + '" target="_blank" rel="noopener"' + f('company.instagram') + ' style="--i:2">' + ic('ig') + '<span class="tile-h">' + esc(U.igMsg) + '</span><span class="tile-go">' + ic('arrow') + '</span></a>';
-  if (co.facebook) tiles += '<a class="tile t-1x1 tone-gold ctile rv" href="' + esc(co.facebook) + '" target="_blank" rel="noopener"' + f('company.facebook') + ' style="--i:3">' + ic('fb') + '<span class="tile-h">' + esc(U.fb) + '</span><span class="tile-go">' + ic('arrow') + '</span></a>';
-  tiles += '<div class="tile t-2x1 tone-white ctile ctile-area rv"' + f('company.city') + ' style="--i:4">' + ic('pin') + '<h3 class="tile-h">' + esc(U.area) + '</h3><p>' +
+  var ways = '';
+  if (co.email) ways += '<li><a href="mailto:' + esc(co.email) + '"' + f('company.email') + '>' + ic('mail') + '<span><b>' + esc(U.emailUs) + '</b><small>' + esc(co.email) + '</small></span></a></li>';
+  if (co.phone) ways += '<li><a href="tel:' + esc(co.phone.replace(/[^+\d]/g, '')) + '"' + f('company.phone') + '>' + ic('phone') + '<span><b>' + esc(co.phone) + '</b></span></a></li>';
+  if (co.instagram) ways += '<li><a href="' + esc(co.instagram) + '" target="_blank" rel="noopener"' + f('company.instagram') + '>' + ic('ig') + '<span><b>' + esc(U.igMsg) + '</b><small>Instagram</small></span></a></li>';
+  if (co.facebook) ways += '<li><a href="' + esc(co.facebook) + '" target="_blank" rel="noopener"' + f('company.facebook') + '>' + ic('fb') + '<span><b>' + esc(U.fb) + '</b><small>Facebook</small></span></a></li>';
+  var side = '<aside class="help-side"><p class="eyebrow">' + esc(U.otherWays) + '</p><ul class="ways">' + ways + '</ul>' +
+    '<div class="area"' + f('company.city') + '>' + ic('pin') + '<div><h3>' + esc(U.area) + '</h3><p>' +
     esc(U.areaText.replace('{city}', co.city).replace('{region}', co.region).replace('{country}', co.country === 'United Kingdom' && L === 'en' ? 'UK' : co.country)) + '</p>' +
-    (co.googleProfile ? '<p><a href="' + esc(co.googleProfile) + '" target="_blank" rel="noopener">' + esc(U.gprofile) + '</a></p>' : '<!-- [LINK DO UZUPEŁNIENIA] Profil Firmy w Google: panel → Dane kontaktowe -->') + '</div>';
-  return '<div class="sec-bg" aria-hidden="true"></div><div class="wrap">' + secHead(S, 'contact', L) + '<div class="bento contact-bento">' + form + tiles + '</div></div>';
+    (co.googleProfile ? '<p><a href="' + esc(co.googleProfile) + '" target="_blank" rel="noopener">' + esc(U.gprofile) + '</a></p>' : '<!-- [LINK DO UZUPEŁNIENIA] Profil Firmy w Google: panel → Dane kontaktowe -->') + '</div></div></aside>';
+  return '<div class="wrap"><div class="help-top">' + secHead(S, 'contact', L) + (notes ? '<ul class="help-list"' + f('notes') + '>' + notes + '</ul>' : '') + '</div>' +
+    '<div class="help-card rv">' + form + side + '</div></div>';
 };
 
 R.footer = function (S, c) {
@@ -1123,17 +1201,22 @@ R.footer = function (S, c) {
   return '<div class="wrap foot-grid">' +
     '<div class="foot-brand"><svg class="logo" viewBox="-232.5 -157.7 751 253.6" role="img" aria-label="AnnaBelle"><use href="#ab-logo"/></svg>' +
     (tr(S.hero.footer, L) ? '<p' + f('hero.footer') + '>' + esc(tr(S.hero.footer, L)) + '</p>' : '') +
-    '<p class="foot-area">' + esc(co.city) + ', ' + esc(co.region) + ', ' + esc(co.country) + '</p></div>' +
-    '<nav aria-label="Footer"><ul class="foot-nav">' + links + '</ul></nav>' +
-    '<div class="foot-contact"><h2>' + esc(U.footer.contact) + '</h2><ul>' +
-    (co.email ? '<li><a href="mailto:' + esc(co.email) + '">' + esc(co.email) + '</a></li>' : '') +
-    (co.phone ? '<li><a href="tel:' + esc(co.phone.replace(/[^+\d]/g, '')) + '">' + esc(co.phone) + '</a></li>' : '') +
-    '</ul><ul class="social">' +
-    (co.instagram ? '<li><a href="' + esc(co.instagram) + '" target="_blank" rel="noopener" aria-label="Instagram">' + ic('ig') + '</a></li>' : '') +
-    (co.facebook ? '<li><a href="' + esc(co.facebook) + '" target="_blank" rel="noopener" aria-label="Facebook">' + ic('fb') + '</a></li>' : '') +
-    '</ul></div></div>' +
+    (co.email ? '<a class="btn btn-light btn-sm" href="mailto:' + esc(co.email) + '">' + ic('mail') + esc(U.emailUs) + '</a>' : '') + '</div>' +
+    '<nav class="foot-col" aria-labelledby="fh-1"><h2 id="fh-1">' + esc(U.footer.explore) + '</h2><ul>' + links + '</ul></nav>' +
+    '<div class="foot-col"><h2>' + esc(U.footer.help) + '</h2><ul>' +
+      '<li><a href="#contact" data-topic="t2">' + esc(U.cta) + '</a></li><li><a href="#contact" data-topic="t3">' + esc(U.form.t3) + '</a></li>' +
+      (sectionShown(S, 'faq', c.now) ? '<li><a href="#faq">' + esc(U.nav.faq) + '</a></li>' : '') +
+      '<li><a href="#privacy" data-pop="privacy">' + esc(U.footer.privacy) + '</a></li></ul></div>' +
+    '<div class="foot-col"><h2>' + esc(U.footer.contact) + '</h2><ul>' +
+      '<li>' + esc(co.name) + '</li>' +
+      (co.email ? '<li><a href="mailto:' + esc(co.email) + '">' + esc(co.email) + '</a></li>' : '') +
+      (co.phone ? '<li><a href="tel:' + esc(co.phone.replace(/[^+\d]/g, '')) + '">' + esc(co.phone) + '</a></li>' : '') +
+      '<li class="foot-area">' + esc(co.city) + ', ' + esc(co.region) + ', ' + esc(co.country) + '</li></ul>' +
+      '<ul class="social">' +
+      (co.instagram ? '<li><a href="' + esc(co.instagram) + '" target="_blank" rel="noopener" aria-label="Instagram">' + ic('ig') + '</a></li>' : '') +
+      (co.facebook ? '<li><a href="' + esc(co.facebook) + '" target="_blank" rel="noopener" aria-label="Facebook">' + ic('fb') + '</a></li>' : '') +
+      '</ul></div></div>' +
     '<div class="wrap foot-bottom"><p>© ' + year + ' ' + esc(co.name) + '. ' + esc(U.footer.rights) + '</p><ul>' +
-    '<li><a href="#privacy" data-pop="privacy">' + esc(U.footer.privacy) + '</a></li>' +
     '<li><button type="button" class="linkbtn" data-admin>' + esc(U.footer.admin) + '</button></li>' +
     '<li>' + esc(U.footer.made) + '&nbsp;<a href="https://stronyaiwroclaw.pl" target="_blank" rel="noopener">Strony AI Wrocław</a></li></ul></div>';
 };
@@ -1291,7 +1374,8 @@ var AB = (function () {
     $('#dots').innerHTML = R.dots(S, c);
     var lg = $('#langs'), lh = R.langs(S, c); lg.innerHTML = lh; lg.hidden = !lh;
     $('#foot').innerHTML = R.footer(S, c);
-    $$('.head-cta').forEach(function (b) { b.textContent = U.cta; });
+    $$('.head-cta,.float-cta-t').forEach(function (b) { b.textContent = U.cta; });
+    $$('.head-link').forEach(function (b) { b.textContent = U.nav.contact; });
     $('.skip').textContent = U.skip;
     setHead(S, c);
     afterRender();
@@ -1590,8 +1674,8 @@ var AB = (function () {
 
   /* ---------- formularz ---------- */
   function prefill(a) {
-    var t = a.dataset.topic, o = a.dataset.offer, st = $('#cf-topic'), si = $('#cf-item');
-    if (t && st) st.value = t;
+    var t = a.dataset.topic, o = a.dataset.offer, si = $('#cf-item');
+    var rb = t && $('#cform input[name="topic"][value="' + t + '"]'); if (rb) rb.checked = true;   // temat: przyciski-wybory
     if (o && si) si.value = o;
   }
   function fieldErr(inp, msg) {
@@ -1614,10 +1698,10 @@ var AB = (function () {
     if (bad.length) { bad[0].focus(); return; }
     var btn = $('button[type=submit]', form), label = btn.textContent;
     btn.disabled = true; btn.textContent = F.sending;
-    var topic = form.elements.topic, item = form.elements.item, ts = form.elements['cf-turnstile-response'];
+    var topic = $('input[name="topic"]:checked', form), item = form.elements.item, ts = form.elements['cf-turnstile-response'];
     var data = {
       name: v('name'), email: v('email'), phone: v('phone'), date: v('date'), message: v('message'), website: v('website'), lang: A.lang,
-      topic: topic.options[topic.selectedIndex].text + (item.value ? ' – ' + item.options[item.selectedIndex].text : ''),
+      topic: (topic ? topic.parentNode.textContent.trim() : '') + (item.value ? ' – ' + item.options[item.selectedIndex].text : ''),
       turnstile: ts ? ts.value : ''
     };
     var mail = A.state.company.email;
@@ -1752,43 +1836,43 @@ var AB = (function () {
       make: function () { var t = today(); return { title: { en: '' }, desc: { en: '' }, badge: { en: '' }, img: '', offerId: '', bar: true, from: t, to: addDays(t, 14), paused: false, size: '2x1', tone: 'blush', feat: false }; },
       fields: [{ k: 'title', t: 'ml', l: 'Tytuł', req: 1 }, { k: 'desc', t: 'mlarea', l: 'Opis' }, { k: 'badge', t: 'ml', l: 'Plakietka (np. −15%)' }, { k: 'img', t: 'img', l: 'Zdjęcie' },
         { k: 'offerId', t: 'select', l: 'Powiązana pozycja kolekcji', opts: offerOpts, help: 'Na karcie tej pozycji pojawi się plakietka promocji.' },
-        { k: 'from', t: 'date', l: 'Pokazuj od' }, { k: 'to', t: 'date', l: 'Pokazuj do', help: 'Puste = bez końca.' }, { k: 'paused', t: 'bool', l: 'Wstrzymaj' }, { k: 'bar', t: 'bool', l: 'Pokaż też na górnym pasku' }, F_SIZE, F_TONE, F_FEAT] },
+        { k: 'from', t: 'date', l: 'Pokazuj od' }, { k: 'to', t: 'date', l: 'Pokazuj do', help: 'Puste = bez końca.' }, { k: 'paused', t: 'bool', l: 'Wstrzymaj' }, { k: 'bar', t: 'bool', l: 'Pokaż też na górnym pasku' }] },
     news: { path: 'news', sec: 'news', idp: 'nw', name: 'Aktualności', one: 'aktualność', timed: true, top: true, thumb: 'img',
       sub: function (x) { return x.date ? plDate(x.date) + '.' + x.date.slice(0, 4) : ''; },
       make: function () { var t = today(); return { title: { en: '' }, body: { en: '' }, date: t, img: '', bar: false, from: t, to: addDays(t, 14), paused: false, size: '2x1', tone: 'white', feat: false }; },
       fields: [{ k: 'title', t: 'ml', l: 'Tytuł', req: 1 }, { k: 'body', t: 'mlarea', l: 'Treść', rows: 7 }, { k: 'date', t: 'date', l: 'Data wpisu' }, { k: 'img', t: 'img', l: 'Zdjęcie' },
-        { k: 'from', t: 'date', l: 'Pokazuj od' }, { k: 'to', t: 'date', l: 'Pokazuj do', help: 'Puste = bez końca.' }, { k: 'paused', t: 'bool', l: 'Wstrzymaj' }, { k: 'bar', t: 'bool', l: 'Pokaż na górnym pasku' }, F_SIZE, F_TONE, F_FEAT] },
+        { k: 'from', t: 'date', l: 'Pokazuj od' }, { k: 'to', t: 'date', l: 'Pokazuj do', help: 'Puste = bez końca.' }, { k: 'paused', t: 'bool', l: 'Wstrzymaj' }, { k: 'bar', t: 'bool', l: 'Pokaż na górnym pasku' }] },
     offer: { path: 'offer', sec: 'collection', idp: 'of', name: 'Kolekcja', one: 'pozycję', thumb: 'img',
       sub: function (x) { return [T(x.time), T(x.price)].filter(Boolean).join(' · '); },
       make: function () { return { title: { en: '' }, desc: { en: '' }, time: { en: '' }, price: { en: '' }, img: '', alt: { en: '' }, badge: { en: '' }, isNew: false, btn: 'order', size: '1x1', feat: false, tone: 'white' }; },
       fields: [{ k: 'title', t: 'ml', l: 'Nazwa', req: 1 }, { k: 'desc', t: 'mlarea', l: 'Opis' }, { k: 'time', t: 'ml', l: 'Czas realizacji' }, { k: 'price', t: 'ml', l: 'Cena', help: 'Np. £35 albo „from £35”.' },
         { k: 'img', t: 'img', l: 'Zdjęcie' }, { k: 'alt', t: 'ml', l: 'Opis zdjęcia (dla Google i czytników ekranu)' }, { k: 'badge', t: 'ml', l: 'Własna plakietka' }, { k: 'isNew', t: 'bool', l: 'Nowość' },
-        { k: 'btn', t: 'select', l: 'Przycisk', opts: [['order', '„Order this bag” — zamówienie'], ['ask', '„Ask about this” — zapytanie o termin / wycenę']] }, F_SIZE, F_TONE, F_FEAT] },
+        { k: 'btn', t: 'select', l: 'Przycisk', opts: [['order', '„Order this bag” — zamówienie'], ['ask', '„Ask about this” — zapytanie o termin / wycenę']] }] },
     prices: { path: 'prices', sec: 'prices', idp: 'pc', name: 'Cennik', one: 'pozycję cennika',
       sub: function (x) { return [T(x.cat), T(x.time), T(x.price)].filter(Boolean).join(' · '); }, label: function (x) { return T(x.name); },
       make: function () { var l = A.state.prices; return { cat: clone((l[l.length - 1] || {}).cat || { en: '' }), name: { en: '' }, note: { en: '' }, time: { en: '' }, price: { en: '' } }; },
-      fields: [{ k: 'cat', t: 'ml', l: 'Kategoria', help: 'Każda kategoria to osobny kafelek-tabela na stronie.' }, { k: 'name', t: 'ml', l: 'Nazwa', req: 1 }, { k: 'note', t: 'ml', l: 'Dopisek' }, { k: 'time', t: 'ml', l: 'Czas realizacji' }, { k: 'price', t: 'ml', l: 'Cena', help: 'Cena zaczynająca się od „from” w polskiej wersji zmieni się na „od”.' }] },
+      fields: [{ k: 'cat', t: 'ml', l: 'Kategoria', help: 'Każda kategoria to osobna lista w ciemnym bloku cennika.' }, { k: 'name', t: 'ml', l: 'Nazwa', req: 1 }, { k: 'note', t: 'ml', l: 'Dopisek' }, { k: 'time', t: 'ml', l: 'Czas realizacji' }, { k: 'price', t: 'ml', l: 'Cena', help: 'Cena zaczynająca się od „from” w polskiej wersji zmieni się na „od”.' }] },
     gallery: { path: 'gallery', sec: 'gallery', idp: 'ga', name: 'Galeria', one: 'zdjęcie', thumb: 'img', imgReq: 'img',
       label: function (x) { return T(x.caption) || 'Zdjęcie'; }, sub: function (x) { return T(x.cat); },
       make: function () { return { img: '', caption: { en: '' }, cat: { en: 'Bags' }, size: '1x1', feat: false }; },
-      fields: [{ k: 'img', t: 'img', l: 'Zdjęcie', req: 1 }, { k: 'caption', t: 'ml', l: 'Podpis (opis zdjęcia)' }, { k: 'cat', t: 'ml', l: 'Kategoria', help: 'Kategorie tworzą filtry nad galerią.' }, F_SIZE, F_FEAT] },
+      fields: [{ k: 'img', t: 'img', l: 'Zdjęcie', req: 1 }, { k: 'caption', t: 'ml', l: 'Podpis (opis zdjęcia)' }, { k: 'cat', t: 'ml', l: 'Kategoria', help: 'Mały podpis pod zdjęciem.' }] },
     steps: { path: 'steps', sec: 'how', idp: 'st', name: 'Etapy zamówienia', one: 'etap', sub: function (x) { return T(x.desc).slice(0, 70); },
       make: function () { return { title: { en: '' }, desc: { en: '' }, size: '1x1', tone: 'plum' }; },
-      fields: [{ k: 'title', t: 'ml', l: 'Tytuł', req: 1 }, { k: 'desc', t: 'mlarea', l: 'Opis', rows: 3 }, F_SIZE, F_TONE] },
-    notes: { path: 'notes', sec: 'how', idp: 'no', name: 'Warto wiedzieć przed zamówieniem', one: 'informację', sub: function (x) { return T(x.text).slice(0, 70); },
+      fields: [{ k: 'title', t: 'ml', l: 'Tytuł', req: 1 }, { k: 'desc', t: 'mlarea', l: 'Opis', rows: 3 }] },
+    notes: { path: 'notes', sec: 'contact', idp: 'no', name: 'Punkty obok tytułu „Ask about your bag”', one: 'informację', sub: function (x) { return T(x.text).slice(0, 70); },
       make: function () { return { title: { en: '' }, text: { en: '' } }; },
       fields: [{ k: 'title', t: 'ml', l: 'Tytuł', req: 1 }, { k: 'text', t: 'mlarea', l: 'Treść', rows: 3 }] },
-    features: { path: 'about.features', sec: 'about', idp: 'fe', name: 'Wyróżniki marki', one: 'wyróżnik', sub: function (x) { return T(x.desc).slice(0, 70); },
+    features: { path: 'about.features', sec: 'hero', idp: 'fe', name: 'Pasek zalet pod pierwszym ekranem', one: 'wyróżnik', sub: function (x) { return T(x.desc).slice(0, 70); },
       make: function () { return { title: { en: '' }, desc: { en: '' } }; },
       fields: [{ k: 'title', t: 'ml', l: 'Tytuł', req: 1 }, { k: 'desc', t: 'mlarea', l: 'Opis', rows: 3 }] },
     reviews: { path: 'reviews', sec: 'reviews', idp: 'rv', name: 'Opinie', one: 'opinię', label: function (x) { return x.author; },
       sub: function (x) { return '★'.repeat(+x.stars || 5) + (T(x.service) ? ' · ' + T(x.service) : ''); },
       make: function () { return { author: '', stars: '5', service: { en: '' }, text: { en: '' }, size: '1x1', tone: 'white', feat: false }; },
-      fields: [{ k: 'author', t: 'text', l: 'Autor', req: 1 }, { k: 'stars', t: 'select', l: 'Ocena', opts: [['5', '5 gwiazdek'], ['4', '4 gwiazdki'], ['3', '3 gwiazdki']] }, { k: 'service', t: 'ml', l: 'Czego dotyczy (np. nazwa torebki)' }, { k: 'text', t: 'mlarea', l: 'Treść opinii', help: 'Wpisuj wyłącznie prawdziwe opinie klientów.' }, F_SIZE, F_TONE, F_FEAT] },
+      fields: [{ k: 'author', t: 'text', l: 'Autor', req: 1 }, { k: 'stars', t: 'select', l: 'Ocena', opts: [['5', '5 gwiazdek'], ['4', '4 gwiazdki'], ['3', '3 gwiazdki']] }, { k: 'service', t: 'ml', l: 'Czego dotyczy (np. nazwa torebki)' }, { k: 'text', t: 'mlarea', l: 'Treść opinii', help: 'Wpisuj wyłącznie prawdziwe opinie klientów.' }] },
     faq: { path: 'faq', sec: 'faq', idp: 'fq', name: 'Pytania (FAQ)', one: 'pytanie', label: function (x) { return T(x.q); }, sub: function (x) { return T(x.a).slice(0, 70); },
       make: function () { return { q: { en: '' }, a: { en: '' } }; },
       fields: [{ k: 'q', t: 'ml', l: 'Pytanie', req: 1 }, { k: 'a', t: 'mlarea', l: 'Odpowiedź', rows: 4 }] },
-    slides: { path: 'hero.slides', sec: 'hero', idp: 'sl', name: 'Zdjęcia w nagłówku (slider)', one: 'zdjęcie', thumb: 'img', imgReq: 'img', label: function (x) { return T(x.alt) || 'Zdjęcie'; }, sub: function () { return ''; },
+    slides: { path: 'hero.slides', sec: 'hero', idp: 'sl', name: 'Zdjęcia na pierwszym ekranie (1 duże + 2 małe)', one: 'zdjęcie', thumb: 'img', imgReq: 'img', label: function (x) { return T(x.alt) || 'Zdjęcie'; }, sub: function () { return ''; },
       make: function () { return { img: '', alt: { en: '' } }; },
       fields: [{ k: 'img', t: 'img', l: 'Zdjęcie', req: 1 }, { k: 'alt', t: 'ml', l: 'Opis zdjęcia (dla Google i czytników ekranu)' }] },
     perks: { path: 'hero.perks', sec: 'hero', idp: 'pk', name: 'Atuty pod przyciskami', one: 'atut', label: function (x) { return T(x.text); }, sub: function () { return ''; },
@@ -1799,20 +1883,20 @@ var AB = (function () {
   var PAGES = {
     'c:promos': { title: 'Promocje', desc: 'Oferty z terminem. Na stronie widać tylko aktywne — po terminie znikają same, a tutaj zostają jako archiwum.', sec: 'promos', lists: ['promos'] },
     'c:news': { title: 'Aktualności', desc: 'Krótkie wiadomości dla klientów. Sekcja chowa się sama, gdy nie ma nic aktywnego.', sec: 'news', lists: ['news'] },
-    'c:offer': { title: 'Kolekcja', desc: 'Torebki i usługi pokazywane jako kafelki ze zdjęciem, czasem realizacji, ceną i przyciskiem.', sec: 'collection', lists: ['offer'] },
+    'c:offer': { title: 'Kolekcja', desc: 'Torebki pokazywane jako karty produktów: zdjęcie, czas realizacji, nazwa, cena i przycisk.', sec: 'collection', lists: ['offer'] },
     'c:prices': { title: 'Cennik', desc: 'Pozycje cennika pogrupowane w kategorie.', sec: 'prices', lists: ['prices'], fields: [{ k: 'priceNote', t: 'mlarea', l: 'Uwaga pod cennikiem', rows: 3 }] },
     'c:gallery': { title: 'Galeria', desc: 'Wybrane prace. Kliknięcie zdjęcia na stronie otwiera powiększenie.', sec: 'gallery', lists: ['gallery'] },
     'c:reviews': { title: 'Opinie', desc: 'Lista startuje pusta — wpisuj wyłącznie prawdziwe opinie. Sekcja pojawi się na stronie po dodaniu pierwszej.', sec: 'reviews', lists: ['reviews'], fields: [{ k: 'reviewsLink', t: 'text', l: 'Link do opinii w Google', help: '[LINK DO UZUPEŁNIENIA] po założeniu Profilu Firmy w Google.' }] },
     'c:faq': { title: 'Pytania (FAQ)', desc: 'Najczęstsze pytania klientów i odpowiedzi.', sec: 'faq', lists: ['faq'] },
-    hero: { title: 'Strona główna', desc: 'Pierwszy ekran strony: nagłówek, wprowadzenie, zdjęcia i atuty.', sec: 'hero', lists: ['slides', 'perks'],
+    hero: { title: 'Strona główna', desc: 'Pierwszy ekran strony: nagłówek, wprowadzenie, zdjęcia i atuty.', sec: 'hero', lists: ['slides', 'perks', 'features'],
       fields: [{ k: 'hero.eyebrow', t: 'ml', l: 'Nadtytuł' }, { k: 'hero.title', t: 'ml', l: 'Tytuł główny (H1)', help: 'Słowo w *gwiazdkach* będzie kursywą w kolorze akcentu.' }, { k: 'hero.intro', t: 'mlarea', l: 'Wprowadzenie', rows: 3 },
-        { k: 'hero.availTitle', t: 'ml', l: 'Kafelek „zapytaj o termin” — tytuł' }, { k: 'hero.availText', t: 'mlarea', l: 'Kafelek „zapytaj o termin” — tekst', rows: 2 },
-        { k: 'hero.values', t: 'ml', l: 'Kafelek z wartościami marki' }, { k: 'hero.footer', t: 'ml', l: 'Hasło w stopce' }] },
-    about: { title: 'O marce', desc: 'Tekst o AnnaBelle, dwa zdjęcia i wyróżniki.', sec: 'about', lists: ['features'],
+        { k: 'hero.availTitle', t: 'ml', l: 'Pasek zalet — ostatnia pozycja „zapytaj o termin”: tytuł' }, { k: 'hero.availText', t: 'mlarea', l: 'Pasek zalet — ostatnia pozycja: tekst', rows: 2 },
+        { k: 'hero.values', t: 'ml', l: 'Wartości marki (sekcja „O marce”)', help: 'Oddziel znakiem · (kropka w połowie wysokości).' }, { k: 'hero.footer', t: 'ml', l: 'Hasło w stopce' }] },
+    about: { title: 'O marce', desc: 'Tekst o AnnaBelle i dwa zdjęcia. Wartości marki zmienisz na stronie „Strona główna”.', sec: 'about', lists: [],
       fields: [{ k: 'sections.about.title', t: 'ml', l: 'Tytuł sekcji' }, { k: 'about.text', t: 'mlarea', l: 'Tekst', rows: 8, help: 'Pusta linia = nowy akapit. *kursywa*, **pogrubienie**.' },
         { k: 'about.img1', t: 'img', l: 'Zdjęcie 1 (pionowe)' }, { k: 'about.alt1', t: 'ml', l: 'Opis zdjęcia 1' }, { k: 'about.img2', t: 'img', l: 'Zdjęcie 2 (poziome)' }, { k: 'about.alt2', t: 'ml', l: 'Opis zdjęcia 2' }] },
-    how: { title: 'Jak zamówić', desc: 'Etapy współpracy i informacje przed zamówieniem.', sec: 'how', lists: ['steps', 'notes'] },
-    kontakt: { title: 'Dane kontaktowe', desc: 'Zmiany od razu aktualizują kafelki kontaktu, stopkę i dane dla Google.', sec: 'contact',
+    how: { title: 'Jak zamówić', desc: 'Etapy zamówienia pokazywane w kolumnach.', sec: 'how', lists: ['steps'] },
+    kontakt: { title: 'Dane kontaktowe', desc: 'Zmiany od razu aktualizują formularz, stopkę i dane dla Google.', sec: 'contact', lists: ['notes'],
       fields: [{ k: 'company.email', t: 'text', l: 'E-mail' }, { k: 'company.phone', t: 'text', l: 'Telefon', help: 'Puste = telefon nie jest pokazywany na stronie (tak wybrano w briefie).' },
         { k: 'company.instagram', t: 'text', l: 'Instagram (link)' }, { k: 'company.facebook', t: 'text', l: 'Facebook (link)' },
         { k: 'company.city', t: 'text', l: 'Miasto' }, { k: 'company.region', t: 'text', l: 'Region' }, { k: 'company.country', t: 'text', l: 'Kraj' },
@@ -2354,7 +2438,7 @@ var AB = (function () {
     err.textContent = !p0 ? 'Podaj obecne hasło.' : p1.length < 10 ? 'Nowe hasło musi mieć co najmniej 10 znaków.' : p1 !== p2 ? 'Nowe hasła nie są takie same.' : '';
     if (err.textContent) return;
     A.api('haslo', { method: 'POST', body: { obecne: p0, nowe: p1 } }).then(function () { P.temp = false; e.target.reset(); toast('Hasło zmienione. Od teraz obowiązuje nowe hasło.'); })
-      .catch(function (x) { err.textContent = x.status === 503 || !x.status ? 'Serwer chwilowo nie odpowiada — spróbuj ponownie.' : x.message; });
+      .catch(function (x) { err.textContent = !x.status || (x.status === 503 && /^HTTP/.test(x.message)) ? 'Serwer chwilowo nie odpowiada — spróbuj ponownie.' : x.message; });
   }
   function onHover(e) {
     var f = e.target.closest ? e.target.closest('.cmsp-fld[data-hl]') : null;
@@ -2399,7 +2483,7 @@ var AB = (function () {
         if (A.demo) { if (pw === 'demo') return done(); err.textContent = 'Nieprawidłowe hasło. W trybie demonstracyjnym hasło to „demo”.'; return; }
         btn.disabled = true; err.textContent = '';
         A.api('login', { method: 'POST', body: { haslo: pw } }).then(done).catch(function (x) {
-          err.textContent = x.status === 401 ? 'Nieprawidłowe hasło.' : x.status === 429 ? 'Zbyt wiele nieudanych prób. Spróbuj ponownie za 15 minut.' : x.status === 503 || !x.status ? 'Serwer chwilowo nie odpowiada — spróbuj ponownie.' : x.message;
+          err.textContent = x.status === 401 ? 'Nieprawidłowe hasło.' : x.status === 429 ? 'Zbyt wiele nieudanych prób. Spróbuj ponownie za 15 minut.' : !x.status || (x.status === 503 && /^HTTP/.test(x.message)) ? 'Serwer chwilowo nie odpowiada — spróbuj ponownie.' : x.message;
         }).then(function () { btn.disabled = false; });
       };
     }
