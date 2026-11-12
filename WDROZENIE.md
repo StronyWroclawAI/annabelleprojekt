@@ -29,6 +29,7 @@ narzedzia/generuj-hash.mjs ← generator hasha pierwszego hasła
    node narzedzia/generuj-hash.mjs "TwojeHaslo-min10znakow"
    ```
    Skrypt wypisze dwie wartości. W projekcie Pages: Settings → Variables and Secrets → Add (typ **Secret**):
+   - (opcjonalnie — bez tego logujesz się hasłem tymczasowym **demo** i zmieniasz je w panelu: Ustawienia → Zmiana hasła)
    - `ADMIN_PASSWORD_HASH` = wypisany hash (zaczyna się od `pbkdf2$100000$…`)
    - `SESSION_SECRET` = wypisany losowy ciąg
 5. **Wdróż ponownie** (Deployments → Retry deployment), żeby powiązanie KV i zmienne zaczęły działać.
@@ -77,7 +78,7 @@ panel otwiera hasło `demo`, a zmiany zapisują się tylko w tej przeglądarce.
 | Nazwa | Wymagana | Do czego |
 |---|---|---|
 | `TRESCI` (powiązanie KV) | tak | treści strony, zdjęcia, kopie, wiadomości |
-| `ADMIN_PASSWORD_HASH` | tak | hash pierwszego hasła |
-| `SESSION_SECRET` | tak | podpis sesji logowania |
+| `ADMIN_PASSWORD_HASH` | nie | hash własnego pierwszego hasła; bez niego obowiązuje hasło tymczasowe **demo** |
+| `SESSION_SECRET` | nie | podpis sesji; bez niego serwer tworzy własny klucz w KV |
 | `RESEND_API_KEY`, `MAIL_FROM`, `MAIL_TO` | nie | e-mail o nowej wiadomości |
 | `TURNSTILE_SITEKEY`, `TURNSTILE_SECRET` | nie | ochrona formularza przed botami |

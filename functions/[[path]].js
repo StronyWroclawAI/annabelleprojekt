@@ -4,8 +4,8 @@
    sitemap.xml i robots.txt. Dane w Cloudflare KV — powiązanie o nazwie TRESCI.
 
    Zmienne środowiskowe (Cloudflare Pages → Settings → Variables and Secrets):
-     ADMIN_PASSWORD_HASH  – hash pierwszego hasła (narzedzia/generuj-hash.mjs)
-     SESSION_SECRET       – długi losowy ciąg znaków (podpis sesji)
+     ADMIN_PASSWORD_HASH  – (opcjonalnie) hash pierwszego hasła; bez niego obowiązuje hasło tymczasowe „demo”
+     SESSION_SECRET       – (opcjonalnie) długi losowy ciąg znaków; bez niego klucz tworzy się sam w KV
    Opcjonalne:
      RESEND_API_KEY, MAIL_FROM, MAIL_TO – powiadomienie e-mail o wiadomości
      TURNSTILE_SITEKEY, TURNSTILE_SECRET – Cloudflare Turnstile w formularzu
@@ -76,7 +76,7 @@ async function hmac(sekret, tekst) {
 }
 async function skrotIp(request, env) {
   const ip = request.headers.get('cf-connecting-ip') || '0';
-  const d = await crypto.subtle.digest('SHA-256', enc.encode(ip + '|' + (env.SESSION_SECRET || '')));
+  const d = await crypto.subtle.digest('SHA-256', enc.encode(ip + '|' + (await sekretSesji(env))));
   return [...new Uint8Array(d)].slice(0, 10).map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
@@ -105,10 +105,10 @@ function naglowekCiastka(wartosc, sekundy) {
 }
 async function zalogowany(request, env) {
   const zeton = ciastko(request, CIASTKO);
-  if (!zeton || !env.SESSION_SECRET) return false;
+  if (!zeton) return false;
   const [wygasa, epoka, podpis] = zeton.split('.');
   if (!wygasa || !podpis || Number(wygasa) < Date.now()) return false;
-  const oczekiwany = await hmac(env.SESSION_SECRET, `${wygasa}.${epoka}`);
+  const oczekiwany = await hmac(await sekretSesji(env), `${wygasa}.${epoka}`);
   if (!rowne(enc.encode(podpis), enc.encode(oczekiwany))) return false;
   const aktualna = (await kvGet(env, 'auth:epoka')) || '0';   // zmiana hasła unieważnia stare sesje
   return aktualna === epoka;
@@ -116,10 +116,27 @@ async function zalogowany(request, env) {
 async function nowaSesja(env) {
   const wygasa = Date.now() + SESJA_GODZIN * 3600 * 1000;
   const epoka = (await kvGet(env, 'auth:epoka')) || '0';
-  const podpis = await hmac(env.SESSION_SECRET, `${wygasa}.${epoka}`);
+  const podpis = await hmac(await sekretSesji(env), `${wygasa}.${epoka}`);
   return naglowekCiastka(`${wygasa}.${epoka}.${podpis}`, SESJA_GODZIN * 3600);
 }
-const hashHasla = async (env) => (await kvGet(env, 'auth:hash')) || env.ADMIN_PASSWORD_HASH || '';
+/* Klucz podpisu sesji: zmienna SESSION_SECRET, a gdy jej nie ma — losowy klucz zapisany w KV
+   (nikt poza serwerem go nie odczyta, więc strona działa bez ręcznej konfiguracji). */
+async function sekretSesji(env) {
+  if (env.SESSION_SECRET) return env.SESSION_SECRET;
+  let k = await kvGet(env, 'auth:sekret');
+  if (!k) { k = losowe(32); await kvPut(env, 'auth:sekret', k); }
+  return k;
+}
+
+/* Hasło: 1) własne, ustawione w panelu (KV), 2) zmienna ADMIN_PASSWORD_HASH,
+   3) tymczasowe hasło „demo” — panel przypomina, by je zmienić. */
+const HASH_TYMCZASOWEGO = 'pbkdf2$100000$5bmIhkrY9IomSpTjipHCVA==$9vSYt4uo3fFBZaIcfpUE6Gi7CDEO7Da+4TSmNinoucM=';
+async function hashHasla(env) {
+  return (await kvGet(env, 'auth:hash')) || env.ADMIN_PASSWORD_HASH || HASH_TYMCZASOWEGO;
+}
+async function haslo_tymczasowe(env) {
+  return !(await kvGet(env, 'auth:hash')) && !env.ADMIN_PASSWORD_HASH;
+}
 
 /* Ochrona przed CSRF: własny nagłówek + zgodny Origin */
 function csrfOk(request) {
@@ -167,14 +184,15 @@ async function api(context, sciezka) {
 
   if (sciezka === 'kontakt' && metoda === 'POST') return kontakt(context);
 
-  if (sciezka === 'sesja' && metoda === 'GET') return json({ ok: true, zalogowany: await zalogowany(request, env) });
+  if (sciezka === 'sesja' && metoda === 'GET') {
+    const zal = await zalogowany(request, env);
+    return json({ ok: true, zalogowany: zal, tymczasowe: zal ? await haslo_tymczasowe(env) : false });
+  }
 
   /* --- logowanie --- */
   if (sciezka === 'login' && metoda === 'POST') {
     if (!csrfOk(request)) return blad(403, 'Odrzucono żądanie.');
-    if (!env.SESSION_SECRET) return blad(503, 'Brak zmiennej SESSION_SECRET — dokończ konfigurację serwera.');
     const zapisany = await hashHasla(env);
-    if (!zapisany) return blad(503, 'Brak zmiennej ADMIN_PASSWORD_HASH — dokończ konfigurację serwera.');
     const proby = await limitProb(env, 'rl:login:' + (await skrotIp(request, env)), 5, 900);
     if (proby.zablokowany) return blad(429, 'Zbyt wiele nieudanych prób. Spróbuj ponownie za 15 minut.');
     let haslo = '';
@@ -183,7 +201,7 @@ async function api(context, sciezka) {
       await proby.dodaj();
       return blad(401, 'Nieprawidłowe hasło.');
     }
-    return json({ ok: true }, 200, { 'set-cookie': await nowaSesja(env) });
+    return json({ ok: true, tymczasowe: await haslo_tymczasowe(env) }, 200, { 'set-cookie': await nowaSesja(env) });
   }
 
   if (sciezka === 'logout' && metoda === 'POST') {

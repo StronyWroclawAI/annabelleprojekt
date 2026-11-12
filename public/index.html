@@ -346,11 +346,10 @@ img.img-fail{visibility:hidden}
   .dots a:hover span,.dots a:focus-visible span{opacity:1;transform:none}
 }
 
-/* kurtyna przy skoku z menu */
-.curtain{position:fixed;inset:0;z-index:150;display:grid;place-items:center;background:var(--plum);color:#fff;transform:translateY(101%);pointer-events:none;visibility:hidden}
-.curtain.go{visibility:visible}
-.curtain p{font-family:var(--serif);font-size:clamp(2rem,6vw,4rem);font-style:italic;margin:0}
-.curtain .rosette{position:static;width:90px;height:90px;opacity:1;color:var(--gold-pale);margin:0 auto 1rem}
+/* przejście „nić i ścieg” (skrypt: threadJump w site.js) — tylko transform/opacity na całej warstwie */
+.thread{position:fixed;left:0;top:0;width:100%;height:100%;z-index:150;pointer-events:none;display:none;overflow:hidden}
+.thread.go{display:block;will-change:opacity}
+.thread path{fill:none}
 
 /* okna */
 dialog{border:0;padding:0;color:var(--ink)}
@@ -396,9 +395,9 @@ dialog::backdrop{background:rgba(46,16,39,.62)}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .js-anim #main .rv{opacity:1;transform:none}
-  .curtain{display:none}
+  .thread{display:none!important}
 }
-@media print{.site-head,.bar,.dots,.lockbtn,.curtain{display:none}.js-anim #main .rv{opacity:1;transform:none}}
+@media print{.site-head,.bar,.dots,.lockbtn,.thread{display:none}.js-anim #main .rv{opacity:1;transform:none}}
 </style>
 <script type="application/ld+json" id="ld">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://[DOMENA]/#business","name":"AnnaBelle","url":"https://[DOMENA]/","description":"Unique handmade cotton cord bags, made to order in Bedford, Bedfordshire. You choose the colours and size – we create the bag. Ask about your bag today.","logo":"https://[DOMENA]/img/logo-annabelle.svg","image":"https://[DOMENA]/img/og-image.jpg","email":"annabellebags2026@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Bedford","addressRegion":"Bedfordshire","addressCountry":"GB"},"areaServed":[{"@type":"AdministrativeArea","name":"Bedfordshire"},{"@type":"Country","name":"United Kingdom"}],"sameAs":["https://www.instagram.com/annabellebags2026","https://www.facebook.com/share/1F8JV3mgeF/"]},{"@type":"WebSite","@id":"https://[DOMENA]/#website","url":"https://[DOMENA]/","name":"AnnaBelle","inLanguage":"en"},{"@type":"FAQPage","@id":"https://[DOMENA]/#faq","mainEntity":[{"@type":"Question","name":"Are all your products handmade?","acceptedAnswer":{"@type":"Answer","text":"Yes! Every AnnaBelle product is carefully handmade with love, passion and attention to detail."}},{"@type":"Question","name":"What materials do you use?","acceptedAnswer":{"@type":"Answer","text":"We use high-quality, durable polyester cord to create beautiful and practical handmade products."}},{"@type":"Question","name":"Can I order a custom-made basket or bag?","acceptedAnswer":{"@type":"Answer","text":"Yes! We may be able to create custom designs, colours and sizes to suit your preferences. Please contact us to discuss your ideas."}},{"@type":"Question","name":"How long does it take to make an order?","acceptedAnswer":{"@type":"Answer","text":"Production times depend on the design and availability. We will confirm the estimated delivery time when you place your order."}},{"@type":"Question","name":"Do you have products ready to buy?","acceptedAnswer":{"@type":"Answer","text":"Yes, selected designs may be available from our current collection. Please contact us for availability."}},{"@type":"Question","name":"Can I choose the colour of my product?","acceptedAnswer":{"@type":"Answer","text":"Absolutely! We offer a selection of colours, subject to material availability."}},{"@type":"Question","name":"Are handmade products identical?","acceptedAnswer":{"@type":"Answer","text":"No two handmade items are exactly the same. Small variations are part of their unique charm."}},{"@type":"Question","name":"How do I care for my handmade basket or bag?","acceptedAnswer":{"@type":"Answer","text":"We recommend gentle cleaning with a damp cloth and mild soap. Avoid harsh chemicals and excessive heat."}},{"@type":"Question","name":"Do you offer gift options?","acceptedAnswer":{"@type":"Answer","text":"Yes! Our handmade creations make lovely gifts for birthdays, special occasions and anyone who appreciates unique accessories."}},{"@type":"Question","name":"Do you deliver?","acceptedAnswer":{"@type":"Answer","text":"Please contact us for information about available delivery options and costs."}},{"@type":"Question","name":"How can I place an order?","acceptedAnswer":{"@type":"Answer","text":"You can contact us through our website or social media. We will be happy to help you choose your favourite design."}},{"@type":"Question","name":"Can I return or exchange an item?","acceptedAnswer":{"@type":"Answer","text":"Returns and exchanges are subject to our store policy and applicable consumer rights. Please contact us if you have any concerns about your order."}}]}]}</script>
 </head>
@@ -435,7 +434,7 @@ dialog::backdrop{background:rgba(46,16,39,.62)}
 <footer class="foot dark" id="foot"><div class="wrap foot-grid"><div class="foot-brand"><svg class="logo" viewBox="-232.5 -157.7 751 253.6" role="img" aria-label="AnnaBelle"><use href="#ab-logo"/></svg><p data-f="hero.footer">Unique bags in the colours you want. You choose, we create.</p><p class="foot-area">Bedford, Bedfordshire, United Kingdom</p></div><nav aria-label="Footer"><ul class="foot-nav"><li><a href="#collection">Collection</a></li><li><a href="#prices">Prices</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#about">About</a></li><li><a href="#news">News</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li></ul></nav><div class="foot-contact"><h2>Contact</h2><ul><li><a href="mailto:annabellebags2026@gmail.com">annabellebags2026@gmail.com</a></li></ul><ul class="social"><li><a href="https://www.instagram.com/annabellebags2026" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg></a></li><li><a href="https://www.facebook.com/share/1F8JV3mgeF/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ic" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 8.5V7c0-1 .5-1.5 1.6-1.5H17V3h-2.3C12.4 3 11 4.4 11 6.8v1.7H9V11h2v10h3V11h2.4l.4-2.5H14z"/></svg></a></li></ul></div></div><div class="wrap foot-bottom"><p>© 2026 AnnaBelle. All rights reserved.</p><ul><li><a href="#privacy" data-pop="privacy">Privacy policy</a></li><li><button type="button" class="linkbtn" data-admin>Admin panel</button></li><li>Website by&nbsp;<a href="https://stronyaiwroclaw.pl" target="_blank" rel="noopener">Strony AI Wrocław</a></li></ul></div></footer>
 
 <nav class="dots" aria-label="Sections"><ul id="dots"><li><a href="#top" aria-label="Home"><span>Home</span></a></li><li><a href="#collection" aria-label="Collection"><span>Collection</span></a></li><li><a href="#prices" aria-label="Prices"><span>Prices</span></a></li><li><a href="#gallery" aria-label="Gallery"><span>Gallery</span></a></li><li><a href="#how-it-works" aria-label="How it works"><span>How it works</span></a></li><li><a href="#about" aria-label="About"><span>About</span></a></li><li><a href="#news" aria-label="News"><span>News</span></a></li><li><a href="#faq" aria-label="FAQ"><span>FAQ</span></a></li><li><a href="#contact" aria-label="Contact"><span>Contact</span></a></li></ul></nav>
-<div class="curtain" id="curtain" aria-hidden="true"><div><svg class="rosette" viewBox="-106 -106 212 212"><use href="#ab-rosette"/></svg><p></p></div></div>
+<svg class="thread" id="thread" aria-hidden="true" focusable="false"><defs><clipPath id="th-clip"><rect id="th-rect" x="0" y="0" width="0" height="1200"/></clipPath></defs><g id="th-flip"><g clip-path="url(#th-clip)"><path id="th-band" stroke="#FBF6F0" stroke-opacity=".16" stroke-width="22" stroke-linecap="butt"/><path id="th-st-sh" stroke="#2E1027" stroke-opacity=".3" stroke-width="3.4" stroke-linecap="butt" transform="translate(0 1.4)"/><path id="th-st" stroke="#C8963E" stroke-width="2.2" stroke-linecap="butt"/></g><path id="th-ln-sh" stroke="#2E1027" stroke-opacity=".3" stroke-width="3" stroke-linecap="round" transform="translate(0 1.4)"/><path id="th-ln" stroke="#C8963E" stroke-width="1.8" stroke-linecap="round"/><circle id="th-tip" r="3.4" fill="#C8963E"/></g></svg>
 
 <dialog class="pop" id="pop" aria-labelledby="pop-h"><button type="button" class="pop-x" aria-label="Close">&times;</button><div class="pop-in" id="pop-in"></div></dialog>
 <dialog class="lb dark" id="lb" aria-label="Photo">
@@ -625,6 +624,7 @@ dialog::backdrop{background:rgba(46,16,39,.62)}
 .cmsp-login h2{font-size:1.25rem;margin-bottom:4px}
 .cmsp-login .cmsp-lbl{margin-top:14px}
 @media(prefers-reduced-motion:reduce){.cmsp-toast{transition:none}}
+.cmsp-link{background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;font-weight:700;cursor:pointer}
 </style>
 <script>
 /* ==========================================================================
@@ -1374,26 +1374,108 @@ var AB = (function () {
     else el.scrollIntoView({ behavior: instant || reduced ? 'instant' : 'smooth', block: 'start' });   // odstęp z CSS: scroll-margin-top
     if (el.id !== 'top') { el.setAttribute('tabindex', '-1'); el.focus({ preventScroll: true }); }
   }
-  /* EFEKT: kurtyna przy skoku z menu (panel w kolorze marki z nazwą sekcji, ok. 450 ms) */
-  function curtainJump(el, label) {
-    var cur = $('#curtain');
-    if (reduced || !cur.animate) return scrollToEl(el);
-    $('p', cur).textContent = label;
-    cur.classList.add('go');
-    var ease = 'cubic-bezier(.65,0,.25,1)';
-    cur.animate([{ transform: 'translateY(101%)' }, { transform: 'translateY(0)' }], { duration: 210, easing: ease, fill: 'forwards' }).finished.then(function () {
-      scrollToEl(el, true);
-      return new Promise(function (r) { setTimeout(r, 40); });
-    }).then(function () {
-      return cur.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-101%)' }], { duration: 210, easing: ease, fill: 'forwards' }).finished;
-    }).then(function () { cur.classList.remove('go'); cur.getAnimations().forEach(function (a) { a.cancel(); }); });
+  /* ====================================================================
+     EFEKT: przejście „nić i ścieg” (klik w link do sekcji na tej samej stronie)
+     1) cienka, lekko pofalowana nić wysuwa się zza krawędzi ekranu i przeszywa go w poprzek,
+     2) za nią zostaje ścieg (krótkie, równe kreski) z delikatnym jasnym pasem,
+     3) w trakcie rysowania strona płynnie przewija się do sekcji (własna animacja rAF,
+        więc czas jest stały i można ją przerwać),
+     4) po dotarciu nić i ścieg znikają (opacity).
+     Całość to jeden mały SVG (kilka elementów), ok. 760 ms (telefon: 560 ms).
+     prefers-reduced-motion: zwykłe, natychmiastowe przejście do sekcji.
+     ==================================================================== */
+  var TH = null;                                     // aktywne przejście (tylko jedno naraz)
+  var thEase = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+  var thClamp = function (v) { return Math.max(0, Math.min(1, v)); };
+
+  /* pozycja przewinięcia, przy której sekcja stoi tak jak przy zwykłym skoku (z uwzględnieniem scroll-margin-top) */
+  function targetY(el) {
+    if (el.id === 'top') return 0;
+    var mt = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+    var y = el.getBoundingClientRect().top + window.pageYOffset - mt;
+    return Math.max(0, Math.min(y, doc.documentElement.scrollHeight - window.innerHeight));
   }
+  /* lekko nieregularny przebieg nici: punkty z losowym odchyleniem + gładkie krzywe Béziera (Catmull-Rom) */
+  function threadD(W, H, n) {
+    var pts = [], base = H * (.42 + Math.random() * .16), amp = H * .045, i;
+    for (i = 0; i <= n; i++) pts.push([-30 + i * (W + 60) / n, base + (Math.random() * 2 - 1) * amp * (i === 0 ? .3 : 1)]);
+    var d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1), p0, p1, p2, p3;
+    for (i = 0; i < n; i++) {
+      p0 = pts[Math.max(0, i - 1)]; p1 = pts[i]; p2 = pts[i + 1]; p3 = pts[Math.min(n, i + 2)];
+      d += 'C' + (p1[0] + (p2[0] - p0[0]) / 6).toFixed(1) + ' ' + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(1) + ' ' +
+        (p2[0] - (p3[0] - p1[0]) / 6).toFixed(1) + ' ' + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(1) + ' ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
+    }
+    return d;
+  }
+  function stopThread(fadeMs) {
+    if (!TH) return;
+    var t = TH; TH = null;
+    cancelAnimationFrame(t.raf);
+    var svg = t.svg;
+    if (fadeMs) {                                    // przerwane przez użytkownika: szybkie, miękkie wygaszenie
+      svg.style.transition = 'opacity ' + fadeMs + 'ms linear'; svg.style.opacity = '0';
+      setTimeout(function () { if (!TH) { svg.classList.remove('go'); svg.style.transition = ''; } }, fadeMs + 20);
+    } else { svg.classList.remove('go'); svg.style.transition = ''; }
+  }
+  function threadJump(el) {
+    var svg = $('#thread');
+    stopThread(0);                                   // nowe kliknięcie anuluje poprzednią animację
+    var W = window.innerWidth, H = window.innerHeight, start = window.pageYOffset, dest0 = targetY(el);
+    if (!svg || !$('#th-ln').getTotalLength) return scrollToEl(el, true);
+    if (Math.abs(dest0 - start) < 8) return scrollToEl(el, true);          // jesteśmy już w tej sekcji — bez efektu
+    var small = W <= 640, down = dest0 > start, T = small ? 560 : 760;
+    var ln = $('#th-ln'), lsh = $('#th-ln-sh'), st = $('#th-st'), ssh = $('#th-st-sh'), band = $('#th-band'), tip = $('#th-tip');
+    var d = threadD(W, H, small ? 3 : 5);
+    [ln, lsh, st, ssh, band].forEach(function (p) { p.setAttribute('d', d); });
+    var L = ln.getTotalLength(), seg = Math.min(small ? 110 : 190, L * .2);
+    var dash = small ? '8 7' : '10 8';
+    st.setAttribute('stroke-dasharray', dash); ssh.setAttribute('stroke-dasharray', dash);
+    ln.setAttribute('stroke-dasharray', seg + ' ' + (L + seg)); lsh.setAttribute('stroke-dasharray', seg + ' ' + (L + seg));
+    band.style.display = small ? 'none' : '';
+    $('#th-flip').setAttribute('transform', down ? '' : 'translate(' + W + ' 0) scale(-1 1)');   // w górę: nić z prawej strony
+    $('#th-rect').setAttribute('height', H);
+    svg.style.transition = ''; svg.style.opacity = '1'; svg.classList.add('go');
+    var t0 = performance.now(), me = { svg: svg, raf: 0 }; TH = me;
+
+    function frame(now) {
+      if (TH !== me) return;
+      var p = thClamp((now - t0) / T);
+      /* nić: 0–55 % czasu; „ogon” nici dobiega do końca, więc na końcu zostaje sam ścieg */
+      var pos = thEase(thClamp(p / .55)) * (L + seg);
+      ln.setAttribute('stroke-dashoffset', seg - pos); lsh.setAttribute('stroke-dashoffset', seg - pos);
+      var tp = ln.getPointAtLength(Math.min(pos, L));
+      tip.setAttribute('cx', tp.x); tip.setAttribute('cy', tp.y); tip.style.opacity = pos > L ? 0 : 1;
+      /* ścieg odsłania się za czubkiem nici (ścieżka rośnie tylko w poziomie, więc wystarczy przycięcie prostokątem) */
+      $('#th-rect').setAttribute('width', Math.max(0, ln.getPointAtLength(Math.max(0, Math.min(pos - 14, L))).x));
+      /* przewijanie: 10–82 % czasu, cel liczony na bieżąco (sekcje lekko się skalują przy wejściu) */
+      var sp = thEase(thClamp((p - .10) / .72));
+      if (sp > 0) window.scrollTo({ top: start + (targetY(el) - start) * sp, left: 0, behavior: 'instant' });
+      svg.style.opacity = p > .80 ? String(1 - (p - .80) / .20) : '1';      // zanik nici i ściegu po dotarciu
+      if (p < 1) me.raf = requestAnimationFrame(frame);
+      else {
+        window.scrollTo({ top: targetY(el), left: 0, behavior: 'instant' });
+        stopThread(0);
+        if (el.id !== 'top') { el.setAttribute('tabindex', '-1'); el.focus({ preventScroll: true }); }
+      }
+    }
+    me.raf = requestAnimationFrame(frame);
+  }
+  /* użytkownik chwyta kontrolę (kółko, dotyk, klawisze przewijania, Wstecz) — przerywamy efekt, nic nie blokujemy */
+  ['wheel', 'touchstart'].forEach(function (ev) { window.addEventListener(ev, function () { stopThread(160); }, { passive: true }); });
+  window.addEventListener('keydown', function (e) {
+    if (TH && /^(ArrowUp|ArrowDown|PageUp|PageDown|Home|End| )$/.test(e.key)) stopThread(160);
+  });
+  window.addEventListener('popstate', function () { stopThread(0); });
+
   A.go = function (id, o) {
     o = o || {};
     var el = doc.getElementById(id); if (!el || el.hidden) return;
     closeNav();
-    if (o.curtain) curtainJump(el, o.label || ''); else scrollToEl(el, o.instant);
-    try { history.pushState(null, '', location.pathname + location.search + '#' + id); } catch (e) {}
+    if (o.thread && !reduced) threadJump(el); else { stopThread(0); scrollToEl(el, o.instant); }
+    try {
+      var h = '#' + id, u = location.pathname + location.search + h;
+      if (location.hash === h) history.replaceState(null, '', u); else history.pushState(null, '', u);
+    } catch (e) {}
   };
   A.flash = function (id) {
     var el = doc.getElementById(id); if (!el) return;
@@ -1500,11 +1582,12 @@ var AB = (function () {
     }
     if ((el = t.closest('a[data-lang]'))) { try { localStorage.setItem('ab_lang', el.dataset.lang); } catch (x) {} return; }
     if ((el = t.closest('a[href^="#"]'))) {
+      if (e.defaultPrevented || e.button > 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || (el.target && el.target !== '_self')) return;   // nowa karta itp. — zostawiamy przeglądarce
       var id = el.getAttribute('href').slice(1); if (!id || !doc.getElementById(id)) return;
       e.preventDefault();
       if ($('#pop').open) $('#pop').close();
       prefill(el);
-      A.go(id, { curtain: !!el.closest('#nav-list'), label: el.dataset.nav });
+      A.go(id, { thread: true });
       return;
     }
     if (t.matches && t.matches('dialog.pop')) t.close();                       // kliknięcie w tło zamyka okno
@@ -1560,7 +1643,7 @@ var AB = (function () {
 (function () {
   'use strict';
   var A = AB, doc = document, rootEl = doc.getElementById('cmsp-root'), h = esc;
-  var P = { logged: false, page: 'pulpit', draft: null, dirty: false, filter: 'all', save: '', saveTime: '', item: null, itemCol: '', itemNew: false, msgs: null, backups: null, openSec: '' };
+  var P = { logged: false, page: 'pulpit', draft: null, dirty: false, filter: 'all', save: '', saveTime: '', item: null, itemCol: '', itemNew: false, msgs: null, backups: null, openSec: '', temp: false };
   var clone = function (o) { return JSON.parse(JSON.stringify(o)); };
   var T = function (v) { return tr(v, BASE_LANG).replace(/\*/g, ''); };
   var uid = function (p) { return p + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); };
@@ -1952,7 +2035,8 @@ var AB = (function () {
   function pulpitHtml() {
     var c = counts();
     var tile = function (page, n, l, s) { return '<button type="button" class="cmsp-tile" data-act="nav" data-page="' + page + '"><b>' + n + '</b><span>' + l + '</span>' + (s ? '<small>' + s + '</small>' : '') + '</button>'; };
-    return '<div class="cmsp-ph"><h1>Dzień dobry!</h1><p>Tu zmienisz treści strony AnnaBelle. Każda zapisana zmiana od razu pojawia się na stronie.</p>' +
+    var warn = P.temp && !A.demo ? '<p class="cmsp-note" role="alert"><b>Korzystasz z hasła tymczasowego „demo”.</b> Ustaw własne hasło w <button type="button" class="cmsp-link" data-act="nav" data-page="haslo">Ustawienia → Zmiana hasła</button>.</p>' : '';
+    return warn + '<div class="cmsp-ph"><h1>Dzień dobry!</h1><p>Tu zmienisz treści strony AnnaBelle. Każda zapisana zmiana od razu pojawia się na stronie.</p>' +
       '<div class="cmsp-quick"><button type="button" class="cmsp-btn primary" data-act="quick" data-col="promos">+ Promocja</button><button type="button" class="cmsp-btn primary" data-act="quick" data-col="news">+ Aktualność</button>' +
       '<button type="button" class="cmsp-btn" data-act="nav" data-page="c:prices">Cennik</button><button type="button" class="cmsp-btn" data-act="quick" data-col="gallery">+ Zdjęcie do galerii</button></div></div>' +
       '<div class="cmsp-tiles">' + tile('c:promos', c.promos.active, 'aktywne promocje', c.promos.planned ? '+ ' + c.promos.planned + ' zaplanowane' : '') + tile('c:news', c.news, 'aktualności na stronie') +
@@ -1974,7 +2058,7 @@ var AB = (function () {
   }
   function hasloHtml() {
     return pageHead('Zmiana hasła', 'Hasło do panelu jest przechowywane na serwerze wyłącznie jako zaszyfrowany skrót.') +
-      (A.demo ? '<p class="cmsp-note">W trybie demonstracyjnym hasła nie można zmienić — panel otwiera hasło „demo”.</p>' :
+      (A.demo ? '<p class="cmsp-note">W trybie demonstracyjnym hasła nie można zmienić — panel otwiera hasło „demo”.</p>' : (P.temp ? '<p class="cmsp-note">Obecne hasło to tymczasowe „demo”. Wpisz je poniżej w polu „Obecne hasło”, a potem ustaw własne.</p>' : '') +
         '<form class="cmsp-card cmsp-narrow" id="cmsp-pass" novalidate><div class="cmsp-fld"><label class="cmsp-lbl" for="cmsp-p0">Obecne hasło</label><input type="password" id="cmsp-p0" autocomplete="current-password"></div>' +
         '<div class="cmsp-fld"><label class="cmsp-lbl" for="cmsp-p1">Nowe hasło (min. 10 znaków)</label><input type="password" id="cmsp-p1" autocomplete="new-password" aria-describedby="cmsp-str"><div class="cmsp-meter"><i id="cmsp-mbar"></i></div><p class="cmsp-help" id="cmsp-str">Siła hasła: —</p></div>' +
         '<div class="cmsp-fld"><label class="cmsp-lbl" for="cmsp-p2">Powtórz nowe hasło</label><input type="password" id="cmsp-p2" autocomplete="new-password"></div>' +
@@ -2189,7 +2273,7 @@ var AB = (function () {
     var p0 = $('#cmsp-p0').value, p1 = $('#cmsp-p1').value, p2 = $('#cmsp-p2').value, err = $('#cmsp-perr');
     err.textContent = !p0 ? 'Podaj obecne hasło.' : p1.length < 10 ? 'Nowe hasło musi mieć co najmniej 10 znaków.' : p1 !== p2 ? 'Nowe hasła nie są takie same.' : '';
     if (err.textContent) return;
-    A.api('haslo', { method: 'POST', body: { obecne: p0, nowe: p1 } }).then(function () { e.target.reset(); toast('Hasło zmienione. Od teraz obowiązuje nowe hasło.'); })
+    A.api('haslo', { method: 'POST', body: { obecne: p0, nowe: p1 } }).then(function () { P.temp = false; e.target.reset(); toast('Hasło zmienione. Od teraz obowiązuje nowe hasło.'); })
       .catch(function (x) { err.textContent = x.status === 503 || !x.status ? 'Serwer chwilowo nie odpowiada — spróbuj ponownie.' : x.message; });
   }
   function onHover(e) {
@@ -2231,7 +2315,7 @@ var AB = (function () {
       d.querySelector('form').onsubmit = function (e) {
         e.preventDefault();
         var pw = d.querySelector('#cmsp-lp').value, err = d.querySelector('#cmsp-lerr'), btn = d.querySelector('[type=submit]');
-        var done = function () { P.logged = true; try { localStorage.setItem('ab_panel', String(Date.now() + 8 * 3600e3)); } catch (x) {} lockLabel(); d.close(); if (P.save === 'err') persist(); openPanel(); };
+        var done = function (r) { P.temp = !!(r && r.tymczasowe); P.logged = true; try { localStorage.setItem('ab_panel', String(Date.now() + 8 * 3600e3)); } catch (x) {} lockLabel(); d.close(); if (P.save === 'err') persist(); openPanel(); };
         if (A.demo) { if (pw === 'demo') return done(); err.textContent = 'Nieprawidłowe hasło. W trybie demonstracyjnym hasło to „demo”.'; return; }
         btn.disabled = true; err.textContent = '';
         A.api('login', { method: 'POST', body: { haslo: pw } }).then(done).catch(function (x) {
@@ -2240,7 +2324,7 @@ var AB = (function () {
       };
     }
     d.querySelector('#cmsp-lp').value = ''; d.querySelector('#cmsp-lerr').textContent = '';
-    d.querySelector('#cmsp-lhelp').textContent = A.demo ? 'Tryb demonstracyjny — zmiany zapisują się tylko na tym komputerze. Hasło: demo' : 'Podaj hasło, aby edytować treści strony.';
+    d.querySelector('#cmsp-lhelp').textContent = A.demo ? 'Tryb demonstracyjny — zmiany zapisują się tylko na tym komputerze. Hasło: demo' : 'Podaj hasło, aby edytować treści strony. Hasło tymczasowe na start: demo (zmienisz je w panelu: Ustawienia → Zmiana hasła).';
     if (!d.open) d.showModal();
   }
   A.hooks.openAdmin = function (from) {
@@ -2252,7 +2336,7 @@ var AB = (function () {
     var exp = 0; try { exp = +localStorage.getItem('ab_panel') || 0; } catch (x) {}
     if (exp < Date.now()) return;
     if (A.demo) { P.logged = true; return lockLabel(); }
-    A.api('sesja').then(function (r) { P.logged = !!r.zalogowany; lockLabel(); }).catch(function () {});
+    A.api('sesja').then(function (r) { P.logged = !!r.zalogowany; P.temp = !!r.tymczasowe; lockLabel(); }).catch(function () {});
   });
 })();
 
